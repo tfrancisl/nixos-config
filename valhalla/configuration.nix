@@ -15,7 +15,6 @@
       "firefox-bin"
       "firefox-bin-unwrapped"
       "geekbench"
-      "genymotion"
     ];
 
   boot.loader.grub = {
@@ -35,6 +34,7 @@
   users.users.freya = {
     isNormalUser = true;
     description = "freya";
+    initialPassword = "vm_changeme";
     shell = pkgs.fish;
     extraGroups = [
       "networkmanager"
@@ -113,6 +113,7 @@
     htop
 
     zed-editor
+    package-version-server # for zed
     nixd
     nixfmt-rfc-style
 
@@ -139,6 +140,8 @@
     graphite-cursors
 
     geekbench
+
+    r2modman
   ];
 
   nix.settings = {
