@@ -63,12 +63,6 @@
 
   environment.systemPackages = with pkgs; [
 
-    hyprls
-    zed-editor
-    package-version-server # for zed
-    nixd
-    nixfmt-rfc-style
-
     qpwgraph
     pavucontrol
     usbutils
@@ -85,6 +79,5 @@
 
     geekbench
 
-    r2modman
   ];
 }
