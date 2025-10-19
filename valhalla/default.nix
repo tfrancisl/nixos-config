@@ -9,10 +9,11 @@
       valhalla = nixosSystem {
         inherit specialArgs;
         modules = [
-          ./system.nix
-          ./hardware-configuration.nix
-          ./nvidia.nix
+          ./hyprland
+          ./hardware
           ./programs.nix
+          ./services.nix
+          ./system.nix
           ./users.nix
         ];
       };
