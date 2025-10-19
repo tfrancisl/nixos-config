@@ -42,7 +42,6 @@
       enable = true;
       package = pkgs."firefox-bin"; # official firefox dist
     };
-    uwsm.enable = true;
     steam.enable = true;
     gamemode = {
       enable = true;
