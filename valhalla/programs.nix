@@ -1,8 +1,6 @@
-{ inputs, pkgs, ... }:
+{ pkgs, ... }:
 {
-  imports = [
-    inputs.hyprland.nixosModules.default
-  ];
+
   # Track non-free software explicitly
   nixpkgs.config.allowUnfreePredicate =
     pkg:
@@ -19,6 +17,7 @@
     ];
 
   environment.systemPackages = with pkgs; [
+    tuigreet
 
     qpwgraph
     pavucontrol
@@ -27,7 +26,6 @@
 
     wlrctl
     xdg-utils
-    tuigreet
     hyprpolkitagent
     hyprcursor
     hyprpaper
@@ -39,16 +37,12 @@
   ];
 
   programs = {
-    uwsm.enable = true;
-    hyprland = {
-      enable = true;
-      withUWSM = true;
-    };
     fish.enable = true;
     firefox = {
       enable = true;
       package = pkgs."firefox-bin"; # official firefox dist
     };
+    uwsm.enable = true;
     steam.enable = true;
     gamemode = {
       enable = true;
@@ -63,9 +57,5 @@
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
   environment.sessionVariables.WLR_NO_HARDWARE_CURSORS = "1";
-
-  services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire.enable = true;
 
 }
