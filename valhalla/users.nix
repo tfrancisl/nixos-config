@@ -29,9 +29,21 @@
         discord
         spotify
 
+        r2modman # unity mods, mostly ror2
+
         git
         gh
         jq
+
+        zed-editor
+        # LSPs
+        hyprls
+        package-version-server # used by zed - zed ships a dynamically linked version
+        nixd
+        nixfmt-rfc-style
+
+        difftastic
+
       ];
     };
 
