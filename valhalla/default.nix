@@ -1,8 +1,4 @@
-{
-  self,
-  inputs,
-  ...
-}:
+{ self, inputs, ... }:
 {
   flake.nixosConfigurations =
     let
@@ -13,9 +9,11 @@
       valhalla = nixosSystem {
         inherit specialArgs;
         modules = [
-          ./configuration.nix
-          ./nvidia.nix
+          ./system.nix
           ./hardware-configuration.nix
+          ./nvidia.nix
+          ./programs.nix
+          ./users.nix
         ];
       };
     };
