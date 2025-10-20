@@ -1,20 +1,19 @@
 { self, inputs, ... }:
 {
+
   flake.nixosConfigurations =
     let
-      inherit (inputs.nixpkgs.lib) nixosSystem;
       specialArgs = { inherit inputs self; };
     in
     {
-      valhalla = nixosSystem {
+      valhalla = inputs.nixpkgs.lib.nixosSystem {
         inherit specialArgs;
         modules = [
-          ./hyprland
           ./hardware
-          ./programs.nix
-          ./services.nix
-          ./system.nix
-          ./users.nix
+          ./home
+          ./hyprland
+          ./system
+          ./settings.nix
         ];
       };
     };

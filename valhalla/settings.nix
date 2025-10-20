@@ -1,19 +1,21 @@
-{ ... }:
+{ pkgs, ... }:
 {
-
-  boot.loader.grub = {
-    enable = true;
-    device = "/dev/sda";
-    useOSProber = true;
-  };
-
-  networking = {
-    hostName = "valhalla";
-    networkmanager.enable = true;
-  };
-
   time.timeZone = "America/New_York"; # EST/EDT
   i18n.defaultLocale = "en_US.UTF-8";
+  # Track non-free software explicitly
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
+    builtins.elem (pkgs.lib.getName pkg) [
+      "nvidia-x11"
+      "nvidia-settings"
+      "discord"
+      "steam"
+      "steam-unwrapped"
+      "spotify"
+      "firefox-bin"
+      "firefox-bin-unwrapped"
+      "geekbench"
+    ];
 
   nix.settings = {
     experimental-features = [
@@ -28,6 +30,4 @@
     dates = "weekly";
     options = "--delete-older-than 14d";
   };
-
-  system.stateVersion = "25.05"; # Do not change this!
 }

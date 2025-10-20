@@ -1,8 +1,8 @@
 { pkgs, ... }:
 {
-  services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire.enable = true;
+  environment.systemPackages = with pkgs; [
+    tuigreet
+  ];
 
   # Greeting + start hyprland under UWSM
   services.greetd = {
