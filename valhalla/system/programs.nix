@@ -1,26 +1,7 @@
 { pkgs, ... }:
 {
 
-  # Track non-free software explicitly
-  nixpkgs.config.allowUnfreePredicate =
-    pkg:
-    builtins.elem (pkgs.lib.getName pkg) [
-      "nvidia-x11"
-      "nvidia-settings"
-      "discord"
-      "steam"
-      "steam-unwrapped"
-      "spotify"
-      "firefox-bin"
-      "firefox-bin-unwrapped"
-      "geekbench"
-    ];
-
   environment.systemPackages = with pkgs; [
-    tuigreet
-
-    qpwgraph
-    pavucontrol
     usbutils
     gparted
 
@@ -37,11 +18,6 @@
   ];
 
   programs = {
-    fish.enable = true;
-    firefox = {
-      enable = true;
-      package = pkgs."firefox-bin"; # official firefox dist
-    };
     steam.enable = true;
     gamemode = {
       enable = true;
