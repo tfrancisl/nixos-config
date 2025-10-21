@@ -1,5 +1,5 @@
 # Catchall and new settings
-
+{ pkgs, ... }:
 {
   programs.hyprland.settings = {
 
@@ -9,9 +9,10 @@
     ];
 
     "$super_mod" = "SUPER";
-    "$terminal" = "alacritty";
-    "$file_manager" = "$terminal -e nnn";
-    "$menu" = "wofi --show drun";
+    "$terminal" = "${pkgs.alacritty}/bin/alacritty";
+    "$file_manager" = "$terminal -e ${pkgs.nnn}/bin/nnn";
+    "$menu" = "${pkgs.wofi}/bin/wofi --show drun";
+    "$editor" = "${pkgs.zed-editor}/bin/zeditor";
 
     input = {
       kb_layout = "us";
