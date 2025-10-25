@@ -1,6 +1,9 @@
-{ self, inputs, ... }:
 {
-
+  self,
+  inputs,
+  ...
+}:
+{
   flake.nixosConfigurations =
     let
       specialArgs = { inherit inputs self; };
@@ -9,11 +12,11 @@
       valhalla = inputs.nixpkgs.lib.nixosSystem {
         inherit specialArgs;
         modules = [
+          ./settings.nix
           ./hardware
           ./home
           ./hyprland
           ./system
-          ./settings.nix
         ];
       };
     };

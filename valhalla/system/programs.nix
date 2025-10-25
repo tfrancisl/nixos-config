@@ -15,6 +15,8 @@
 
     geekbench
 
+    prismlauncher
+
   ];
 
   programs = {
