@@ -13,32 +13,24 @@
     };
   };
 
-  outputs =
-    inputs@{
-      self,
-      ...
-    }:
-    let
-      specialArgs = { inherit self inputs; };
-    in
-    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = [ "x86_64-linux" ];
+  outputs = inputs @ {self, ...}: let
+    specialArgs = {inherit self inputs;};
+  in
+    inputs.flake-parts.lib.mkFlake {inherit inputs;} {
+      systems = ["x86_64-linux"];
 
       imports = [
-
         {
-          flake.nixosConfigurations.valhalla =
-
-            inputs.nixpkgs.lib.nixosSystem {
-              inherit specialArgs;
-              modules = [
-                ./valhalla/settings.nix
-                ./valhalla/hardware
-                ./valhalla/home
-                ./valhalla/hyprland
-                ./valhalla/system
-              ];
-            };
+          flake.nixosConfigurations.valhalla = inputs.nixpkgs.lib.nixosSystem {
+            inherit specialArgs;
+            modules = [
+              ./valhalla/settings.nix
+              ./valhalla/hardware
+              ./valhalla/home
+              ./valhalla/hyprland
+              ./valhalla/system
+            ];
+          };
         }
       ];
     };
