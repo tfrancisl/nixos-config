@@ -10,6 +10,7 @@
       "video"
       "audio"
       "tss"
+      "gamemode"
     ];
   };
 }
