@@ -1,6 +1,5 @@
 {
   programs.hyprland.settings = {
-
     bind = [
       "$super_mod, C, killactive,"
       "$super_mod, M, exit,"
@@ -22,6 +21,5 @@
       "$super_mod, mouse:272, movewindow"
       "$super_mod, mouse:273, resizewindow"
     ];
-
   };
 }

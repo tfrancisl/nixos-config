@@ -1,8 +1,5 @@
-{ pkgs, ... }:
-{
-  environment.systemPackages = with pkgs; [
-    tuigreet
-  ];
+{pkgs, ...}: {
+  environment.systemPackages = with pkgs; [tuigreet];
 
   # Greeting + start hyprland under UWSM
   services.greetd = {

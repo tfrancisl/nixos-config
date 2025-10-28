@@ -1,6 +1,5 @@
 {
   programs.hyprland.settings = {
-
     general = {
       gaps_in = 4;
       gaps_out = 2;
