@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   programs = {
     fish.enable = true;
     firefox = {
@@ -8,37 +7,31 @@
     };
   };
 
-  users.users.freya =
+  users.users.freya = {
+    packages = with pkgs; [
+      alacritty
 
-    {
+      wofi
+      nnn
+      htop
 
-      packages = with pkgs; [
-        alacritty
+      discord
+      spotify
 
-        wofi
-        dunst
-        nnn
-        htop
+      r2modman # unity mods, mostly ror2
 
-        discord
-        spotify
+      git
+      gh
+      jq
 
-        r2modman # unity mods, mostly ror2
+      zed-editor
+      # LSPs
+      package-version-server # used by zed - zed ships a dynamically linked version
+      hyprls
+      nixd
+      alejandra
 
-        git
-        gh
-        jq
-
-        zed-editor
-        # LSPs
-        hyprls
-        package-version-server # used by zed - zed ships a dynamically linked version
-        nixd
-        nixfmt-rfc-style
-
-        difftastic
-
-      ];
-    };
-
+      difftastic
+    ];
+  };
 }
