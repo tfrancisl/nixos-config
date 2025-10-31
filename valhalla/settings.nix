@@ -21,7 +21,25 @@
       "flakes"
     ];
     auto-optimise-store = true;
+    fallback = true;
+    connect-timeout = 10;
+
+    # get hyprland from cachix
+    substituters = [
+      "https://cache.nixos.org"
+      "https://nix-community.cachix.org"
+    ];
+
+    trusted-substituters = ["https://hyprland.cachix.org"];
+
+    trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    ];
+
+    # Can add more settings to nixConfig in flake
+    trusted-users = ["freya"];
   };
+
   nix.optimise.automatic = true;
   nix.gc = {
     automatic = true;
