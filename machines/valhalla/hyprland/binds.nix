@@ -1,9 +1,6 @@
 {pkgs, ...}: let
-  # Helper function to create binary path
-  bin = pkg: binary: "${pkg}/bin/${binary}";
-
   # Helper function to create Hyprland variable for a binary
-  binVar = pkg: binary: {"$${binary}" = bin pkg binary;};
+  binVar = pkg: binary: {"\$${binary}" = "${pkg}/bin/${binary}";};
 
   # Binary variables for workspace toggle keybind
   bins =
