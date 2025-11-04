@@ -36,13 +36,13 @@ if [[ $NUM_FILES -eq 1 ]]; then
     fi
 else
     # Multiple files - categorize by directory
-    if echo "$MODIFIED_FILES" | grep -q "valhalla/hyprland/"; then
+    if echo "$MODIFIED_FILES" | grep -q "machines/valhalla/hyprland/"; then
         COMMIT_MSG="Update Hyprland configuration"
-    elif echo "$MODIFIED_FILES" | grep -q "valhalla/system/"; then
+    elif echo "$MODIFIED_FILES" | grep -q "machines/valhalla/system/"; then
         COMMIT_MSG="Update system configuration"
-    elif echo "$MODIFIED_FILES" | grep -q "valhalla/hardware/"; then
+    elif echo "$MODIFIED_FILES" | grep -q "machines/valhalla/hardware/"; then
         COMMIT_MSG="Update hardware configuration"
-    elif echo "$MODIFIED_FILES" | grep -q "valhalla/home/"; then
+    elif echo "$MODIFIED_FILES" | grep -q "machines/valhalla/home/"; then
         COMMIT_MSG="Update user configuration"
     elif echo "$MODIFIED_FILES" | grep -q "\.claude/"; then
         COMMIT_MSG="Update Claude Code configuration"

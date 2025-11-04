@@ -11,12 +11,12 @@
         ]
       }
     ],
-    "UserPromptSubmit": [
+    "Stop": [
       {
         "hooks": [
           {
             "type": "command",
-            "command": ".claude/hooks/user-prompt-submit-hook.sh",
+            "command": ".claude/hooks/nix-fmt.sh",
             "timeout": 30
           },
           {
