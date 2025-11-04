@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Auto-commit changes after Claude responds
 # Generates descriptive commit messages under 80 characters
+# BLOCKS commit if nix flake check fails (exit code 2)
 
 set -e
 
@@ -58,6 +59,26 @@ if [[ ${#COMMIT_MSG} -gt 79 ]]; then
     COMMIT_MSG="${COMMIT_MSG:0:76}..."
 fi
 
+# BLOCKING CHECK: Run nix flake check BEFORE committing
+if [[ $NIX_FILES_MODIFIED -gt 0 ]]; then
+    echo "Running nix flake check before commit..."
+
+    # Capture both stdout and stderr
+    if ! CHECK_OUTPUT=$(nix flake check --no-warn-dirty 2>&1); then
+        # Exit code 2 = blocking error, feeds stderr to Claude
+        echo "❌ Nix flake check failed - commit blocked" >&2
+        echo "" >&2
+        echo "Fix the following errors before committing:" >&2
+        echo "$CHECK_OUTPUT" >&2
+        echo "" >&2
+        echo "Modified .nix files:" >&2
+        echo "$MODIFIED_FILES" | grep '\.nix$' >&2
+        exit 2
+    fi
+
+    echo "✓ Nix flake check passed"
+fi
+
 # Stage all changes
 git add -A
 
@@ -68,17 +89,5 @@ git commit -m "$COMMIT_MSG" --no-verify 2>/dev/null || {
 }
 
 echo "✓ Committed: $COMMIT_MSG"
-
-# Run nix flake check if .nix files were modified
-if [[ $NIX_FILES_MODIFIED -gt 0 ]]; then
-    echo ""
-    echo "Running nix flake check (blocking)..."
-    if nix flake check --no-warn-dirty 2>&1; then
-        echo "✓ Nix flake check passed"
-    else
-        echo "❌ Nix flake check failed - please review changes"
-        exit 1
-    fi
-fi
 
 exit 0
