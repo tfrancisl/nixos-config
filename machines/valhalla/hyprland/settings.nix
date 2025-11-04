@@ -1,5 +1,11 @@
 # Catchall and new settings
-{pkgs, ...}: {
+{pkgs, ...}: let
+  # Helper function to create binary path
+  bin = pkg: binary: "${pkg}/bin/${binary}";
+
+  # Helper function to create Hyprland variable for a binary
+  binVar = pkg: binary: {"$${binary}" = bin pkg binary;};
+in {
   programs.hyprland.settings = {
     monitor = [
       "DP-3, 1920x1080@240, 1920x0, 1"
@@ -7,10 +13,10 @@
     ];
 
     "$super_mod" = "SUPER";
-    "$terminal" = "${pkgs.alacritty}/bin/alacritty";
-    "$file_manager" = "$terminal -e ${pkgs.nnn}/bin/nnn";
-    "$menu" = "${pkgs.wofi}/bin/wofi --show drun";
-    "$editor" = "${pkgs.zed-editor}/bin/zeditor";
+    "$terminal" = bin pkgs.alacritty "alacritty";
+    "$file_manager" = "$terminal -e ${bin pkgs.nnn "nnn"}";
+    "$menu" = "${bin pkgs.wofi "wofi"} --show drun";
+    "$editor" = bin pkgs.zed-editor "zeditor";
 
     input = {
       kb_layout = "us";
