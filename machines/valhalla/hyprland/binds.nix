@@ -7,6 +7,8 @@
       "$super_mod, E, exec, $file_manager"
       "$super_mod, R, exec, $menu"
       "$super_mod, F, fullscreen"
+      "$super_mod, V, togglefloating,"
+      "$super_mod, T, exec, hyprctl activewindow -j | jq -r '.workspace.id' | xargs -I {} bash -c 'if [ {} -eq 1 ]; then hyprctl dispatch movetoworkspace 2; else hyprctl dispatch movetoworkspace 1; fi'"
       # super+shift+N to move to workspace
       "$super_mod SHIFT, 1, movetoworkspace, 1"
       "$super_mod SHIFT, 2, movetoworkspace, 2"
