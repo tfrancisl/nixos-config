@@ -1,11 +1,7 @@
-{
-  pkgs,
-  username ? "freya",
-  ...
-}: {
+{pkgs, ...}: {
   # Portable user packages - dev tools, editor, CLI utilities
   # Can be reused across NixOS machines or with nix-darwin on macOS
-  users.users.${username}.packages = with pkgs; [
+  users.users.freya.packages = with pkgs; [
     # Terminal and CLI utilities
     alacritty # terminal emulator
     nnn # file manager
