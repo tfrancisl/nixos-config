@@ -34,20 +34,35 @@ nix flake check
 
 ## Module Structure
 
-**Critical**: Don't modify `flake.nix` unless adding new inputs or machines. Configuration lives in `valhalla/` subdirectories.
+**Critical**: Don't modify `flake.nix` unless adding new inputs or machines. Configuration is split between portable user config and machine-specific config.
 
-**Where to add things**:
-- User packages → `valhalla/home/default.nix` (NixOS module, NOT home-manager)
-- System programs → `valhalla/system/programs.nix`
-- Hyprland config → `valhalla/hyprland/{binds,rules,settings,theme}.nix`
-- Hardware changes → `valhalla/hardware/`
-- System services → `valhalla/system/`
+### Portable User Configuration
+
+Location: `users/freya/` - Can be reused across machines or with nix-darwin
+
+**Where to add portable user tooling**:
+- Dev tools, editor, LSPs → `users/freya/packages.nix`
+- Shell configuration → `users/freya/shell.nix`
+- Program settings (git, firefox) → `users/freya/programs.nix`
+
+### Machine-Specific Configuration
+
+Location: `machines/valhalla/` - Specific to this NixOS machine
+
+**Where to add machine-specific things**:
+- Machine-specific packages → `machines/valhalla/home/default.nix`
+- System programs → `machines/valhalla/system/programs.nix`
+- Hyprland config → `machines/valhalla/hyprland/{binds,rules,settings,theme}.nix`
+- Hardware changes → `machines/valhalla/hardware/`
+- System services → `machines/valhalla/system/`
+
 
 **Each directory has `default.nix` that imports submodules** - this pattern keeps configs modular.
 
 ## Adding Unfree Packages
 
-Unfree software MUST be explicitly allowlisted in `valhalla/settings.nix`:
+
+Unfree software MUST be explicitly allowlisted in `machines/valhalla/settings.nix`:
 
 ```nix
 nixpkgs.config.allowUnfreePredicate = pkg:
@@ -62,19 +77,26 @@ Without allowlisting, builds fail with "unfree package" errors. Use `pkgs.lib.ge
 
 Hyprland cachix is configured in TWO places (both required):
 - `flake.nix` nixConfig section (for `nix` commands)
-- `valhalla/settings.nix` nix.settings (for system daemon)
+- `machines/valhalla/settings.nix` nix.settings (for system daemon)
 
-## Architecture Issues
+## Architecture
 
-**Current limitations** (affects reproducibility and cross-platform goals):
+**Current structure separates portable user config from machine-specific config**:
 
-1. **Single-machine hardcoding** - Username "freya" and hostname "valhalla" hardcoded throughout. No abstraction for multiple machines.
+- `users/freya/` - Portable user environment (dev tools, editor, shell)
+  - Can be imported into other NixOS machines
+  - Can be adapted for nix-darwin on macOS
+  - Uses standard NixOS modules (NOT home-manager)
 
-2. **User vs system config not separated** - User tooling (zed, git, fish) mixed with system config. For cross-platform use (NixOS + macOS with mise/zed), you'll want portable user environment configs separate from machine-specific NixOS modules.
+- `machines/valhalla/` - Machine-specific configuration
+  - Hardware settings (GPU, boot, filesystems)
+  - Hyprland window manager setup
+  - Machine-specific packages (gaming, entertainment)
+  - System services and networking
 
-3. **User settings scattered** - User configuration split between `valhalla/home/` and `valhalla/system/users.nix` with no clear ownership boundaries.
+**Remaining limitations**:
 
-**Better approach for cross-platform**: Extract user tooling configuration (editor, shell, dev tools) into shareable modules that can be consumed by both NixOS and nix-darwin/mise setups. Machine-specific config (Hyprland, hardware, system services) stays in valhalla/.
+1. **Single-machine hardcoding** - Username "freya" and hostname "valhalla" hardcoded throughout. No abstraction for multiple machines. The `users/freya/packages.nix` accepts a `username` parameter but this isn't utilized consistently yet.
 
 ## References
 
