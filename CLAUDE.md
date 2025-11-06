@@ -13,8 +13,8 @@ Personal NixOS config for machine "valhalla". Uses flakes with flake-parts. Hypr
 1. **SessionStart**: Ensures work happens on feature branch (not main)
 2. **After each response**:
    - Auto-formats modified .nix files with alejandra
-   - Auto-commits changes with descriptive message (<80 chars)
-   - Runs `nix flake check` if .nix files changed (blocking)
+   - Runs `nix flake check` if .nix files changed (BLOCKING - commit prevented if fails)
+   - Auto-commits changes with descriptive message (<80 chars) only if check passes
 
 **Manual commands** (if needed):
 
@@ -56,9 +56,11 @@ Location: `machines/valhalla/` - Specific to this NixOS machine
 - Hardware changes → `machines/valhalla/hardware/`
 - System services → `machines/valhalla/system/`
 
+
 **Each directory has `default.nix` that imports submodules** - this pattern keeps configs modular.
 
 ## Adding Unfree Packages
+
 
 Unfree software MUST be explicitly allowlisted in `machines/valhalla/settings.nix`:
 
