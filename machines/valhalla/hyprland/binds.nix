@@ -1,5 +1,6 @@
 {pkgs, ...}: let
   # Script to toggle active window between workspaces 1 and 2
+  # probably could be simpler/better
   toggleWorkspaceScript = pkgs.writeShellScript "toggle-workspace" ''
     current_workspace=$(${pkgs.hyprland}/bin/hyprctl activewindow -j | ${pkgs.jq}/bin/jq -r '.workspace.id')
 

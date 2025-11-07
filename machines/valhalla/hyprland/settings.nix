@@ -13,11 +13,6 @@ in {
   programs.hyprland.settings =
     bins
     // {
-      monitor = [
-        "DP-3, 1920x1080@240, 1920x0, 1"
-        "HDMI-A-1, 1920x1080@60, 0x0, 1"
-      ];
-
       "$super_mod" = "SUPER";
       "$terminal" = "$alacritty";
       "$file_manager" = "$terminal -e $nnn";
@@ -46,6 +41,11 @@ in {
         "HYPRCURSOR_SIZE,28"
         "XCURSOR_THEME,graphite-light"
         "XCURSOR_SIZE,28"
+      ];
+
+      monitor = [
+        "DP-3, 1920x1080@240, 1920x0, 1"
+        "HDMI-A-1, 1920x1080@60, 0x0, 1"
       ];
     };
 }

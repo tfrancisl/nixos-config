@@ -1,27 +1,26 @@
 {pkgs, ...}: {
-  # Portable user packages - dev tools, editor, CLI utilities
-  # Can be reused across NixOS machines or with nix-darwin on macOS
   users.users.freya.packages = with pkgs; [
-    # Terminal and CLI utilities
-    alacritty # terminal emulator
-    nnn # file manager
-    htop # process monitor
+    wofi
 
-    # Version control and development tools
+    alacritty
+    nnn
+    htop
+
     git
-    gh # GitHub CLI
-    jq # JSON processor
+    gh
+    jq
 
-    # Editor and language support
+    difftastic
+
     zed-editor
-    alejandra # Nix formatter
+    alejandra
 
-    # Language servers (for editor integration)
     package-version-server # used by zed - zed ships dynamically linked version
-    hyprls # Hyprland config LSP
-    nixd # Nix LSP
+    hyprls
+    nixd
 
-    # Development utilities
-    difftastic # diff tool
+    discord
+    spotify
+    r2modman
   ];
 }

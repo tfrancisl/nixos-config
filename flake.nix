@@ -31,10 +31,9 @@
         {
           flake.nixosConfigurations.valhalla = inputs.nixpkgs.lib.nixosSystem {
             modules = [
-              ./users/freya # Portable user configuration
+              ./users/freya
               ./machines/valhalla/settings.nix
               ./machines/valhalla/hardware
-              ./machines/valhalla/home
               ./machines/valhalla/hyprland
               ./machines/valhalla/system
             ];
