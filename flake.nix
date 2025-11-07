@@ -32,10 +32,7 @@
           flake.nixosConfigurations.valhalla = inputs.nixpkgs.lib.nixosSystem {
             modules = [
               ./users/freya
-              ./machines/valhalla/settings.nix
-              ./machines/valhalla/hardware
-              ./machines/valhalla/hyprland
-              ./machines/valhalla/system
+              ./machines/valhalla
             ];
             inherit specialArgs;
           };
