@@ -23,4 +23,25 @@
     spotify
     r2modman
   ];
+
+  programs.firefox = {
+    enable = true;
+    package = pkgs."firefox-bin"; # official firefox dist
+  };
+
+  environment.shellAliases = {
+    "zed" = "${pkgs.zed-editor}/bin/zeditor";
+  };
+
+  programs.fish = {
+    enable = true;
+  };
+
+  # maybe: Add other program configurations
+  # programs.git = {
+  #   enable = true;
+  #   userName = "...";
+  #   userEmail = "...";
+  # };
+  # programs.zed-editor = { ... };
 }
