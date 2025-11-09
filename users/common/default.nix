@@ -1,40 +1,35 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  username,
+  zedSettings ? null,
+  ...
+}: let
   update-zed-config = pkgs.writeShellScriptBin "update-zed-config" ''
     ${builtins.readFile ./zed/update-zed-config.sh}
   '';
 in {
-  # User packages
-  users.users.freya.packages = with pkgs; [
-    wofi
+  users.users.${username}.packages =
+    (with pkgs; [
+      alacritty
+      nnn
+      htop
 
-    alacritty
-    nnn
-    htop
+      git
+      gh
+      jq
 
-    git
-    gh
-    jq
+      difftastic
 
-    difftastic
+      zed-editor
+      alejandra
 
-    zed-editor
-    alejandra
+      package-version-server # zed ships dynamically linked, needs this
+      hyprls
+      nixd
+    ])
+    ++ [update-zed-config];
 
-    package-version-server # used by zed - zed ships dynamically linked version
-    hyprls
-    nixd
-
-    discord
-    spotify
-    r2modman
-
-    # Custom scripts
-    update-zed-config
-  ];
-
-  # Program configurations
   programs = {
-    # Git configuration
     git = {
       enable = true;
       config = {
@@ -58,7 +53,6 @@ in {
           dis = "difftool -y --staged";
           oops = "reset HEAD~1";
           new = "switch -c";
-          # https://git-scm.com/docs/pretty-formats/2.35.0
           logp = "log  --pretty=format:'%C(green)%ad%Creset %<(11,trunc)(%cr) %C(yellow)%h%Creset %<(50,mtrunc)%s %C(blue)[%an]%Creset' --date='format-local:%d%b%Y %H:%M'";
         };
         fetch = {
@@ -78,33 +72,31 @@ in {
       };
     };
 
-    # Firefox configuration
     firefox = {
       enable = true;
-      package = pkgs."firefox-bin"; # official firefox dist
+      package = pkgs."firefox-bin";
     };
 
-    # Fish shell configuration
     fish = {
       enable = true;
     };
   };
 
-  # Shell aliases
   environment.shellAliases = {
     "zed" = "${pkgs.zed-editor}/bin/zeditor";
   };
 
-  # Zed editor configuration
-  # Since we're not using home-manager, we'll create the config file via activation script
   system.activationScripts.zedConfig = {
-    text = ''
-      mkdir -p /home/freya/.config/zed
-      cat > /home/freya/.config/zed/settings.json << 'EOF'
-      ${builtins.readFile ./zed/settings.json}
-      EOF
-      chown -R freya:users /home/freya/.config/zed
-      chmod 644 /home/freya/.config/zed/settings.json
-    '';
+    text =
+      if zedSettings != null
+      then ''
+        mkdir -p /home/${username}/.config/zed
+        cat > /home/${username}/.config/zed/settings.json << 'EOF'
+        ${builtins.readFile zedSettings}
+        EOF
+        chown -R ${username}:users /home/${username}/.config/zed
+        chmod 644 /home/${username}/.config/zed/settings.json
+      ''
+      else "";
   };
 }

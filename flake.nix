@@ -30,11 +30,11 @@
       imports = [
         {
           flake.nixosConfigurations.valhalla = inputs.nixpkgs.lib.nixosSystem {
+            inherit specialArgs;
             modules = [
               ./users/freya
               ./machines/valhalla
             ];
-            inherit specialArgs;
           };
         }
       ];
