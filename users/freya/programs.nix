@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  update-zed-config = pkgs.writeShellScriptBin "update-zed-config" ''
+    ${builtins.readFile ./zed/update-zed-config.sh}
+  '';
+in {
   # User packages
   users.users.freya.packages = with pkgs; [
     wofi
@@ -23,6 +27,9 @@
     discord
     spotify
     r2modman
+
+    # Custom scripts
+    update-zed-config
   ];
 
   # Program configurations
@@ -32,10 +39,10 @@
       enable = true;
       config = {
         core = {
-          editor = "$EDITOR --wait";
+          editor = "zed --wait";
         };
         difftool.zed = {
-          cmd = "$EDITOR --wait --diff \"$LOCAL\" \"$REMOTE\"";
+          cmd = "zed --wait --diff \"$LOCAL\" \"$REMOTE\"";
         };
         diff = {
           tool = "zed";
