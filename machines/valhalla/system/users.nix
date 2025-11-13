@@ -14,5 +14,8 @@
       "tss"
       "gamemode"
     ];
+    packages = with pkgs; [
+      lunar-client
+    ];
   };
 }

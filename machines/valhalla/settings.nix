@@ -13,6 +13,8 @@
       "firefox-bin"
       "firefox-bin-unwrapped"
       "geekbench"
+      "lunar-client"
+      "lunarclient"
     ];
 
   nix.settings = {
