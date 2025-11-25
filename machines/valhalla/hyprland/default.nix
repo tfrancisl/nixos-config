@@ -6,10 +6,9 @@
 
   imports = [
     inputs.hyprland.nixosModules.default # Hyprland maintained nixos mod
-
-    ./binds.nix
-    ./rules.nix
     ./settings.nix
     ./theme.nix
+    ./binds.nix
+    ./rules.nix
   ];
 }
