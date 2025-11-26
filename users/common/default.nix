@@ -3,31 +3,22 @@
   username,
   zedSettings ? null,
   ...
-}: let
-  update-zed-config = pkgs.writeShellScriptBin "update-zed-config" ''
-    ${builtins.readFile ./zed/update-zed-config.sh}
-  '';
-in {
-  users.users.${username}.packages =
-    (with pkgs; [
-      alacritty
-      nnn
-      htop
+}: {
+  users.users.${username}.packages = with pkgs; [
+    alacritty
+    nnn
+    htop
 
-      git
-      gh
-      jq
+    git
+    gh
+    jq
 
-      difftastic
+    zed-editor
+    alejandra
 
-      zed-editor
-      alejandra
-
-      package-version-server # zed ships dynamically linked, needs this
-      hyprls
-      nixd
-    ])
-    ++ [update-zed-config];
+    package-version-server # zed ships dynamically linked, needs this
+    nixd
+  ];
 
   programs = {
     git = {

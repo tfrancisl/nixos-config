@@ -7,15 +7,10 @@
     xdg-utils
     hyprpolkitagent
     hyprcursor
-    hyprpaper
 
     dunst
 
     graphite-cursors
-
-    geekbench
-
-    prismlauncher
   ];
 
   programs = {

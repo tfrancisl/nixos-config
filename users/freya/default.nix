@@ -7,9 +7,4 @@
     })
     ./packages.nix
   ];
-
-  # programs.git.config.user = {
-  #   name = "Your Name";
-  #   email = "your@email.com";
-  # };
 }
