@@ -58,7 +58,6 @@
     "space": "•",
     "tab": "→"
   },
-
   "unnecessary_code_fade": 0.3,
   "redact_private_values": false,
   "soft_wrap": "none",
@@ -72,7 +71,7 @@
     "folds": true,
     "min_line_number_digits": 5
   },
-  "relative_line_numbers": false,
+  "relative_line_numbers": "disabled",
   "indent_guides": {
     "enabled": true,
     "line_width": 2,
@@ -139,7 +138,7 @@
   "languages": {
     "Python": {
       "format_on_save": "on",
-      "language_servers": ["pyright", "ruff"],
+      "language_servers": ["ruff", "ty"],
       "formatter": [
         { "code_action": "source.fixAll" },
         { "code_action": "source.organizeImports.ruff" },
