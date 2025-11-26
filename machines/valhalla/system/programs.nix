@@ -6,7 +6,6 @@
     wlrctl
     xdg-utils
     hyprpolkitagent
-    hyprcursor
 
     dunst
 
