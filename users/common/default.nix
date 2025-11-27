@@ -1,7 +1,7 @@
 {
   pkgs,
   username,
-  zedSettings ? null,
+  zedSettings ? ./zed/settings.json,
   ...
 }: {
   users.users.${username}.packages = with pkgs; [

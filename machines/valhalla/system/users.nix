@@ -1,6 +1,4 @@
 {pkgs, ...}: {
-  # User account creation (machine-specific)
-  # User packages and program configs are in ../../users/freya/
   users.users.freya = {
     isNormalUser = true;
     description = "freya";
@@ -16,6 +14,10 @@
     ];
     packages = with pkgs; [
       lunar-client
+      wofi
+      discord
+      spotify
+      r2modman
     ];
   };
 }
