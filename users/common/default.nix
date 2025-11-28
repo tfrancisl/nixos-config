@@ -12,6 +12,7 @@
     git
     gh
     jq
+    ripgrep
 
     zed-editor
     alejandra
