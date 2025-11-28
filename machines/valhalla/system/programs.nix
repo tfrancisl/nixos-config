@@ -9,6 +9,9 @@
 
     dunst
 
+    qpwgraph
+    pavucontrol
+
     graphite-cursors
   ];
 
@@ -26,6 +29,7 @@
     };
   };
 
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
-  environment.sessionVariables.WLR_NO_HARDWARE_CURSORS = "1";
+  services.pulseaudio.enable = false;
+  services.pipewire.enable = true;
+  security.rtkit.enable = true;
 }
