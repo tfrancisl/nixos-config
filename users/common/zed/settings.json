@@ -1,157 +1,151 @@
-// Zed settings
-// https://zed.dev/docs/configuring-zed
 {
-  "disable_ai": true,
-  "telemetry": {
-    "diagnostics": true,
-    "metrics": false
+  "active_pane_modifiers": {
+    "border_size": 10.0,
+    "inactive_opacity": 0.33
   },
+  "base_keymap": "VSCode",
+  "buffer_font_family": ".ZedMono",
+  "buffer_font_features": {
+    "calt": false
+  },
+  "buffer_font_size": 16,
+  "buffer_line_height": "standard",
+  "collaboration_panel": {
+    "button": false
+  },
+  "current_line_highlight": "all",
+  "cursor_blink": true,
+  "cursor_shape": "bar",
+  "debugger": {
+    "button": false
+  },
+  "disable_ai": true,
+  "excerpt_context_lines": 15,
+  "expand_excerpt_lines": 5,
+  "experimental.theme_overrides": {
+    "conflict": "#5383c0ff",
+    "conflict.background": "#a6eef61a",
+    "conflict.border": "#9be69fff",
+    "version_control.conflict_marker.ours": "#4bbaab1a",
+    "version_control.conflict_marker.theirs": "#ce8fdb1a"
+  },
+  "fast_scroll_sensitivity": 4.0,
   "git": {
     "inline_blame": {
       "enabled": false
     }
   },
-  "inlay_hints": {
-    "enabled": false
-  },
-  "debugger": {
-    "button": false
-  },
-  "theme": "KTRZ Monokai",
-  "experimental.theme_overrides": {
-    // Reference for theme overrides: https://github.com/zed-industries/zed/blob/main/assets/themes/one/one.json
-    // I should probably just make my own theme
-    // https://www.color-hex.com/color-palette/1065378
-    "version_control.conflict_marker.ours": "#4bbaab1a",
-    "version_control.conflict_marker.theirs": "#ce8fdb1a",
-    "conflict": "#5383c0ff",
-    "conflict.background": "#a6eef61a",
-    "conflict.border": "#9be69fff"
-  },
-  "base_keymap": "VSCode",
-  "icon_theme": "Zed (Default)",
-  "ui_font_family": ".ZedMono",
-  "ui_font_size": 16.0,
-  "buffer_font_family": ".ZedMono",
-  "buffer_line_height": "standard",
-  "buffer_font_size": 16,
-  "buffer_font_features": {
-    "calt": false // turn off those gross ligatures for ffi and __
-  },
-  "use_auto_surround": true,
-  "title_bar": {
-    "show_branch_icon": false,
-    "show_branch_name": true,
-    "show_project_items": true,
-    "show_onboarding_banner": false,
-    "show_user_picture": false,
-    "show_sign_in": false,
-    "show_menus": false
-  },
-  "cursor_blink": true,
-  "cursor_shape": "bar",
-  "current_line_highlight": "all",
-  "hide_mouse": "on_typing_and_movement",
-  "selection_highlight": true,
-  "show_whitespaces": "trailing",
-  "whitespace_map": {
-    "space": "•",
-    "tab": "→"
-  },
-  "unnecessary_code_fade": 0.3,
-  "redact_private_values": false,
-  "soft_wrap": "none",
-  "preferred_line_length": 100,
-  "show_wrap_guides": true,
-  "wrap_guides": [50, 72, 100, 144],
-  "gutter": {
-    "line_numbers": true,
-    "runnables": false,
-    "breakpoints": true,
-    "folds": true,
-    "min_line_number_digits": 5
-  },
-  "relative_line_numbers": "disabled",
-  "indent_guides": {
-    "enabled": true,
-    "line_width": 2,
-    "active_line_width": 4,
-    "coloring": "fixed",
-    "background_coloring": "disabled"
-  },
-  "toolbar": {
-    "breadcrumbs": true,
-    "quick_actions": true,
-    "selections_menu": true,
-    "agent_review": false,
-    "code_actions": true
-  },
-  "scrollbar": {
-    "show": "auto",
-    "cursors": true,
-    "git_diff": true,
-    "search_results": true,
-    "selected_text": true,
-    "selected_symbol": true,
-    "diagnostics": "warning",
-    "axes": {
-      "horizontal": true,
-      "vertical": true
-    }
-  },
   "git_panel": {
     "button": false
-  },
-  "collaboration_panel": {
-    "button": false
-  },
-  "minimap": {
-    "show": "never"
-  },
-  "scroll_beyond_last_line": "vertical_scroll_margin",
-  "vertical_scroll_margin": 4,
-  "horizontal_scroll_margin": 5,
-  "scroll_sensitivity": 1.0,
-  "fast_scroll_sensitivity": 4.0,
-  "status_bar": {
-    "active_language_button": true,
-    "cursor_position_button": true
   },
   "global_lsp_settings": {
     "button": true
   },
+  "gutter": {
+    "breakpoints": false,
+    "folds": true,
+    "line_numbers": true,
+    "min_line_number_digits": 5,
+    "runnables": false
+  },
+  "hide_mouse": "on_typing_and_movement",
+  "horizontal_scroll_margin": 5,
+  "icon_theme": "Zed (Default)",
+  "indent_guides": {
+    "active_line_width": 4,
+    "background_coloring": "disabled",
+    "coloring": "fixed",
+    "enabled": true,
+    "line_width": 2
+  },
+  "inlay_hints": {
+    "enabled": false
+  },
+  "languages": {
+    "Nix": {
+      "formatter": [
+        {
+          "external": {
+            "command": "alejandra"
+          }
+        }
+      ],
+      "language_servers": ["nixd", "!nil"]
+    }
+  },
+  "minimap": {
+    "show": "never"
+  },
+  "preferred_line_length": 100,
+  "redact_private_values": false,
+  "relative_line_numbers": "disabled",
+  "scroll_beyond_last_line": "vertical_scroll_margin",
+  "scroll_sensitivity": 1.0,
+  "scrollbar": {
+    "axes": {
+      "horizontal": true,
+      "vertical": true
+    },
+    "cursors": true,
+    "diagnostics": "warning",
+    "git_diff": true,
+    "search_results": true,
+    "selected_symbol": true,
+    "selected_text": true,
+    "show": "auto"
+  },
+  "selection_highlight": true,
+  "show_whitespaces": "trailing",
+  "show_wrap_guides": true,
+  "soft_wrap": "none",
+  "status_bar": {
+    "active_language_button": true,
+    "cursor_position_button": true
+  },
+  "telemetry": {
+    "diagnostics": true,
+    "metrics": false
+  },
   "terminal": {
-    "dock": "bottom",
-    "button": true,
-    "default_width": 640,
-    "default_height": 320,
     "blinking": "terminal_controlled",
+    "button": true,
     "cursor_shape": "block",
+    "default_height": 320,
+    "default_width": 640,
+    "dock": "bottom",
     "env": {},
-    "scrollbar": {},
     "font_family": ".ZedMono",
     "font_size": 15,
     "font_weight": 400,
     "line_height": "standard",
-    "max_scroll_history_lines": 10000
+    "max_scroll_history_lines": 10000,
+    "scrollbar": {}
   },
-  "languages": {
-    "Python": {
-      "format_on_save": "on",
-      "language_servers": ["ruff", "ty"],
-      "formatter": [
-        { "code_action": "source.fixAll" },
-        { "code_action": "source.organizeImports.ruff" },
-        {
-          "language_server": {
-            "name": "ruff"
-          }
-        }
-      ]
-    },
-    "Nix": {
-      "language_servers": ["nixd", "!nil"],
-      "formatter": [{ "external": { "command": "alejandra" } }]
-    }
-  }
+  "theme": "KTRZ Monokai",
+  "title_bar": {
+    "show_branch_icon": false,
+    "show_branch_name": true,
+    "show_menus": false,
+    "show_onboarding_banner": false,
+    "show_project_items": true,
+    "show_sign_in": false,
+    "show_user_picture": false
+  },
+  "toolbar": {
+    "agent_review": false,
+    "breadcrumbs": true,
+    "code_actions": true,
+    "quick_actions": true,
+    "selections_menu": true
+  },
+  "ui_font_family": ".ZedMono",
+  "ui_font_size": 16.0,
+  "unnecessary_code_fade": 0.3,
+  "use_auto_surround": true,
+  "vertical_scroll_margin": 4,
+  "whitespace_map": {
+    "space": "•",
+    "tab": "→"
+  },
+  "wrap_guides": [50, 72, 100, 144]
 }
