@@ -11,6 +11,26 @@
     // (binVar pkgs.zed-editor "zeditor")
     // (binVar pkgs.uwsm "uwsm");
 in {
+  environment.systemPackages = with pkgs; [
+    gparted
+    wlrctl
+    xdg-utils
+    hyprpolkitagent
+    dunst
+    qpwgraph
+    pavucontrol
+    graphite-cursors
+    quickshell
+    kdePackages.qtdeclarative # provides qmlls for zed
+  ];
+
+  services.pulseaudio.enable = false;
+  services.pipewire.enable = true;
+  security.rtkit.enable = true;
+
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  environment.sessionVariables.WLR_NO_HARDWARE_CURSORS = "1";
+
   programs.hyprland.settings =
     bins
     // {

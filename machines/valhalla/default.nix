@@ -1,8 +1,20 @@
-{...}: {
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}: {
   imports = [
     ./settings.nix
     ./hardware
+    (import ./system {
+      inherit pkgs;
+      username = "freya";
+    })
     ./hyprland
-    ./system
+    (import ./gaming {
+      inherit pkgs lib config;
+      username = "freya";
+    })
   ];
 }

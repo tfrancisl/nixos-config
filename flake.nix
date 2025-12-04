@@ -14,31 +14,21 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-
-    flake-parts = {
-      url = "github:hercules-ci/flake-parts";
-      inputs.nixpkgs-lib.follows = "nixpkgs";
-    };
-
     hyprland.url = "github:hyprwm/hyprland";
   };
 
   outputs = inputs @ {self, ...}: let
     specialArgs = {inherit self inputs;};
-  in
-    inputs.flake-parts.lib.mkFlake {inherit inputs;} {
-      systems = ["x86_64-linux"];
-
-      imports = [
-        {
-          flake.nixosConfigurations.valhalla = inputs.nixpkgs.lib.nixosSystem {
-            inherit specialArgs;
-            modules = [
-              ./users/freya
-              ./machines/valhalla
-            ];
-          };
-        }
-      ];
+  in {
+    nixosConfigurations = {
+      valhalla = inputs.nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        inherit specialArgs;
+        modules = [
+          ./users/freya
+          ./machines/valhalla
+        ];
+      };
     };
+  };
 }
