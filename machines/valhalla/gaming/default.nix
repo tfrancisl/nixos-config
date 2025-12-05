@@ -13,6 +13,7 @@
       discord
       spotify
       r2modman
+      prismlauncher
     ];
   };
 
