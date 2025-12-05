@@ -25,6 +25,7 @@
         system = "x86_64-linux";
         inherit specialArgs;
         modules = [
+          {system_user.username = "freya";}
           ./users/freya
           ./machines/valhalla
         ];

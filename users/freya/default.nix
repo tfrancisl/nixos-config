@@ -1,9 +1,7 @@
 {pkgs, ...}: {
+  user_config.username = "freya";
   imports = [
-    (import ../common {
-      inherit pkgs;
-      username = "freya";
-    })
+    ../common
   ];
   # uv + python setup
   # https://nixos.org/manual/nixpkgs/unstable/#sec-uv
