@@ -15,6 +15,7 @@
       "firefox-bin-unwrapped"
       "lunar-client"
       "lunarclient"
+      "prismlauncher"
     ];
 
   nix.settings = {
