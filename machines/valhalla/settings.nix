@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   time.timeZone = "America/New_York"; # EST/EDT
   i18n.defaultLocale = "en_US.UTF-8";
 
@@ -17,6 +21,20 @@
       "lunarclient"
       "prismlauncher"
     ];
+
+  boot.loader.grub = {
+    enable = true;
+    device = "/dev/sda";
+    useOSProber = true;
+  };
+
+  networking = {
+    hostName = "valhalla";
+    networkmanager.enable = true;
+    useDHCP = lib.mkDefault true;
+  };
+
+  system.stateVersion = "25.05"; # Do not change this!
 
   nix.settings = {
     experimental-features = [

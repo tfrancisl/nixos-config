@@ -1,20 +1,36 @@
 {
+  config,
   pkgs,
   lib,
-  config,
   ...
-}: {
+}: let
+  username = config.system_user.username;
+in {
+  options.system_user.username = lib.mkOption {
+    type = lib.types.str;
+  };
+
+  config = {
+    users.users.${username} = {
+      isNormalUser = true;
+      description = "${username}'s user account";
+      shell = pkgs.fish;
+      extraGroups = [
+        "networkmanager"
+        "input"
+        "wheel"
+        "video"
+        "audio"
+        "tss"
+      ];
+    };
+    gaming.username = username;
+  };
   imports = [
     ./settings.nix
+    ./greeting.nix
     ./hardware
-    (import ./system {
-      inherit pkgs;
-      username = "freya";
-    })
     ./hyprland
-    (import ./gaming {
-      inherit pkgs lib config;
-      username = "freya";
-    })
+    ./gaming
   ];
 }
