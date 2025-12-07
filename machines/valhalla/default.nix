@@ -29,6 +29,7 @@ in {
   imports = [
     ./settings.nix
     ./greeting.nix
+    ./uwsm.nix
     ./hardware
     ./hyprland
     ./gaming

@@ -1,7 +1,6 @@
 {inputs, ...}: {
   programs.hyprland = {
     enable = true;
-    withUWSM = true;
   };
   imports = [
     ./settings.nix
