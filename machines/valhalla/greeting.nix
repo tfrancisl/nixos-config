@@ -1,23 +1,19 @@
-{pkgs, ...}: {
-  environment.systemPackages = with pkgs; [tuigreet];
-
+{
+  lib,
+  config,
+  ...
+}: let
+  session = {
+    command = "${lib.getExe config.programs.uwsm.package} start -e -D Hyprland hyprland-uwsm.desktop";
+    user = config.system_user.username;
+  };
+in {
   services.greetd = {
     enable = true;
     settings = {
-      default_session = {
-        command = "${pkgs.tuigreet}/bin/tuigreet --time --time-format '%I:%M %p | %a • %h | %F'";
-        user = "greeter";
-      };
+      terminal.vt = 1;
+      default_session = session;
+      initial_session = session;
     };
-  };
-
-  users.users.greeter = {
-    isNormalUser = false;
-    description = "greetd greeter user";
-    extraGroups = [
-      "video"
-      "audio"
-    ];
-    linger = true;
   };
 }
