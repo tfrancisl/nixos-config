@@ -2,45 +2,19 @@
 
 My personal nix/NixOS configuration files. Currently targets one system, my gaming PC.
 
-
 ### Overview
 
-#### nix features used
-- flakes for lockfile
-- flake-parts for modular flakes
-
-#### Architecture
-
-Configuration is split between portable user config and machine-specific settings:
-
-- **Portable user config** ([`users/freya/`](./users/freya/)) - Development tools, editor, shell configuration. Can be reused across machines or adapted for nix-darwin.
-- **Machine-specific config** ([`machines/valhalla/`](./machines/valhalla/)) - Hardware settings, Hyprland WM, system services, machine-specific packages.
-
-#### Components
+#### Layout
 
 ##### Portable User Configuration
-- [User packages and tools](./users/freya/)
-  - [Development tools, CLI utilities](./users/freya/packages.nix)
-  - [Shell configuration](./users/freya/shell.nix)
-  - [Program settings](./users/freya/programs.nix)
+- [User packages and tools](./users/)
+  - [Common config (dev/coding tools, zed editor, general git config)](./users/common/)
+  - [Valhalla user freya](./users/freya/)
+  - TODO: MacOS/nix-darwin user.
 
 ##### Machine-Specific Configuration (valhalla)
-- [Hardware](./machines/valhalla/hardware/)
-  - [NVIDIA graphics](./machines/valhalla/hardware/nvidia.nix)
-  - [Kernel modules, disk mounts](./machines/valhalla/hardware/hardware.nix)
-- [Core system software](./machines/valhalla/system/)
-  - [Audio](./machines/valhalla/system/audio.nix)
-  - [TUI greeter, launches Hyprland UWSM session](./machines/valhalla/system/greeting.nix)
-  - [Catchall for other software](./machines/valhalla/system/programs.nix)
-  - [Bootloader and networking](./machines/valhalla/system/system.nix)
-  - [Regular users](./machines/valhalla/system/users.nix)
+- [Gaming (videogame and entertainment software, steam, gamemode)](./machines/valhalla/gaming/)
+- [Greeters](./machines/valhalla/greeting/)
+- [Hardware (mostly NixOS generated)](./machines/valhalla/hardware/)
 - [Hyprland](./machines/valhalla/hyprland/)
-  - [Keybinds](./machines/valhalla/hyprland/binds.nix)
-  - [Window and workspace rules](./machines/valhalla/hyprland/rules.nix)
-  - [Catchall settings](./machines/valhalla/hyprland/settings.nix)
-  - [Theme and appearance](./machines/valhalla/hyprland/theme.nix)
-- [User-specific settings](./machines/valhalla/home/)
-- [General settings](./machines/valhalla/settings.nix)
-  - Explicitly tracks unfree/non-free software.
-  - Sets nix command line settings.
-  - Sets nix store garbage collection.
+- Root of valhalla config defines system user and general nix configuration.
