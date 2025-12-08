@@ -3,6 +3,7 @@
     enable = true;
   };
   imports = [
+    ./uwsm.nix
     ./settings.nix
     ./theme.nix
     ./binds.nix
