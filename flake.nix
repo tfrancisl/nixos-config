@@ -25,7 +25,10 @@
         system = "x86_64-linux";
         inherit specialArgs;
         modules = [
-          {system_user.username = "freya";}
+          {
+            system_user.username = "freya";
+            greeting.mode = "instalogin";
+          }
           ./users/freya
           ./machines/valhalla
         ];
