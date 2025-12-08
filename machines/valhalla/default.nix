@@ -28,6 +28,7 @@ in {
   };
   imports = [
     ./settings.nix
+    ./quickshell.nix
     ./greeting
     ./hardware
     ./hyprland

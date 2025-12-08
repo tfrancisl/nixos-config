@@ -26,8 +26,10 @@
         inherit specialArgs;
         modules = [
           {
-            system_user.username = "freya";
-            greeting.mode = "instalogin";
+            config = {
+              system_user.username = "freya";
+              greeting.mode = "instalogin";
+            };
           }
           ./users/freya
           ./machines/valhalla
