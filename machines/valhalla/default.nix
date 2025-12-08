@@ -28,8 +28,8 @@ in {
   };
   imports = [
     ./settings.nix
-    ./greeting.nix
     ./uwsm.nix
+    ./greeting
     ./hardware
     ./hyprland
     ./gaming
