@@ -23,6 +23,8 @@ in {
 
       package-version-server # zed ships dynamically linked, needs this
       nixd
+
+      rivalcfg # CLI for SteelSeries mouse hardware config
     ];
 
     programs = {
