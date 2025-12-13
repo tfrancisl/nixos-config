@@ -41,7 +41,6 @@
       "nix-command"
       "flakes"
     ];
-    auto-optimise-store = true;
     fallback = true;
     connect-timeout = 10;
 
@@ -59,12 +58,5 @@
 
     # Can add more settings to nixConfig in flake
     trusted-users = ["freya"];
-  };
-
-  nix.optimise.automatic = true;
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 14d";
   };
 }
