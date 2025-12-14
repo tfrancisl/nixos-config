@@ -29,8 +29,9 @@ in {
   imports = [
     ./settings.nix
     ./quickshell.nix
+    ./nvidia.nix
+    ./system.nix
     ./greeting
-    ./hardware
     ./hyprland
     ./gaming
   ];
