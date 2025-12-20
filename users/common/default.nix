@@ -25,6 +25,7 @@ in {
       nixd
 
       rivalcfg # CLI for SteelSeries mouse hardware config
+      lxqt.qps # qt process monitor
     ];
 
     programs = {
