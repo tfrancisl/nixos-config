@@ -1,25 +1,21 @@
 {
   "active_pane_modifiers": {
     "border_size": 10.0,
-    "inactive_opacity": 0.33
+    "inactive_opacity": 0.33,
   },
   "base_keymap": "VSCode",
   "buffer_font_family": ".ZedMono",
   "buffer_font_features": {
-    "calt": false
+    "calt": false,
   },
-  "buffer_font_size": 16,
+  "buffer_font_size": 18,
   "buffer_line_height": "standard",
   "collaboration_panel": {
-    "button": false
+    "button": false,
   },
-  "current_line_highlight": "all",
-  "cursor_blink": true,
-  "cursor_shape": "bar",
   "debugger": {
-    "button": false
+    "button": false,
   },
-  "disable_ai": true,
   "excerpt_context_lines": 15,
   "expand_excerpt_lines": 5,
   "experimental.theme_overrides": {
@@ -27,99 +23,66 @@
     "conflict.background": "#a6eef61a",
     "conflict.border": "#9be69fff",
     "version_control.conflict_marker.ours": "#4bbaab1a",
-    "version_control.conflict_marker.theirs": "#ce8fdb1a"
+    "version_control.conflict_marker.theirs": "#ce8fdb1a",
   },
-  "fast_scroll_sensitivity": 4.0,
   "git": {
     "inline_blame": {
-      "enabled": false
-    }
+      "enabled": false,
+    },
   },
   "git_panel": {
-    "button": false
-  },
-  "global_lsp_settings": {
-    "button": true
+    "button": false,
   },
   "gutter": {
     "breakpoints": false,
     "folds": true,
     "line_numbers": true,
     "min_line_number_digits": 5,
-    "runnables": false
+    "runnables": false,
   },
   "hide_mouse": "on_typing_and_movement",
-  "horizontal_scroll_margin": 5,
   "icon_theme": "Zed (Default)",
   "indent_guides": {
     "active_line_width": 4,
     "background_coloring": "disabled",
     "coloring": "fixed",
     "enabled": true,
-    "line_width": 2
+    "line_width": 2,
   },
   "inlay_hints": {
-    "enabled": false
+    "enabled": false,
   },
   "languages": {
     "Nix": {
       "formatter": [
         {
           "external": {
-            "command": "alejandra"
-          }
-        }
+            "command": "alejandra",
+          },
+        },
       ],
-      "language_servers": ["nixd", "!nil"]
-    }
+      "language_servers": ["nixd", "!nil"],
+    },
   },
   "minimap": {
-    "show": "never"
+    "show": "never",
   },
   "preferred_line_length": 100,
   "redact_private_values": false,
   "relative_line_numbers": "disabled",
   "scroll_beyond_last_line": "vertical_scroll_margin",
-  "scroll_sensitivity": 1.0,
-  "scrollbar": {
-    "axes": {
-      "horizontal": true,
-      "vertical": true
-    },
-    "cursors": true,
-    "diagnostics": "warning",
-    "git_diff": true,
-    "search_results": true,
-    "selected_symbol": true,
-    "selected_text": true,
-    "show": "auto"
-  },
-  "selection_highlight": true,
-  "show_whitespaces": "trailing",
-  "show_wrap_guides": true,
   "soft_wrap": "none",
-  "status_bar": {
-    "active_language_button": true,
-    "cursor_position_button": true
-  },
   "telemetry": {
     "diagnostics": true,
-    "metrics": false
+    "metrics": false,
   },
   "terminal": {
-    "blinking": "terminal_controlled",
-    "button": true,
-    "cursor_shape": "block",
-    "default_height": 320,
-    "default_width": 640,
     "dock": "bottom",
-    "env": {},
     "font_family": ".ZedMono",
-    "font_size": 15,
+    "font_size": 16,
     "font_weight": 400,
     "line_height": "standard",
     "max_scroll_history_lines": 10000,
-    "scrollbar": {}
   },
   "theme": "KTRZ Monokai",
   "title_bar": {
@@ -128,24 +91,19 @@
     "show_menus": false,
     "show_onboarding_banner": false,
     "show_project_items": true,
-    "show_sign_in": false,
-    "show_user_picture": false
+    "show_sign_in": true,
+    "show_user_picture": true,
   },
   "toolbar": {
     "agent_review": false,
     "breadcrumbs": true,
     "code_actions": true,
     "quick_actions": true,
-    "selections_menu": true
+    "selections_menu": true,
   },
   "ui_font_family": ".ZedMono",
-  "ui_font_size": 16.0,
+  "ui_font_size": 18,
   "unnecessary_code_fade": 0.3,
-  "use_auto_surround": true,
   "vertical_scroll_margin": 4,
-  "whitespace_map": {
-    "space": "•",
-    "tab": "→"
-  },
-  "wrap_guides": [50, 72, 100, 144]
+  "wrap_guides": [50, 72, 100, 144],
 }
