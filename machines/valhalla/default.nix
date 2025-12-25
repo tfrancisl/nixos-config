@@ -33,6 +33,7 @@ in {
     ./system.nix
     ./greeting
     ./hyprland
+    ./user
     ./gaming
   ];
 }
