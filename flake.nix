@@ -31,7 +31,6 @@
               greeting.mode = "instalogin";
             };
           }
-          ./users/freya
           ./machines/valhalla
         ];
       };
