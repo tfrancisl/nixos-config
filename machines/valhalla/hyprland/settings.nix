@@ -67,11 +67,10 @@ in {
       ];
 
       monitor = [
-        # DP-1 is an ultrawide 2K, max 180 Hz
-        "DP-1, 3440x1440@180, 1920x0, 1"
-        # DP-3 is a standard 1080p, max 240 Hz -- set to 120 as 2ndary monitor
-        "DP-3, 1920x1080@120, 0x0, 1"
-        # "DP-3, 1920x1080@240, 1920x0, 1"
+        # DP-3 is an ultrawide 2K, max 180 Hz
+        "DP-3, 3440x1440@180, 1920x0, 1"
+        # DP-1 is a standard 1080p, max 240 Hz -- set to 75 as 2ndary monitor
+        "DP-1, 1920x1080@75, 0x0, 1"
       ];
     };
 }
