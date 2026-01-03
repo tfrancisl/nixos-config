@@ -24,10 +24,6 @@ in {
     kdePackages.qtdeclarative # provides qmlls for zed
   ];
 
-  services.pulseaudio.enable = false;
-  services.pipewire.enable = true;
-  security.rtkit.enable = true;
-
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
     WLR_NO_HARDWARE_CURSORS = "1";
