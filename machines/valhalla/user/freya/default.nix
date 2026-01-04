@@ -13,10 +13,8 @@ in {
     jq
     ripgrep
 
-    zed-editor
+    zed-editor-fhs
     alejandra
-
-    package-version-server # zed ships dynamically linked, needs this
     nixd
 
     rivalcfg # CLI for SteelSeries mouse hardware config
@@ -84,7 +82,7 @@ in {
   };
 
   environment.shellAliases = {
-    "zed" = "${pkgs.zed-editor}/bin/zeditor";
+    "zed" = "${pkgs.zed-editor-fhs}/bin/zeditor";
   };
 
   system.activationScripts.zedConfig = {
