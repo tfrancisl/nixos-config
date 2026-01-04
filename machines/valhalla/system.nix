@@ -38,22 +38,10 @@
       device = "/dev/disk/by-uuid/59dc666f-1a13-4028-a4a0-90dcf6333084";
       fsType = "ext4";
     };
-
-    # Three ntfs partitions I should probably nuke
-    "/mnt/windows/" = {
-      mountPoint = "/mnt/windows";
-      device = "/dev/disk/by-uuid/AEECCF1BECCEDD29";
-      fsType = "ntfs";
-    };
-    "/mnt/windows2/" = {
-      mountPoint = "/mnt/windows2";
-      device = "/dev/disk/by-uuid/01DC35B236E17BB0";
-      fsType = "ntfs";
-    };
     "/mnt/big_drive/" = {
       mountPoint = "/mnt/big_drive";
-      device = "/dev/disk/by-uuid/01DC35B31B7E6A80";
-      fsType = "ntfs";
+      device = "/dev/disk/by-uuid/db55e664-3ec1-4aac-bf63-486ab796b1d7";
+      fsType = "ext4";
     };
   };
 
