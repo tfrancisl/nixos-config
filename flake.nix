@@ -14,6 +14,12 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    hjem = {
+      url = "github:feel-co/hjem";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     hyprland.url = "github:hyprwm/hyprland";
   };
 
@@ -25,6 +31,7 @@
         system = "x86_64-linux";
         inherit specialArgs;
         modules = [
+          inputs.hjem.nixosModules.default
           {
             config = {
               system_user.username = "freya";
