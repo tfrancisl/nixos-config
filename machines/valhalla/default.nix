@@ -11,6 +11,14 @@ in {
   };
 
   config = {
+    nix.settings = {
+      accept-flake-config = true;
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+    };
+
     users.users.${username} = {
       isNormalUser = true;
       description = "${username}'s user account";
