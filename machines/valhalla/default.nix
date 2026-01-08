@@ -39,7 +39,7 @@ in {
     ./quickshell.nix
     ./nvidia.nix
     ./system.nix
-    ./greeting
+    ./greeting.nix
     ./hyprland
     ./user
     ./gaming
