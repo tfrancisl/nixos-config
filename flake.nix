@@ -36,7 +36,6 @@
           {
             config = {
               system_user.username = "freya";
-              greeting.mode = "instalogin";
             };
           }
           ./machines/valhalla
