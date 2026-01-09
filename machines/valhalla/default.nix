@@ -37,9 +37,8 @@ in {
   imports = [
     ./settings.nix
     ./quickshell.nix
-    ./nvidia.nix
-    ./system.nix
     ./greeting.nix
+    ./system
     ./hyprland
     ./user
     ./gaming
