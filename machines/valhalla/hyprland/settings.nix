@@ -7,9 +7,7 @@
   bins =
     (binVar pkgs.alacritty "alacritty")
     // (binVar pkgs.nnn "nnn")
-    // (binVar pkgs.wofi "wofi")
-    // (binVar pkgs.zed-editor "zeditor")
-    // (binVar pkgs.uwsm "uwsm");
+    // (binVar pkgs.wofi "wofi");
 in {
   environment.systemPackages = with pkgs; [
     gparted
@@ -56,10 +54,6 @@ in {
         "HYPRCURSOR_SIZE,28"
         "XCURSOR_THEME,graphite-light"
         "XCURSOR_SIZE,28"
-      ];
-
-      exec-once = [
-        "$uwsm finalize"
       ];
 
       monitor = [
