@@ -14,6 +14,8 @@ in {
       jq
       ripgrep
 
+      hydra-check
+
       zed-editor-fhs
       alejandra
       nixd
