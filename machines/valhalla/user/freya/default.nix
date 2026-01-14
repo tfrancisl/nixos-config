@@ -1,28 +1,33 @@
-# TODO modularize a bit
-# productivity vs gaming vs hardware etc
-{pkgs, ...}: let
+{
+  pkgs,
+  pkgs-stable,
+  ...
+}: let
   username = "freya";
 in {
   hjem.users.${username} = {
-    packages = with pkgs; [
-      alacritty
-      nnn
-      htop
+    packages = with pkgs;
+      [
+        alacritty
+        nnn
+        htop
 
-      git
-      gh
-      jq
-      ripgrep
+        git
+        gh
+        jq
+        ripgrep
 
-      hydra-check
+        hydra-check
 
-      zed-editor-fhs
-      alejandra
-      nixd
+        alejandra
+        nixd
 
-      rivalcfg # CLI for SteelSeries mouse hardware config
-      lxqt.qps # qt process monitor
-    ];
+        rivalcfg # CLI for SteelSeries mouse hardware config
+        lxqt.qps # qt process monitor
+      ]
+      ++ [
+        pkgs-stable.zed-editor-fhs
+      ];
     files = {
       ".config/zed/settings.json".source = ./zed/settings.json;
       ".gitconfig".source =
@@ -74,10 +79,6 @@ in {
   };
 
   programs = {
-    git = {
-      enable = true;
-    };
-
     firefox = {
       enable = true;
       package = pkgs."firefox-bin";
@@ -96,6 +97,6 @@ in {
   };
 
   environment.shellAliases = {
-    "zed" = "${pkgs.zed-editor-fhs}/bin/zeditor";
+    "zed" = "${pkgs-stable.zed-editor-fhs}/bin/zeditor";
   };
 }

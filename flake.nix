@@ -17,6 +17,8 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
+
     hjem = {
       url = "github:feel-co/hjem";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -25,13 +27,16 @@
     hyprland.url = "github:hyprwm/hyprland";
   };
 
-  outputs = inputs @ {...}: let
-    specialArgs = {inherit inputs;};
+  outputs = inputs: let
+    system = "x86_64-linux";
+    specialArgs = {
+      pkgs-stable = import inputs.nixpkgs-stable {inherit system;};
+      inherit inputs;
+    };
   in {
     nixosConfigurations = {
       valhalla = inputs.nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        inherit specialArgs;
+        inherit specialArgs system;
         modules = [
           {
             config = {
