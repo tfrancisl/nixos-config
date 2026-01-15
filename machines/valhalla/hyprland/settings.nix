@@ -27,6 +27,14 @@ in {
     WLR_NO_HARDWARE_CURSORS = "1";
   };
 
+  systemd.user.targets.hyprland-session = {
+    description = "Hyprland compositor session";
+    documentation = ["man:systemd.special(7)"];
+    bindsTo = ["graphical-session.target"];
+    wants = ["graphical-session-pre.target"];
+    after = ["graphical-session-pre.target"];
+  };
+
   programs.hyprland.settings =
     bins
     // {
@@ -54,6 +62,15 @@ in {
         "HYPRCURSOR_SIZE,28"
         "XCURSOR_THEME,graphite-light"
         "XCURSOR_SIZE,28"
+      ];
+
+      exec-once = [
+        "dbus-update-activation-environment --systemd --all"
+        "systemctl --user start hyprland-session.target"
+      ];
+      # in the rare case I need to kill Hyprland
+      exec-shutdown = [
+        "systemctl --user stop hyprland-session.target"
       ];
 
       monitor = [
