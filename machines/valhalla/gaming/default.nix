@@ -16,7 +16,6 @@ in {
       packages = with pkgs; [
         lunar-client
         wofi
-        discord
         spotify
         r2modman
         prismlauncher
@@ -26,5 +25,6 @@ in {
 
   imports = [
     ./steam.nix
+    ./discord.nix
   ];
 }
