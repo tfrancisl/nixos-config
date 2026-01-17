@@ -1,6 +1,16 @@
-{inputs, ...}: {
-  programs.hyprland = {
-    enable = true;
+{
+  config,
+  lib,
+  inputs,
+  ...
+}: {
+  options.acme = {
+    hyprland.enable = lib.mkEnableOption "Hyprland";
+  };
+  config = {
+    programs.hyprland = {
+      enable = lib.mkForce config.acme.hyprland.enable;
+    };
   };
 
   imports = [

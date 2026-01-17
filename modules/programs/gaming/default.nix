@@ -4,15 +4,13 @@
   lib,
   ...
 }: let
-  username = config.gaming.username;
+  inherit (config.acme.core) username;
 in {
-  options.gaming.username = lib.mkOption {type = lib.types.str;};
-
-  config = {
-    users.users.${username} = {
-      extraGroups = [
-        "gamemode"
-      ];
+  options.acme = {
+    gaming.enable = lib.mkEnableOption "gaming";
+  };
+  config = lib.mkIf config.acme.gaming.enable {
+    hjem.users.${username} = {
       packages = with pkgs; [
         lunar-client
         wofi
@@ -22,7 +20,6 @@ in {
       ];
     };
   };
-
   imports = [
     ./steam.nix
     ./discord.nix

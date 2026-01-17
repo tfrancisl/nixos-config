@@ -38,13 +38,15 @@
       valhalla = inputs.nixpkgs.lib.nixosSystem {
         inherit specialArgs system;
         modules = [
-          {
-            config = {
-              system_user.username = "freya";
-            };
-          }
           ./machines/valhalla
-          inputs.hjem.nixosModules.default
+          ./modules
+        ];
+      };
+      hel = inputs.nixpkgs.lib.nixosSystem {
+        inherit specialArgs system;
+        modules = [
+          ./machines/hel
+          ./modules
         ];
       };
     };
