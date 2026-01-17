@@ -1,5 +1,6 @@
 {...}: {
   imports = [
-    ./freya
+    ./core
+    ./programs
   ];
 }
