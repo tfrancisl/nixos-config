@@ -12,7 +12,12 @@ in {
         nnn
         htop
 
-        git
+        (git.override {
+          pythonSupport = false;
+          perlSupport = false;
+          rustSupport = true;
+        })
+
         gh
         jq
         ripgrep
