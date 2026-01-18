@@ -13,10 +13,6 @@
     firefox.enable = true;
     quickshell.enable = true;
     zed-editor.enable = true;
-    gaming = {
-      enable = true;
-      steam.enable = true;
-      discord.enable = true;
-    };
+    gaming.enable = true;
   };
 }
