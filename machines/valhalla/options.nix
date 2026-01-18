@@ -14,5 +14,9 @@
     quickshell.enable = true;
     zed-editor.enable = true;
     gaming.enable = true;
+    network = {
+      enable = true;
+      hostname = "valhalla";
+    };
   };
 }
