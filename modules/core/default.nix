@@ -1,6 +1,5 @@
 {...}: {
   imports = [
-    ./boot.nix
     ./network.nix
     ./nix.nix
     ./nvidia.nix
