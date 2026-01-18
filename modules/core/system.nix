@@ -10,12 +10,15 @@
         device = "/dev/disk/by-uuid/db55e664-3ec1-4aac-bf63-486ab796b1d7";
         fsType = "ext4";
       };
+      "/media/games/" = {
+        mountPoint = "/media/games";
+        device = "/dev/disk/by-uuid/a954ed55-c431-42e3-a40c-cadbed341e89";
+        fsType = "ext4";
+      };
     };
 
-    swapDevices = [];
-
     hardware.cpu.amd.updateMicrocode = lib.mkDefault true;
-
+    swapDevices = [];
     system.stateVersion = "25.05"; # Do not change this!
   };
 }

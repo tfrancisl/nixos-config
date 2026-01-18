@@ -7,7 +7,10 @@
   inherit (config.acme.core) username;
 in {
   options.acme = {
-    gaming.discord.enable = lib.mkEnableOption "discord";
+    gaming.discord.enable = lib.mkOption {
+      default = config.acme.gaming.enable;
+      type = lib.types.bool;
+    };
   };
   config = lib.mkIf config.acme.gaming.discord.enable {
     hjem.users.${username} = {
