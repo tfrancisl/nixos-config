@@ -22,8 +22,8 @@ in {
           enableAutoscroll = true;
         })
       ];
-      files = {
-        ".config/discord/settings.json" = {
+      xdg.config.files = {
+        "discord/settings.json" = {
           generator = lib.generators.toJSON {};
           value = {
             SKIP_HOST_UPDATE = true;

@@ -22,11 +22,9 @@ in {
       users.${username}.enable = true;
     };
     xdg = {
-      # we don't use these files
       autostart.enable = lib.mkForce false;
       portal = {
         enable = true;
-        # seems to help steam wanting to use chromium for some reason
         xdgOpenUsePortal = true;
       };
     };
