@@ -1,12 +1,14 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: let
   inherit (config.acme.core) username;
 in {
   # move these elsewhere
   config = {
+    environment.defaultPackages = lib.mkDefault [];
     hjem.users.${username} = {
       packages = with pkgs; [
         alacritty
@@ -32,5 +34,6 @@ in {
     ./greeting.nix
     ./pipewire.nix
     ./quickshell.nix
+    ./sudo.nix
   ];
 }
