@@ -1,5 +1,24 @@
 # Catchall and new settings
-{pkgs, ...}: let
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  inherit (import ./lib.nix lib) toHyprlang;
+
+  # Script to toggle active window between workspaces 1 and 2
+  # probably could be simpler/better
+  toggleWorkspaceScript = pkgs.writeShellScript "toggle-workspace" ''
+    current_workspace=$(${pkgs.hyprland}/bin/hyprctl activewindow -j | ${pkgs.jq}/bin/jq -r '.workspace.id')
+
+    if [ "$current_workspace" -eq 1 ]; then
+      ${pkgs.hyprland}/bin/hyprctl dispatch movetoworkspace 2
+    else
+      ${pkgs.hyprland}/bin/hyprctl dispatch movetoworkspace 1
+    fi
+  '';
+
   # Helper function to create Hyprland variable for a binary
   binVar = pkg: binary: {"\$${binary}" = "${pkg}/bin/${binary}";};
 
@@ -9,75 +28,174 @@
     // (binVar pkgs.nnn "nnn")
     // (binVar pkgs.wofi "wofi");
 in {
-  environment.systemPackages = with pkgs; [
-    gparted
-    wlrctl
-    xdg-utils
-    hyprpolkitagent
-    dunst
-    qpwgraph
-    pavucontrol
-    graphite-cursors
-    quickshell
-    kdePackages.qtdeclarative # provides qmlls for zed
-  ];
+  config = lib.mkIf config.acme.hyprland.enable {
+    # these pkgs should be in a "graphical env" space, not hypr specifically
+    environment.systemPackages = with pkgs; [
+      gparted
+      wlrctl
+      xdg-utils
+      hyprpolkitagent
+      dunst
+      qpwgraph
+      pavucontrol
+      graphite-cursors
+    ];
 
-  environment.sessionVariables = {
-    NIXOS_OZONE_WL = "1";
-    WLR_NO_HARDWARE_CURSORS = "1";
-  };
-
-  systemd.user.targets.hyprland-session = {
-    description = "Hyprland compositor session";
-    documentation = ["man:systemd.special(7)"];
-    bindsTo = ["graphical-session.target"];
-    wants = ["graphical-session-pre.target"];
-    after = ["graphical-session-pre.target"];
-  };
-
-  programs.hyprland.settings =
-    bins
-    // {
-      "$super_mod" = "SUPER";
-      "$terminal" = "$alacritty";
-      "$file_manager" = "$terminal -e $nnn";
-      "$menu" = "$wofi --show drun";
-
-      input = {
-        kb_layout = "us";
-
-        repeat_delay = 300;
-        repeat_rate = 99;
-
-        follow_mouse = 1;
-        off_window_axis_events = 2;
-
-        # range is [-1.0, 1.0]; 0 means no modification.
-        sensitivity = 0;
-      };
-
-      env = [
-        "EDITOR,$zeditor"
-        "HYPRCURSOR_THEME,graphite-light"
-        "HYPRCURSOR_SIZE,28"
-        "XCURSOR_THEME,graphite-light"
-        "XCURSOR_SIZE,28"
-      ];
-
-      exec-once = [
-        "dbus-update-activation-environment --systemd --all"
-        "systemctl --user start hyprland-session.target"
-      ];
-      # in the rare case I need to kill Hyprland
-      exec-shutdown = [
-        "systemctl --user stop hyprland-session.target"
-      ];
-
-      monitor = [
-        # DP-3 is an ultrawide 2K, max 180 Hz
-        "DP-3, 3440x1440@180, 1920x0, 1"
-        # DP-1 is a standard 1080p, max 240 Hz -- set to 75 as 2ndary monitor
-        "DP-1, 1920x1080@75, 0x0, 1"
-      ];
+    systemd.user.targets.hyprland-session = {
+      description = "Hyprland compositor session";
+      documentation = ["man:systemd.special(7)"];
+      bindsTo = ["graphical-session.target"];
+      wants = ["graphical-session-pre.target"];
+      after = ["graphical-session-pre.target"];
     };
+
+    # Could not get this to work using hjem.users.${username}.xdg.config.files
+    # Resorting to etc conf file. This probably has something to do with the hyprland repo module
+    environment.etc."xdg/hypr/hyprland.conf" = let
+      config =
+        bins
+        // {
+          "$super_mod" = "SUPER";
+          "$file_manager" = "$alacritty -e $nnn";
+          "$menu" = "$wofi --show drun";
+
+          input = {
+            kb_layout = "us";
+
+            repeat_delay = 300;
+            repeat_rate = 99;
+
+            follow_mouse = 1;
+            off_window_axis_events = 2;
+
+            # range is [-1.0, 1.0]; 0 means no modification.
+            sensitivity = 0;
+          };
+
+          env = [
+            "EDITOR,$zeditor"
+            "HYPRCURSOR_THEME,graphite-light"
+            "HYPRCURSOR_SIZE,28"
+            "XCURSOR_THEME,graphite-light"
+            "XCURSOR_SIZE,28"
+          ];
+
+          exec-once = [
+            "dbus-update-activation-environment --systemd --all"
+            "systemctl --user start hyprland-session.target"
+          ];
+          # in the rare case I need to kill Hyprland
+          exec-shutdown = [
+            "systemctl --user stop hyprland-session.target"
+          ];
+
+          monitor = [
+            # DP-3 is an ultrawide 2K, max 180 Hz
+            "DP-3, 3440x1440@180, 1920x0, 1"
+            # DP-1 is a standard 1080p, max 240 Hz -- set to 75 as 2ndary monitor
+            "DP-1, 1920x1080@75, 0x0, 1"
+          ];
+
+          workspace = [
+            # turn off gaps when tiled window count = 1
+            "w[tv1], gapsout:0, gapsin:0"
+          ];
+          windowrule = [
+            # turn down borders on solo windows
+            "match:workspace w[tv1], match:float false, border_size 4"
+
+            # Alacritty starts floating and at 16:9 and 50%
+            "match:class ^(Alacritty)$, float on, opacity 1.0 0.34, size 0.5*(16/9)*monitor_h 0.5*monitor_h, move 0.2*monitor_w 0.2*monitor_h, keep_aspect_ratio on"
+
+            # floating have special active/inactive border
+            "match:float true, match:focus false, border_color rgb(111212)"
+            "match:float true, match:focus true, border_color rgb(4122d5)"
+            # any window which starts floating is 16:9 and 50% size; except steam windows -- dropdowns in UI are floating windows :)
+            "match:float true, match:class negate:[Ss]team, size 0.5*(16/9)*monitor_h 0.5*monitor_h, move 0.2*monitor_w 0.2*monitor_h, keep_aspect_ratio on"
+
+            "match:class .*, suppress_event maximize"
+          ];
+
+          general = {
+            gaps_in = 4;
+            gaps_out = 2;
+
+            border_size = 6;
+
+            "col.active_border" = "rgba(41d8d5ff) rgba(15f88dff)";
+            "col.inactive_border" = "rgba(680726ff) rgba(680726ff)";
+
+            resize_on_border = false;
+            allow_tearing = false;
+
+            layout = "dwindle";
+          };
+
+          decoration = {
+            rounding = 5;
+            active_opacity = 1.0;
+            fullscreen_opacity = 1.0;
+            inactive_opacity = 0.935;
+            blur.enabled = false;
+            shadow.enabled = false;
+          };
+
+          animations.enabled = true;
+          bezier = "fastCurve, 0.25, 0.65, 0, 1.0";
+          animation = [
+            "windowsIn, 1, 8, fastCurve"
+            "windowsOut, 1, 8, fastCurve"
+            "windowsMove, 1, 8, fastCurve"
+            "border, 1, 8, fastCurve"
+            "borderangle, 1, 250, default, loop"
+            "fade, 1, 2.5, fastCurve"
+          ];
+          misc = {
+            disable_hyprland_logo = true;
+            disable_splash_rendering = true;
+          };
+
+          cursor = {
+            zoom_factor = 1;
+            zoom_rigid = false;
+            hotspot_padding = 1;
+          };
+
+          dwindle = {
+            pseudotile = false;
+            preserve_split = true;
+          };
+
+          master = {
+            new_status = "master";
+          };
+
+          bind = [
+            "$super_mod, C, killactive,"
+            "$super_mod, M, exit,"
+            "$super_mod, Q, exec, $alacritty"
+            "$super_mod, E, exec, $file_manager"
+            "$super_mod, R, exec, $menu"
+            "$super_mod, F, fullscreen"
+            "$super_mod, V, togglefloating,"
+            "$super_mod, T, exec, ${toggleWorkspaceScript}"
+            # super+shift+N to move to workspace
+            "$super_mod SHIFT, 1, movetoworkspace, 1"
+            "$super_mod SHIFT, 2, movetoworkspace, 2"
+            # super+arrows to move focus
+            "$super_mod, left, movefocus, l"
+            "$super_mod, right, movefocus, r"
+            "$super_mod, up, movefocus, u"
+            "$super_mod, down, movefocus, d"
+          ];
+
+          bindm = [
+            "$super_mod, mouse:272, movewindow"
+            "$super_mod, mouse:273, resizewindow"
+          ];
+        };
+    in {
+      text = toHyprlang {} config;
+    };
+  };
 }
