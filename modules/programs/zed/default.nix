@@ -14,8 +14,8 @@ in {
       packages = [
         pkgs-stable.zed-editor-fhs
       ];
-      files = {
-        ".config/zed/settings.json".source = ./settings.json;
+      xdg.config.files = {
+        "zed/settings.json".source = ./settings.json;
       };
     };
     environment.shellAliases = {
