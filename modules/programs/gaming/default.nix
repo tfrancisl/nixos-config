@@ -19,6 +19,18 @@ in {
         prismlauncher
       ];
     };
+
+    boot.kernelModules = [
+      "ntsync"
+    ];
+    services.udev.extraRules = ''
+      KERNEL=="ntsync", MODE="0644"
+    '';
+    environment.sessionVariables = {
+      "PROTON_ENABLE_WAYLAND" = "1";
+      "WAYLANDDRV_PRIMARY_MONITOR" = "DP-3";
+      "PROTON_USE_WOW64" = "1";
+    };
   };
   imports = [
     ./steam.nix
