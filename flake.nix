@@ -31,7 +31,7 @@
     system = "x86_64-linux";
     specialArgs = {
       pkgs-stable = import inputs.nixpkgs-stable {inherit system;};
-      inherit inputs;
+      inherit inputs system;
     };
   in {
     nixosConfigurations = {
