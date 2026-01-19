@@ -5,6 +5,7 @@
   lib,
   ...
 }: let
+  inherit (config.acme.core) username;
   inherit (import ./lib.nix lib) toHyprlang;
 
   # Script to toggle active window between workspaces 1 and 2
@@ -49,9 +50,36 @@ in {
       after = ["graphical-session-pre.target"];
     };
 
+    environment.sessionVariables = {
+      # these five could be in a "wayland fixes" section
+      ELECTRON_OZONE_PLATFORM_HINT = "auto";
+      GDK_BACKEND = "wayland,x11";
+      QT_QPA_PLATFORM = "wayland;xcb";
+      # fix java bug on tiling wm's / compositors
+      _JAVA_AWT_WM_NONREPARENTING = "1";
+      # enable java anti aliasing
+      _JAVA_OPTIONS = "-Dawt.useSystemAAFontSettings=on";
+
+      # cursor stuff could be elsewhere
+      HYPRCURSOR_THEME = "graphite-light";
+      HYPRCURSOR_SIZE = 32;
+      XCURSOR_THEME = "graphite-light";
+      XCURSOR_SIZE = 32;
+    };
+
+    hjem.users.${username} = {
+      # fixes some apps cursor theme
+      xdg.data.files."icons/default/index.theme" = {
+        generator = lib.generators.toINI {};
+        value = {
+          "Icon Theme".Inherits = "graphite-light";
+        };
+      };
+    };
+
     # Could not get this to work using hjem.users.${username}.xdg.config.files
     # Resorting to etc conf file. This probably has something to do with the hyprland repo module
-    environment.etc."xdg/hypr/hyprland.conf" = let
+    environment.etc."xdg/hypr/hyprland.conf".text = let
       config =
         bins
         // {
@@ -71,15 +99,6 @@ in {
             # range is [-1.0, 1.0]; 0 means no modification.
             sensitivity = 0;
           };
-
-          env = [
-            "EDITOR,$zeditor"
-            "HYPRCURSOR_THEME,graphite-light"
-            "HYPRCURSOR_SIZE,28"
-            "XCURSOR_THEME,graphite-light"
-            "XCURSOR_SIZE,28"
-          ];
-
           exec-once = [
             "dbus-update-activation-environment --systemd --all"
             "systemctl --user start hyprland-session.target"
@@ -88,14 +107,21 @@ in {
           exec-shutdown = [
             "systemctl --user stop hyprland-session.target"
           ];
-
           monitor = [
             # DP-3 is an ultrawide 2K, max 180 Hz
             "DP-3, 3440x1440@180, 1920x0, 1"
             # DP-1 is a standard 1080p, max 240 Hz -- set to 75 as 2ndary monitor
             "DP-1, 1920x1080@75, 0x0, 1"
           ];
-
+          render = {
+            direct_scanout = lib.mkDefault 0;
+            non_shader_cm = 2;
+            cm_auto_hdr = 2; # use hdredid for autohdr
+            cm_sdr_eotf = 2;
+          };
+          quirks = {
+            prefer_hdr = 1;
+          };
           workspace = [
             # turn off gaps when tiled window count = 1
             "w[tv1], gapsout:0, gapsin:0"
@@ -115,22 +141,16 @@ in {
 
             "match:class .*, suppress_event maximize"
           ];
-
           general = {
             gaps_in = 4;
             gaps_out = 2;
-
             border_size = 6;
-
             "col.active_border" = "rgba(41d8d5ff) rgba(15f88dff)";
             "col.inactive_border" = "rgba(680726ff) rgba(680726ff)";
-
             resize_on_border = false;
             allow_tearing = false;
-
             layout = "dwindle";
           };
-
           decoration = {
             rounding = 5;
             active_opacity = 1.0;
@@ -139,7 +159,6 @@ in {
             blur.enabled = false;
             shadow.enabled = false;
           };
-
           animations.enabled = true;
           bezier = "fastCurve, 0.25, 0.65, 0, 1.0";
           animation = [
@@ -153,23 +172,27 @@ in {
           misc = {
             disable_hyprland_logo = true;
             disable_splash_rendering = true;
+            enable_swallow = 1; # Enable window swallowing
+            swallow_regex = "Alacritty"; # Make Alacritty swallow executed windows
+            swallow_exception_regex = "Alacritty"; # Make Alacritty not swallow itself
+            middle_click_paste = false;
           };
-
+          ecosystem = {
+            no_update_news = true;
+            no_donation_nag = true;
+          };
           cursor = {
             zoom_factor = 1;
             zoom_rigid = false;
             hotspot_padding = 1;
           };
-
           dwindle = {
             pseudotile = false;
             preserve_split = true;
           };
-
           master = {
             new_status = "master";
           };
-
           bind = [
             "$super_mod, C, killactive,"
             "$super_mod, M, exit,"
@@ -188,14 +211,12 @@ in {
             "$super_mod, up, movefocus, u"
             "$super_mod, down, movefocus, d"
           ];
-
           bindm = [
             "$super_mod, mouse:272, movewindow"
             "$super_mod, mouse:273, resizewindow"
           ];
         };
-    in {
-      text = toHyprlang {} config;
-    };
+    in
+      toHyprlang {} config;
   };
 }

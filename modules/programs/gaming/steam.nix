@@ -23,20 +23,20 @@ in {
         unShaderBackgroundProcessingThreads 4
       '';
     };
-  };
 
-  programs = {
-    steam = {
-      enable = true;
-      extraCompatPackages = [pkgs.proton-ge-bin];
-    };
-    gamemode = {
-      enable = true;
-      settings = {
-        general = {
-          softrealtime = "auto";
-          renice = 15;
-          inhibit_screensaver = 0;
+    programs = {
+      steam = {
+        enable = true;
+        extraCompatPackages = [pkgs.proton-ge-bin];
+      };
+      gamemode = {
+        enable = true;
+        settings = {
+          general = {
+            softrealtime = "auto";
+            renice = 15;
+            inhibit_screensaver = 0;
+          };
         };
       };
     };

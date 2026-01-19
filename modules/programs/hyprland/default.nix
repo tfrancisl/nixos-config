@@ -12,7 +12,6 @@
     programs.hyprland = {
       enable = lib.mkForce config.acme.hyprland.enable;
       package = inputs.hyprland.packages.${system}.hyprland;
-      # erm
       portalPackage = inputs.hyprland.packages.${system}.xdg-desktop-portal-hyprland;
     };
   };
