@@ -109,13 +109,7 @@ in {
             position = "1920x0";
             scale = 1;
             bitdepth = 10;
-            supports_hdr = 1;
-            supports_wide_color = 1;
-            cm = "hdr";
-            sdr_min_luminance = 0.1;
-            sdr_max_luminance = 265;
-            sdrsaturation = 1.25;
-            sdrbrightness = 0.97;
+            supports_hdr = -1;
           };
           "monitorv2[desc:Acer Technologies ED270 X TKXAA0013W01]" = {
             mode = "1920x1080@60";
@@ -123,13 +117,9 @@ in {
             scale = 1;
             supports_hdr = -1;
           };
-
           render = {
             direct_scanout = 0;
-            cm_sdr_eotf = 2;
-          };
-          quirks = {
-            prefer_hdr = 1;
+            cm_auto_hdr = 0; # never try switching to hdr on full screen
           };
           workspace = [
             # turn off gaps when tiled window count = 1
@@ -137,7 +127,7 @@ in {
           ];
           windowrule = [
             # turn down borders on solo windows
-            "match:workspace w[tv1], match:float false, border_size 4"
+            "match:workspace w[tv1], match:float false, border_size 1"
 
             # Alacritty starts floating and at 16:9 and 50%
             "match:class ^(Alacritty)$, float on, opacity 1.0 0.34, size 0.5*(16/9)*monitor_h 0.5*monitor_h, move 0.2*monitor_w 0.2*monitor_h, keep_aspect_ratio on"
