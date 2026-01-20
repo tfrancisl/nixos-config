@@ -112,8 +112,8 @@ in {
             supports_hdr = 1;
             supports_wide_color = 1;
             cm = "hdr";
-            sdr_min_luminance = 0.005;
-            sdr_max_luminance = 275;
+            sdr_min_luminance = 0.1;
+            sdr_max_luminance = 265;
             sdrsaturation = 1.25;
             sdrbrightness = 0.97;
           };
@@ -153,7 +153,8 @@ in {
           general = {
             gaps_in = 4;
             gaps_out = 2;
-            border_size = 6;
+            float_gaps = 2;
+            border_size = 4;
             "col.active_border" = "rgba(41d8d5ff) rgba(15f88dff)";
             "col.inactive_border" = "rgba(680726ff) rgba(680726ff)";
             resize_on_border = false;
@@ -185,12 +186,15 @@ in {
             swallow_regex = "Alacritty"; # Make Alacritty swallow executed windows
             swallow_exception_regex = "Alacritty"; # Make Alacritty not swallow itself
             middle_click_paste = false;
+            layers_hog_keyboard_focus = false; # wofi and such wont keep kb focus on mouse move
+            on_focus_under_fullscreen = false; # games like CS2 and SMITE 2 will not tile if I open a web browser
           };
           ecosystem = {
             no_update_news = true;
             no_donation_nag = true;
           };
           cursor = {
+            default_monitor = "DP-3";
             zoom_factor = 1;
             zoom_rigid = false;
             hotspot_padding = 1;
