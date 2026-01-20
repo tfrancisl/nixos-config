@@ -107,16 +107,29 @@ in {
           exec-shutdown = [
             "systemctl --user stop hyprland-session.target"
           ];
-          monitor = [
-            # DP-3 is an ultrawide 2K, max 180 Hz
-            "DP-3, 3440x1440@180, 1920x0, 1"
-            # DP-1 is a standard 1080p, max 240 Hz -- set to 75 as 2ndary monitor
-            "DP-1, 1920x1080@75, 0x0, 1"
-          ];
+
+          "monitorv2[desc:Microstep MAG 346CQ DD7M045200043]" = {
+            mode = "3440x1440@180";
+            position = "1920x0";
+            scale = 1;
+            bitdepth = 10;
+            supports_hdr = 1;
+            supports_wide_color = 1;
+            cm = "hdr";
+            sdr_min_luminance = 0.005;
+            sdr_max_luminance = 275;
+            sdrsaturation = 1.25;
+            sdrbrightness = 0.97;
+          };
+          "monitorv2[desc:Acer Technologies ED270 X TKXAA0013W01]" = {
+            mode = "1920x1080@60";
+            position = "0x0";
+            scale = 1;
+            supports_hdr = -1;
+          };
+
           render = {
-            direct_scanout = lib.mkDefault 0;
-            non_shader_cm = 2;
-            cm_auto_hdr = 2; # use hdredid for autohdr
+            direct_scanout = 0;
             cm_sdr_eotf = 2;
           };
           quirks = {
