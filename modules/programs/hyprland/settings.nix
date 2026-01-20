@@ -33,11 +33,7 @@ in {
     # these pkgs should be in a "graphical env" space, not hypr specifically
     environment.systemPackages = with pkgs; [
       gparted
-      wlrctl
-      xdg-utils
-      hyprpolkitagent
       dunst
-      qpwgraph
       pavucontrol
       graphite-cursors
     ];
