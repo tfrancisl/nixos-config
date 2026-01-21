@@ -11,6 +11,8 @@ in {
     environment.defaultPackages = lib.mkDefault [];
     hjem.users.${username} = {
       packages = with pkgs; [
+        dust
+
         alacritty
         nnn
         htop
