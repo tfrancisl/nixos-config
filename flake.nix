@@ -27,11 +27,11 @@
     hyprland.url = "github:hyprwm/hyprland";
   };
 
-  outputs = inputs: let
+  outputs = inputs @ {self, ...}: let
     system = "x86_64-linux";
     specialArgs = {
       pkgs-stable = import inputs.nixpkgs-stable {inherit system;};
-      inherit inputs system;
+      inherit inputs system self;
     };
   in {
     nixosConfigurations = {

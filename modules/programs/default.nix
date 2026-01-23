@@ -6,9 +6,9 @@
 }: let
   inherit (config.acme.core) username;
 in {
-  # move these elsewhere
   config = {
     environment.defaultPackages = lib.mkDefault [];
+    # move these elsewhere
     hjem.users.${username} = {
       packages = with pkgs; [
         dust
@@ -37,6 +37,5 @@ in {
     ./pipewire.nix
     ./quickshell.nix
     ./sudo.nix
-    ./screenshot.nix
   ];
 }
