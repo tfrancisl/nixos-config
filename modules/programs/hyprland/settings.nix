@@ -80,8 +80,6 @@ in {
         bins
         // {
           "$super_mod" = "SUPER";
-          "$file_manager" = "$alacritty -e $nnn";
-          "$menu" = "$wofi --show drun";
 
           input = {
             kb_layout = "us";
@@ -200,14 +198,12 @@ in {
             "$super_mod, C, killactive,"
             "$super_mod, M, exit,"
             "$super_mod, Q, exec, $alacritty"
-            "$super_mod, E, exec, $file_manager"
-            "$super_mod, R, exec, $menu"
+            "$super_mod, E, exec, $alacritty -e $nnn"
+            "$super_mod, R, exec, $wofi --show drun"
             "$super_mod, F, fullscreen"
             "$super_mod, V, togglefloating,"
             "$super_mod, T, exec, ${toggleWorkspaceScript}"
-            # super+shift+N to move to workspace
-            "$super_mod SHIFT, 1, movetoworkspace, 1"
-            "$super_mod SHIFT, 2, movetoworkspace, 2"
+            "$super_mod, S, exec, screenshot"
             # super+arrows to move focus
             "$super_mod, left, movefocus, l"
             "$super_mod, right, movefocus, r"
@@ -215,6 +211,7 @@ in {
             "$super_mod, down, movefocus, d"
           ];
           bindm = [
+            # super+l or r mouse drag to move and resize
             "$super_mod, mouse:272, movewindow"
             "$super_mod, mouse:273, resizewindow"
           ];
