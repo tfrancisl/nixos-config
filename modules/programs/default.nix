@@ -24,9 +24,6 @@ in {
 
         rivalcfg # CLI for SteelSeries mouse hardware config
         lxqt.qps # qt process monitor
-
-        swayimg
-        shotman
       ];
     };
   };
@@ -40,5 +37,6 @@ in {
     ./pipewire.nix
     ./quickshell.nix
     ./sudo.nix
+    ./screenshot.nix
   ];
 }
