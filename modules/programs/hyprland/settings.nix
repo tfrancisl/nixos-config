@@ -1,5 +1,6 @@
 # Catchall and new settings
 {
+  self,
   config,
   pkgs,
   lib,
@@ -31,12 +32,19 @@
 in {
   config = lib.mkIf config.acme.hyprland.enable {
     # these pkgs should be in a "graphical env" space, not hypr specifically
-    environment.systemPackages = with pkgs; [
-      gparted
-      dunst
-      pavucontrol
-      graphite-cursors
-    ];
+    environment.systemPackages = with pkgs;
+      [
+        gparted
+        dunst
+        pavucontrol
+        graphite-cursors
+      ]
+      # TODO do this differently
+      ++ [
+        (pkgs.callPackage
+          "${self}/packages/screenshot.nix"
+          {})
+      ];
 
     systemd.user.targets.hyprland-session = {
       description = "Hyprland compositor session";
@@ -197,14 +205,15 @@ in {
           bind = [
             "$super_mod, C, killactive,"
             "$super_mod, M, exit,"
-            "$super_mod, Q, exec, $alacritty"
-            "$super_mod, E, exec, $alacritty -e $nnn"
-            "$super_mod, R, exec, $wofi --show drun"
             "$super_mod, F, fullscreen"
             "$super_mod, V, togglefloating,"
             "$super_mod, T, exec, ${toggleWorkspaceScript}"
+
+            "$super_mod, Q, exec, $alacritty"
+            "$super_mod, E, exec, $alacritty -e $nnn"
+            "$super_mod, R, exec, $wofi --show drun"
             "$super_mod, S, exec, screenshot"
-            # super+arrows to move focus
+
             "$super_mod, left, movefocus, l"
             "$super_mod, right, movefocus, r"
             "$super_mod, up, movefocus, u"
