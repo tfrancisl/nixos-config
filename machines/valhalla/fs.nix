@@ -10,10 +10,10 @@
         device = "/dev/disk/by-uuid/db55e664-3ec1-4aac-bf63-486ab796b1d7";
         fsType = "ext4";
       };
-      "/media/games/" = {
-        mountPoint = "/media/games";
-        device = "/dev/disk/by-uuid/a954ed55-c431-42e3-a40c-cadbed341e89";
-        fsType = "ext4";
+      "/media/games" = {
+        device = "/dev/disk/by-uuid/9b2fe55b-3428-49f8-b44c-bfd1abe0185e";
+        fsType = "btrfs";
+        options = ["subvol=games"];
       };
     };
   };
