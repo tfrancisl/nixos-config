@@ -1,6 +1,6 @@
 {
+  pkgs,
   config,
-  pkgs-stable,
   lib,
   ...
 }: let
@@ -12,14 +12,14 @@ in {
   config = lib.mkIf config.acme.zed-editor.enable {
     hjem.users.${username} = {
       packages = [
-        pkgs-stable.zed-editor-fhs
+        pkgs.zed-editor
       ];
       xdg.config.files = {
         "zed/settings.json".source = ./settings.json;
       };
     };
     environment.shellAliases = {
-      "zed" = "${pkgs-stable.zed-editor-fhs}/bin/zeditor";
+      "zed" = "${pkgs.zed-editor}/bin/zeditor";
     };
   };
 }

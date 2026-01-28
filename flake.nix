@@ -17,8 +17,6 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
-
     hjem = {
       url = "github:feel-co/hjem";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -30,7 +28,6 @@
   outputs = inputs @ {self, ...}: let
     system = "x86_64-linux";
     specialArgs = {
-      pkgs-stable = import inputs.nixpkgs-stable {inherit system;};
       inherit inputs system self;
     };
   in {
