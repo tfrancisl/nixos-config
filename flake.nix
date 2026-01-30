@@ -47,5 +47,17 @@
         ];
       };
     };
+    devShells.x86_64-linux.default = let
+      pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
+    in
+      pkgs.mkShell {
+        packages = [
+          pkgs.git
+          (pkgs.callPackage
+            "${self}/packages/fmt.nix"
+            {})
+        ];
+        name = "nixos-config";
+      };
   };
 }

@@ -37,5 +37,6 @@ in {
     ./pipewire.nix
     ./quickshell.nix
     ./sudo.nix
+    ./direnv.nix
   ];
 }
