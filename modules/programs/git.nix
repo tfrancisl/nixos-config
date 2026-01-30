@@ -5,6 +5,7 @@
   ...
 }: let
   inherit (config.acme.core) username;
+  zed-binary = lib.getExe pkgs.zed-editor;
 in {
   options.acme = {
     git.enable = lib.mkEnableOption "git";
@@ -34,10 +35,10 @@ in {
               username = "tfrancisl";
             };
             core = {
-              editor = "zed --wait";
+              editor = "${zed-binary} --wait";
             };
             difftool.zed = {
-              cmd = "zed --wait --diff \"$LOCAL\" \"$REMOTE\"";
+              cmd = "${zed-binary} --wait --diff \"$LOCAL\" \"$REMOTE\"";
             };
             diff = {
               tool = "zed";
