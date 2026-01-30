@@ -22,7 +22,7 @@ in {
       enable = true;
       settings = {
         terminal.vt = 1;
-        default_session = default_session;
+        inherit default_session;
         initial_session = default_session;
       };
     };
