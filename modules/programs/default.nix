@@ -35,7 +35,6 @@ in {
     ./git.nix
     ./greeting.nix
     ./pipewire.nix
-    ./quickshell.nix
     ./sudo.nix
     ./direnv.nix
   ];
