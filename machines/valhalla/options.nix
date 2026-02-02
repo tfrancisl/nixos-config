@@ -11,7 +11,6 @@ _: {
     pipewire.enable = true;
     hyprland.enable = true;
     firefox.enable = true;
-    quickshell.enable = true;
     zed-editor.enable = true;
     gaming.enable = true;
     network = {
