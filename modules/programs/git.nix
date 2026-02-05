@@ -71,6 +71,10 @@ in {
               skippedCherryPicks = false;
             };
           };
+        ".config/git/ignore".text = ''
+          .direnv/
+          .venv/
+        '';
       };
     };
   };
