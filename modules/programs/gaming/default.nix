@@ -17,6 +17,7 @@ in {
         spotify
         r2modman
         prismlauncher
+        teamspeak6-client
       ];
     };
 
