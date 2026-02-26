@@ -16,6 +16,7 @@ in {
         wofi
         spotify
         r2modman
+        balatro-mod-manager
         prismlauncher
         teamspeak6-client
       ];
