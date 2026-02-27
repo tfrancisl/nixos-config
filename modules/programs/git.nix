@@ -5,7 +5,8 @@
   ...
 }: let
   inherit (config.acme.core) username;
-  zed-binary = lib.getExe pkgs.zed-editor;
+  zedBinary = lib.getExe pkgs.zed-editor;
+  ghBinary = lib.getExe pkgs.gh;
 in {
   options.acme = {
     git.enable = lib.mkEnableOption "git";
@@ -34,11 +35,18 @@ in {
               email = "tfrancislester@gmail.com";
               username = "tfrancisl";
             };
+            credential = {
+              "https://github.com" = {
+                helper = [
+                  "${ghBinary} auth git-credential"
+                ];
+              };
+            };
             core = {
-              editor = "${zed-binary} --wait";
+              editor = "${zedBinary} --wait";
             };
             difftool.zed = {
-              cmd = "${zed-binary} --wait --diff \"$LOCAL\" \"$REMOTE\"";
+              cmd = "${zedBinary} --wait --diff \"$LOCAL\" \"$REMOTE\"";
             };
             diff = {
               tool = "zed";
