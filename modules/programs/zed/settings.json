@@ -63,6 +63,16 @@
       ],
       "language_servers": ["nixd", "!nil"],
     },
+    "Python": {
+      "formatter": [
+        {
+          "external": {
+            "command": "ruff format",
+          },
+        },
+      ],
+      "language_servers": ["ruff", "ty", "!basedpyright", "!pyright"],
+    },
   },
   "minimap": {
     "show": "never",
