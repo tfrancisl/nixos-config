@@ -5,6 +5,7 @@
   ...
 }: let
   inherit (config.acme.core) username;
+  zed-bin = "${pkgs.zed-editor}/bin/zeditor";
 in {
   options.acme = {
     zed-editor.enable = lib.mkEnableOption "zed-editor";
@@ -19,7 +20,11 @@ in {
       };
     };
     environment.shellAliases = {
-      "zed" = "${pkgs.zed-editor}/bin/zeditor";
+      "zed" = zed-bin;
+    };
+    environment.sessionVariables = {
+      "EDITOR" = zed-bin;
+      "VISUAL" = zed-bin;
     };
   };
 }
