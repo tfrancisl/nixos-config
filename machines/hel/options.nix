@@ -5,7 +5,7 @@ _: {
     };
     greeter = {
       enable = true;
-      autologin_command = "fish";
+      autologinCommand = "fish";
     };
     git.enable = true;
     network = {
