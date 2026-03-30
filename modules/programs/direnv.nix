@@ -1,4 +1,4 @@
-_: {
+{pkgs, ...}: {
   programs.direnv = {
     enable = true;
     enableBashIntegration = false;
@@ -6,4 +6,8 @@ _: {
     enableZshIntegration = false;
     nix-direnv.enable = true;
   };
+  environment.systemPackages = [
+    pkgs.mise
+    pkgs.usage
+  ];
 }
