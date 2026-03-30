@@ -33,7 +33,7 @@ in {
     ./zed
     ./firefox.nix
     ./git.nix
-    ./greeting.nix
+    ./greeter.nix
     ./pipewire.nix
     ./sudo.nix
     ./direnv.nix

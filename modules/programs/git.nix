@@ -4,6 +4,7 @@
   lib,
   ...
 }: let
+  cfg = config.acme.git;
   inherit (config.acme.core) username;
   zedBinary = lib.getExe pkgs.zed-editor;
   ghBinary = lib.getExe pkgs.gh;
@@ -12,7 +13,7 @@ in {
     git.enable = lib.mkEnableOption "git";
   };
 
-  config = lib.mkIf config.acme.git.enable {
+  config = lib.mkIf cfg.enable {
     hjem.users.${username} = {
       packages = with pkgs; [
         (git.override {

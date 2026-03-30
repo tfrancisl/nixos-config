@@ -4,12 +4,13 @@
   lib,
   ...
 }: let
+  cfg = config.acme.gaming;
   inherit (config.acme.core) username;
 in {
   options.acme = {
     gaming.enable = lib.mkEnableOption "gaming";
   };
-  config = lib.mkIf config.acme.gaming.enable {
+  config = lib.mkIf cfg.enable {
     hjem.users.${username} = {
       packages = with pkgs; [
         lunar-client

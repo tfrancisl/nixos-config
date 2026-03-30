@@ -3,12 +3,14 @@
   config,
   lib,
   ...
-}: {
+}: let
+  cfg = config.acme.firefox;
+in {
   options.acme = {
     firefox.enable = lib.mkEnableOption "firefox";
   };
 
-  config = lib.mkIf config.acme.firefox.enable {
+  config = lib.mkIf cfg.enable {
     programs = {
       firefox = {
         enable = true;

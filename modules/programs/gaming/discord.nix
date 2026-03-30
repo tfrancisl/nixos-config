@@ -4,6 +4,7 @@
   lib,
   ...
 }: let
+  cfg = config.acme.gaming.discord;
   inherit (config.acme.core) username;
 in {
   options.acme = {
@@ -12,7 +13,7 @@ in {
       type = lib.types.bool;
     };
   };
-  config = lib.mkIf config.acme.gaming.discord.enable {
+  config = lib.mkIf cfg.enable {
     hjem.users.${username} = {
       packages = [
         (pkgs.discord.override {

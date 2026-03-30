@@ -6,6 +6,7 @@
   lib,
   ...
 }: let
+  cfg = config.acme.hyprland;
   inherit (config.acme.core) username;
   inherit (import ./lib.nix lib) toHyprlang;
 
@@ -30,7 +31,7 @@
     // (binVar pkgs.nnn "nnn")
     // (binVar pkgs.wofi "wofi");
 in {
-  config = lib.mkIf config.acme.hyprland.enable {
+  config = lib.mkIf cfg.enable {
     # these pkgs should be in a "graphical env" space, not hypr specifically
     environment.systemPackages = with pkgs;
       [

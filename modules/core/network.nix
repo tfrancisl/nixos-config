@@ -2,7 +2,9 @@
   config,
   lib,
   ...
-}: {
+}: let
+  cfg = config.acme.network;
+in {
   options.acme = {
     network = {
       enable = lib.mkEnableOption "network";
@@ -11,14 +13,14 @@
       };
     };
   };
-  config = lib.mkIf config.acme.network.enable {
+  config = lib.mkIf cfg.enable {
     boot.blacklistedKernelModules = [
       "bluetooth"
       "iwlwifi"
     ];
     networking = {
       wireless.enable = false;
-      hostName = config.acme.network.hostname;
+      hostName = cfg.hostname;
       networkmanager.enable = false;
       useNetworkd = true;
       useDHCP = true;
