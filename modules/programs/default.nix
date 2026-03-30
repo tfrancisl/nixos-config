@@ -37,5 +37,6 @@ in {
     ./pipewire.nix
     ./sudo.nix
     ./direnv.nix
+    ./fzf-git-diff.nix
   ];
 }

@@ -8,6 +8,7 @@ _: {
       autologin_command = "/run/current-system/sw/bin/start-hyprland";
     };
     git.enable = true;
+    fzf-git-diff.enable = true;
     pipewire.enable = true;
     hyprland.enable = true;
     firefox.enable = true;
