@@ -40,6 +40,11 @@ in {
           - Test once, fix if needed, verify once. No unnecessary iterations.
           - Budget: 50 tool calls maximum. Work efficiently.
 
+          ## Project tracking
+          - When a significant implementation or architectural decision is made, suggest logging it: "Worth running `/log-decision` on that?"
+          - When a good idea comes up but is explicitly deferred, suggest: "Want to `/log-idea` that for later?"
+          - Don't suggest this for every small choice — only decisions with real tradeoffs or rationale worth preserving.
+
         '';
         ".claude/skills/git-guardrails/scripts/block-dangerous-git.sh".text = ''
           #!/bin/bash
@@ -712,6 +717,254 @@ in {
           });
           ```
 
+        '';
+        ".claude/skills/orient/SKILL.md".text = ''
+          ---
+          name: orient
+          description: Read .planning/ files to load project context at session start. Use when starting a session on a project or when the user wants Claude to understand where the project stands.
+          ---
+
+          # Orient
+
+          Load project context from `.planning/` files.
+
+          ## Steps
+
+          ### 1. Find the planning directory
+
+          Walk up from cwd to find `.planning/` (stop at repo root — presence of `.git/`). If not found, tell the user: "No `.planning/` directory found. You can create one with DECISIONS.md and IDEAS.md to track project context."
+
+          ### 2. Detect format
+
+          Check for GSD format: `config.json` present in `.planning/`, or `STATE.md` with `gsd_state_version` in its frontmatter, or numbered phase subdirectories (e.g. `01-*/`).
+
+          If GSD format detected: read what you can, then tell the user: "This looks like a GSD project. Run `/migrate-planning` to convert it to the simpler format."
+
+          ### 3. Read available files
+
+          Read whichever exist:
+          - `.planning/PROJECT.md` — project overview, current milestone, constraints
+          - `.planning/DECISIONS.md` — decision log
+          - `.planning/IDEAS.md` — future ideas and deferred scope
+
+          ### 4. Summarize
+
+          Print a concise summary:
+          - What the project is and current milestone (from PROJECT.md, if present)
+          - The 5 most recent decisions (from DECISIONS.md, if present)
+          - Count of ideas (from IDEAS.md, if present)
+
+          End with: "Context loaded." Do not create any files.
+        '';
+        ".claude/skills/log-decision/SKILL.md".text = ''
+          ---
+          name: log-decision
+          description: Prepend a dated decision entry to .planning/DECISIONS.md. Use when a significant implementation or architectural decision has been made.
+          ---
+
+          # Log Decision
+
+          Record a decision in `.planning/DECISIONS.md`.
+
+          ## Steps
+
+          ### 1. Get the decision text
+
+          If the user provided text inline with the command, use it. Otherwise ask: "What was the decision? Include the rationale — why this choice over alternatives."
+
+          ### 2. Format the entry
+
+          ```
+          - YYYY-MM-DD: <decision> — <rationale>
+          ```
+
+          Use today's date. One line. Em dash (`—`) separates decision from rationale.
+
+          ### 3. Write to DECISIONS.md
+
+          Walk up from cwd to repo root to find `.planning/DECISIONS.md`.
+
+          - If the file exists: insert the new bullet immediately after the `# Decisions` heading (newest-first).
+          - If not: create `.planning/DECISIONS.md`:
+
+          ```markdown
+          # Decisions
+
+          - YYYY-MM-DD: <decision> — <rationale>
+          ```
+
+          ### 4. Confirm
+
+          Show the user the exact line added.
+        '';
+        ".claude/skills/log-idea/SKILL.md".text = ''
+          ---
+          name: log-idea
+          description: Append an idea to .planning/IDEAS.md for future consideration. Use to capture deferred work, experiments, or future scope without interrupting current work.
+          ---
+
+          # Log Idea
+
+          Capture a future idea in `.planning/IDEAS.md`.
+
+          ## Steps
+
+          ### 1. Get the idea text
+
+          If the user provided text inline with the command, use it. Otherwise ask: "What's the idea? Add context if useful."
+
+          ### 2. Format the entry
+
+          ```
+          - <idea> — <optional context>
+          ```
+
+          Omit the context suffix if none was given.
+
+          ### 3. Write to IDEAS.md
+
+          Walk up from cwd to repo root to find `.planning/IDEAS.md`.
+
+          - If the file exists: append the bullet at the end (or after the last bullet in the main `# Ideas` section if sections exist).
+          - If not: create `.planning/IDEAS.md`:
+
+          ```markdown
+          # Ideas
+
+          - <idea>
+          ```
+
+          ### 4. Confirm
+
+          Show the user the exact line added.
+        '';
+        ".claude/skills/migrate-planning/SKILL.md".text = ''
+          ---
+          name: migrate-planning
+          description: Convert a GSD-format .planning/ directory to the simpler decisions/ideas format. Extracts decisions from STATE.md and deferred items from PROJECT.md/REQUIREMENTS.md, produces DECISIONS.md and IDEAS.md, then archives old GSD files.
+          ---
+
+          # Migrate Planning
+
+          Convert a GSD `.planning/` directory to the simpler format: `DECISIONS.md`, `IDEAS.md`, and a condensed `PROJECT.md`.
+
+          ## Steps
+
+          ### 1. Read all existing planning files
+
+          Read every file in `.planning/`:
+          - `STATE.md` — for the `## Decisions` section and `last_updated` frontmatter field
+          - `PROJECT.md` — for "What This Is", current milestone, constraints, out-of-scope items
+          - `REQUIREMENTS.md` — for deferred/out-of-scope requirements
+          - `ROADMAP.md` — for future milestones not yet started
+          - Phase directories and files (e.g. `01-*/`) — no content to extract; will be archived
+
+          ### 2. Write DECISIONS.md
+
+          Extract every bullet from STATE.md's `## Decisions` section. Date each entry using `last_updated` from STATE.md's frontmatter if available, otherwise today's date.
+
+          Write `.planning/DECISIONS.md`:
+
+          ```markdown
+          # Decisions
+
+          - YYYY-MM-DD: <decision> — <rationale>
+          ```
+
+          Preserve original wording. Newest first if dates vary.
+
+          ### 3. Write IDEAS.md
+
+          Gather future/deferred items from:
+          - PROJECT.md "Out of Scope" section
+          - REQUIREMENTS.md items marked v2, deferred, or out of scope
+          - ROADMAP.md phases/milestones not yet started
+
+          Write `.planning/IDEAS.md`:
+
+          ```markdown
+          # Ideas
+
+          - <item> — <reason/context>
+          ```
+
+          ### 4. Write condensed PROJECT.md
+
+          Produce a new `.planning/PROJECT.md` of ~20 lines max:
+          - What the project is (1–2 sentences)
+          - Current milestone and status (1 line)
+          - Key constraints (bullet list, 3–6 items)
+
+          Overwrite the existing PROJECT.md.
+
+          ### 5. Archive old GSD files
+
+          Move to `.planning/archive/`:
+          - `STATE.md`
+          - `ROADMAP.md`
+          - `REQUIREMENTS.md`
+          - `config.json` (if present)
+          - All numbered phase directories and their contents
+
+          Do NOT archive the new `DECISIONS.md`, `IDEAS.md`, or `PROJECT.md`.
+
+          ### 6. Advise the user
+
+          Print a summary:
+          - What was created (DECISIONS.md: N decisions, IDEAS.md: N ideas, PROJECT.md: condensed)
+          - What was archived (list files/dirs moved to `.planning/archive/`)
+          - Gitignore tip: "To skip tracking the archive: `echo '.planning/archive/' >> .gitignore`"
+        '';
+        ".claude/skills/wrap-up/SKILL.md".text = ''
+          ---
+          name: wrap-up
+          description: Review the session and log any decisions or ideas to .planning/ before closing. Use at the end of a working session to make sure significant decisions and deferred ideas are captured.
+          ---
+
+          # Wrap Up
+
+          Review the session and persist anything worth keeping before the context is lost.
+
+          ## Steps
+
+          ### 1. Review the session
+
+          Scan the conversation for:
+          - **Decisions**: choices made with real tradeoffs or rationale (implementation approaches, rejected alternatives, constraint discoveries)
+          - **Ideas**: things that came up but were explicitly deferred ("we could also...", "maybe later...", out-of-scope items)
+
+          Ignore small tactical choices with no lasting relevance.
+
+          ### 2. Draft entries
+
+          For each decision, draft:
+          ```
+          - YYYY-MM-DD: <decision> — <rationale>
+          ```
+
+          For each idea, draft:
+          ```
+          - <idea> — <context from session>
+          ```
+
+          Use today's date for all decisions.
+
+          ### 3. Present to the user
+
+          Show the drafted entries grouped as "Decisions" and "Ideas". Ask: "Anything to add, drop, or reword?"
+
+          If nothing worth logging was found, say so plainly and stop.
+
+          ### 4. Write confirmed entries
+
+          Once the user confirms (edits accepted or a plain "yes"):
+          - Prepend each decision to `.planning/DECISIONS.md` (newest-first, after `# Decisions` heading)
+          - Append each idea to `.planning/IDEAS.md`
+          - Create either file with its heading if it doesn't exist
+
+          ### 5. Confirm
+
+          List the files written and the count of entries added to each.
         '';
       };
     };
