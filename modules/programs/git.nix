@@ -1,4 +1,5 @@
 {
+  self,
   config,
   pkgs,
   lib,
@@ -8,6 +9,10 @@
   inherit (config.acme.core) username;
   zedBinary = lib.getExe pkgs.zed-editor;
   ghBinary = lib.getExe pkgs.gh;
+  fzfDiffTools =
+    pkgs.callPackage
+    "${self}/packages/fzf-diff-tools.nix"
+    {};
 in {
   options.acme = {
     git.enable = lib.mkEnableOption "git";
@@ -15,20 +20,22 @@ in {
 
   config = lib.mkIf cfg.enable {
     hjem.users.${username} = {
-      packages = with pkgs; [
-        (git.override {
-          pythonSupport = false;
-          perlSupport = false;
-          rustSupport = true;
-        })
+      packages = with pkgs;
+        [
+          (git.override {
+            pythonSupport = false;
+            perlSupport = false;
+            rustSupport = true;
+          })
 
-        gh
-        forgejo-cli
-        git-credential-oauth
+          gh
+          forgejo-cli
+          git-credential-oauth
 
-        jq
-        ripgrep
-      ];
+          jq
+          ripgrep
+        ]
+        ++ fzfDiffTools.packages;
       files = {
         # TODO options for more of this (maybe the whole thing)
         ".gitconfig".source =
