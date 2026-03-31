@@ -9,6 +9,11 @@
   cfg = config.acme.hyprland;
   inherit (config.acme.core) username;
   inherit (import ./lib.nix lib) toHyprlang;
+  # TODO do this differently
+  screenshotTool =
+    pkgs.callPackage
+    "${self}/packages/screenshot.nix"
+    {};
 
   # Script to toggle active window between workspaces 1 and 2
   # probably could be simpler/better
@@ -59,19 +64,13 @@ in {
 
     hjem.users.${username} = {
       # these pkgs should be in a "graphical env" space, not hypr specifically
-      packages =
-        [
-          pkgs.gparted
-          pkgs.dunst
-          pkgs.pavucontrol
-          pkgs.graphite-cursors
-        ]
-        # TODO do this differently
-        ++ [
-          (pkgs.callPackage
-            "${self}/packages/screenshot.nix"
-            {})
-        ];
+      packages = [
+        pkgs.gparted
+        pkgs.dunst
+        pkgs.pavucontrol
+        pkgs.graphite-cursors
+        screenshotTool
+      ];
       # fixes some apps cursor theme
       xdg.data.files."icons/default/index.theme" = {
         generator = lib.generators.toINI {};
