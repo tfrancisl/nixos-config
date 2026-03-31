@@ -95,6 +95,8 @@ in {
         ".config/git/ignore".text = ''
           .direnv/
           .venv/
+          .venv
+          .claude/
         '';
       };
     };
