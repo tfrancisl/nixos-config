@@ -23,12 +23,15 @@
     };
 
     hyprland.url = "github:hyprwm/hyprland";
+
+    claude.url = "github:sadjow/claude-code-nix";
   };
 
   outputs = inputs @ {self, ...}: let
     system = "x86_64-linux";
     specialArgs = {
       inherit inputs system self;
+      claude-code = inputs.claude.packages.${system}.claude-code;
     };
   in {
     nixosConfigurations = {
