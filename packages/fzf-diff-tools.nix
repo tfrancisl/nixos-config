@@ -7,13 +7,13 @@
   ...
 }: let
   # Preview command for gd (file-level diff).
-  # GIT_ARGS_STR and SIDE_BY_SIDE are exported shell vars; bash expands them
+  # GIT_ARGS_STR are exported shell vars; bash expands them
   # at fzf-command-construction time (double-quoted --preview string).
   # {-1} is an fzf placeholder substituted at preview time.
-  filePreviewCmd = ''git diff ''${GIT_ARGS_STR} -- {-1} | delta --width=100 ''${SIDE_BY_SIDE:+--side-by-side}'';
+  filePreviewCmd = ''git diff ''${GIT_ARGS_STR} -- {-1} | delta --width=variable'';
 
   # Preview command for gl (commit-level diff). {1} = short hash from --oneline.
-  commitPreviewCmd = "git show {1} | delta --width=100";
+  commitPreviewCmd = "git show {1} | delta --width=variable";
 
   # Peek binding for gl: open full diff in pager, then return to gl.
   commitPeekCmd = "git show {1} | delta | less -FRX";
@@ -23,25 +23,19 @@
     runtimeInputs = [fzf git delta];
     text = ''
       # Browse git diffs through fzf + delta. Accepts any flags that
-      # git diff supports, plus --side (delta only, silently ignored otherwise).
+      # git diff supports.
       #
       # Examples:
       #   gd
       #   gd --staged
       #   gd HEAD~1..HEAD
-      #   gd --side
       set -o errexit
       set -o pipefail
       set -o nounset
 
-      SIDE_BY_SIDE=""
       GIT_ARGS=()
       for arg in "$@"; do
-        if [[ "$arg" == "--side" ]]; then
-          SIDE_BY_SIDE=1
-        else
-          GIT_ARGS+=("$arg")
-        fi
+        GIT_ARGS+=("$arg")
       done
       GIT_ARGS+=("--color=always")
 
@@ -50,7 +44,6 @@
       # Safe: git diff flags do not contain spaces.
       GIT_ARGS_STR="''${GIT_ARGS[*]}"
       export GIT_ARGS_STR
-      export SIDE_BY_SIDE
 
       git diff --name-only "''${GIT_ARGS[@]}" |
         fzf --ansi \
