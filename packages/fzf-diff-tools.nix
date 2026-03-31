@@ -18,10 +18,6 @@
   # Peek binding for gl: open full diff in pager, then return to gl.
   commitPeekCmd = "git show {1} | delta | less -FRX";
 
-  # Meld command: show multiple selected commits in one pager.
-  # HASHES is a bash array populated after fzf exits.
-  meldCmd = ''git show "''${HASHES[@]}" | delta | less -FRX'';
-
   gd = writeShellApplication {
     name = "gd";
     runtimeInputs = [fzf git delta];
@@ -70,9 +66,7 @@
       # Browse git log through fzf + delta.
       # Tab/Shift-Tab: select/deselect commits.
       # Ctrl-P: peek at highlighted commit's full diff in pager, return to gl.
-      # Enter:
-      #   0 tab-selected → drill into gd file picker for highlighted commit
-      #   2+ tab-selected → meld selected commits' diffs in one pager
+      # Enter: drill into gd file picker for highlighted commit
       #
       # Examples:
       #   gl
@@ -97,11 +91,8 @@
 
       mapfile -t HASHES < <(echo "$SELECTION" | awk '{print $1}')
 
-      if [[ "''${#HASHES[@]}" -eq 1 ]]; then
-        gd "''${HASHES[0]}^..''${HASHES[0]}"
-      else
-        ${meldCmd}
-      fi
+      gd "''${HASHES[0]}^..''${HASHES[0]}"
+
     '';
   };
 in {
