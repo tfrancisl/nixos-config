@@ -179,7 +179,7 @@ in {
 
           # Improve Codebase Architecture
 
-          Explore a codebase like an AI would, surface architectural friction, discover opportunities for improving testability, and propose module-deepening refactors as GitHub issue RFCs.
+          Explore a codebase like an AI would, surface architectural friction, discover opportunities for improving testability, and propose module-deepening refactors as issue RFCs.
 
           A **deep module** (John Ousterhout, "A Philosophy of Software Design") has a small interface hiding a large implementation. Deep modules are more testable, more AI-navigable, and let you test at the boundary instead of inside.
 
@@ -245,9 +245,9 @@ in {
 
           ### 6. User picks an interface (or accepts recommendation)
 
-          ### 7. Create GitHub issue
+          ### 7. Create issue document
 
-          Create a refactor RFC as a GitHub issue using `gh issue create`. Use the template in [REFERENCE.md](REFERENCE.md). Do NOT ask the user to review before creating — just create it and share the URL.
+          Create a refactor RFC as a issue document as markdown and place it in .planning/issues/. Use the template in [REFERENCE.md](REFERENCE.md). Do NOT ask the user to review before creating — just create it and share the file path.
         '';
         ".claude/skills/improve-codebase/REFERENCE.md".text = ''
           # Reference
@@ -332,7 +332,7 @@ in {
         ".claude/skills/request-refactor/SKILL.md".text = ''
           ---
           name: request-refactor-plan
-          description: Create a detailed refactor plan with tiny commits via user interview, then file it as a GitHub issue. Use when user wants to plan a refactor, create a refactoring RFC, or break a refactor into safe incremental steps.
+          description: Create a detailed refactor plan with tiny commits via user interview, then file it in an issue document. Use when user wants to plan a refactor, create a refactoring RFC, or break a refactor into safe incremental steps.
           ---
 
           This skill will be invoked when the user wants to create a refactor request. You should go through the steps below. You may skip steps if you don't consider them necessary.
@@ -351,7 +351,7 @@ in {
 
           7. Break the implementation into a plan of tiny commits. Remember Martin Fowler's advice to "make each refactoring step as small as possible, so that you can always see the program working."
 
-          8. Create a GitHub issue with the refactor plan. Use the following template for the issue description:
+          8. Create an issue document with the refactor plan. Use the following template for the issue description:
 
           <refactor-plan-template>
 
