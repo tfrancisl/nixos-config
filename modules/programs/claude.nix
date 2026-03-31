@@ -12,10 +12,10 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [
-      claude-code # Uses overlay from sadjow/claude-code-nix instead of nixpkgs
-    ];
     hjem.users.${username} = {
+      packages = [
+        claude-code # Uses overlay from sadjow/claude-code-nix instead of nixpkgs
+      ];
       files = {
         ".claude/CLAUDE.md".text = ''
           ## General tone and terminology

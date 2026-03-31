@@ -14,7 +14,6 @@ in {
         dust
 
         alacritty
-        nnn
         htop
 
         hydra-check
@@ -23,7 +22,6 @@ in {
         nixd
 
         rivalcfg # CLI for SteelSeries mouse hardware config
-        lxqt.qps # qt process monitor
       ];
     };
   };

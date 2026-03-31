@@ -32,21 +32,6 @@
     // (binVar pkgs.wofi "wofi");
 in {
   config = lib.mkIf cfg.enable {
-    # these pkgs should be in a "graphical env" space, not hypr specifically
-    environment.systemPackages = with pkgs;
-      [
-        gparted
-        dunst
-        pavucontrol
-        graphite-cursors
-      ]
-      # TODO do this differently
-      ++ [
-        (pkgs.callPackage
-          "${self}/packages/screenshot.nix"
-          {})
-      ];
-
     systemd.user.targets.hyprland-session = {
       description = "Hyprland compositor session";
       documentation = ["man:systemd.special(7)"];
@@ -73,6 +58,20 @@ in {
     };
 
     hjem.users.${username} = {
+      # these pkgs should be in a "graphical env" space, not hypr specifically
+      packages =
+        [
+          pkgs.gparted
+          pkgs.dunst
+          pkgs.pavucontrol
+          pkgs.graphite-cursors
+        ]
+        # TODO do this differently
+        ++ [
+          (pkgs.callPackage
+            "${self}/packages/screenshot.nix"
+            {})
+        ];
       # fixes some apps cursor theme
       xdg.data.files."icons/default/index.theme" = {
         generator = lib.generators.toINI {};
