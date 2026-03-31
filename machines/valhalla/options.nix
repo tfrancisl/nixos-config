@@ -13,6 +13,7 @@ _: {
     hyprland.enable = true;
     firefox.enable = true;
     zed-editor.enable = true;
+    claude-code.enable = true;
     gaming.enable = true;
     network = {
       enable = true;

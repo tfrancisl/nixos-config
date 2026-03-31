@@ -38,5 +38,6 @@ in {
     ./sudo.nix
     ./direnv.nix
     ./fzf-git-diff.nix
+    ./claude.nix
   ];
 }
