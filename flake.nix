@@ -17,6 +17,11 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     hjem = {
       url = "github:feel-co/hjem";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -27,29 +32,45 @@
     claude.url = "github:sadjow/claude-code-nix";
   };
 
-  outputs = inputs @ {self, ...}: let
-    system = "x86_64-linux";
-    specialArgs = {
-      inherit inputs system self;
-      claude-code = inputs.claude.packages.${system}.claude-code;
-    };
-  in {
+  outputs = inputs @ {self, ...}: {
     nixosConfigurations = {
-      valhalla = inputs.nixpkgs.lib.nixosSystem {
-        inherit specialArgs system;
-        modules = [
-          ./machines/valhalla
-          ./modules
-        ];
-      };
-      hel = inputs.nixpkgs.lib.nixosSystem {
-        inherit specialArgs system;
-        modules = [
-          ./machines/hel
-          ./modules
-        ];
-      };
+      valhalla = let
+        system = "x86_64-linux";
+        specialArgs = {
+          inherit inputs system self;
+          inherit (inputs.claude.packages.${system}) claude-code;
+        };
+      in
+        inputs.nixpkgs.lib.nixosSystem {
+          inherit specialArgs system;
+          modules = [
+            ./machines/valhalla
+            ./modules/common
+            ./modules/nixos
+          ];
+        };
     };
+    darwinConfigurations = {
+      mymac = let
+        system = "aarch64-darwin";
+        specialArgs = {
+          inherit inputs system self;
+        };
+      in
+        inputs.nix-darwin.lib.darwinSystem {
+          inherit specialArgs system;
+          modules = [
+            {
+              system.configurationRevision = self.rev or self.dirtyRev or null;
+              system.stateVersion = 6;
+            }
+            ./machines/mymac
+            ./modules/common
+            ./modules/darwin
+          ];
+        };
+    };
+
     devShells.x86_64-linux.default = let
       pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
     in
