@@ -1,0 +1,52 @@
+{
+  lib,
+  config,
+  inputs,
+  pkgs,
+  self,
+  ...
+}: let
+  inherit (config.acme.core) username;
+  fzfGitDiff =
+    pkgs.callPackage
+    "${self}/packages/fzf-diff-tools.nix"
+    {};
+  myNixFmt = pkgs.callPackage "${self}/packages/fmt.nix" {};
+in {
+  options.acme = {
+    core.username = lib.mkOption {
+      type = lib.types.str;
+    };
+  };
+
+  config = {
+    hjem = {
+      linker = pkgs.smfh;
+      clobberByDefault = true;
+
+      users.${username}.enable = true;
+    };
+
+    users.users.${username} = {
+      description = "${username}'s user account";
+      shell = pkgs.fish;
+      packages = [myNixFmt] ++ fzfGitDiff.packages;
+    };
+
+    environment.variables = {
+      XDG_CONFIG_HOME = "$HOME/.config";
+      XDG_DATA_HOME = "$HOME/.local/share";
+      XDG_CACHE_HOME = "$HOME/.cache";
+      XDG_STATE_HOME = "$HOME/.local/state";
+    };
+
+    programs.fish = {
+      enable = true;
+    };
+    time.timeZone = "America/New_York"; # EST/EDT
+  };
+
+  imports = [
+    inputs.hjem.darwinModules.default
+  ];
+}
