@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  ...
 }: let
   inherit (config.acme.core) username;
 in {
