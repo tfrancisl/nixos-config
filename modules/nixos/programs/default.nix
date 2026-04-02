@@ -28,7 +28,6 @@ in {
   imports = [
     ./gaming
     ./hyprland
-    ./zed
     ./firefox.nix
     ./git.nix
     ./greeter.nix
