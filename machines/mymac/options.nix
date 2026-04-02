@@ -10,5 +10,6 @@ _: {
         username = "tlester";
       };
     };
+    claude-code.enable = true;
   };
 }

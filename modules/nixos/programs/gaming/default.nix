@@ -13,6 +13,7 @@ in {
   config = lib.mkIf cfg.enable {
     hjem.users.${username} = {
       packages = with pkgs; [
+        rivalcfg # CLI for SteelSeries mouse hardware config
         lunar-client
         wofi
         spotify
