@@ -2,11 +2,9 @@
   lib,
   config,
   pkgs,
-  self,
   ...
 }: let
   inherit (config.acme.core) username;
-  myNixFmt = pkgs.callPackage "${self}/packages/fmt.nix" {};
 in {
   options.acme = {
     core.username = lib.mkOption {
@@ -22,7 +20,6 @@ in {
     users.users.${username} = {
       description = "${username}'s user account";
       shell = pkgs.fish;
-      packages = [myNixFmt pkgs.nixd];
     };
 
     environment.variables = {

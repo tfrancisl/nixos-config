@@ -55,6 +55,7 @@
         system = "aarch64-darwin";
         specialArgs = {
           inherit inputs system self;
+          inherit (inputs.claude.packages.${system}) claude-code;
         };
       in
         inputs.nix-darwin.lib.darwinSystem {
