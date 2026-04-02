@@ -8,6 +8,8 @@ _: {
       Defaults env_keep += "EDITOR PATH DISPLAY"
       # custom sudo prompt
       Defaults passprompt = "[*SUDO*]: "
+      # If I entered my password within ten minutes, pls stop prompting me
+      Defaults timestamp_timeout=10
     '';
   };
 }
