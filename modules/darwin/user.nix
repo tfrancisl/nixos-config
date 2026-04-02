@@ -1,16 +1,11 @@
 {
   lib,
   config,
-  inputs,
   pkgs,
   self,
   ...
 }: let
   inherit (config.acme.core) username;
-  fzfGitDiff =
-    pkgs.callPackage
-    "${self}/packages/fzf-diff-tools.nix"
-    {};
   myNixFmt = pkgs.callPackage "${self}/packages/fmt.nix" {};
 in {
   options.acme = {
@@ -20,17 +15,10 @@ in {
   };
 
   config = {
-    hjem = {
-      linker = pkgs.smfh;
-      clobberByDefault = true;
-
-      users.${username}.enable = true;
-    };
-
     users.users.${username} = {
       description = "${username}'s user account";
       shell = pkgs.fish;
-      packages = [myNixFmt] ++ fzfGitDiff.packages;
+      packages = [myNixFmt pkgs.nixd];
     };
 
     environment.variables = {
@@ -45,8 +33,4 @@ in {
     };
     time.timeZone = "America/New_York"; # EST/EDT
   };
-
-  imports = [
-    inputs.hjem.darwinModules.default
-  ];
 }

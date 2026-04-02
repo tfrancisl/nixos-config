@@ -1,3 +1,6 @@
 {...}: {
-  imports = [];
+  imports = [
+    ./hjem.nix
+    ./nix.nix
+  ];
 }

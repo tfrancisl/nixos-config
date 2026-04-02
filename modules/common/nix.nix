@@ -1,6 +1,4 @@
-{config, ...}: let
-  inherit (config.acme.core) username;
-in {
+_: {
   config = {
     nix.settings = {
       experimental-features = [
@@ -14,13 +12,6 @@ in {
       download-buffer-size = 500 * 1024 * 1024;
       allowed-users = ["@wheel"];
       trusted-users = ["@wheel"];
-    };
-
-    programs.nh = {
-      enable = true;
-      clean.enable = true;
-      clean.extraArgs = "--keep-since 10d --keep 4 --optimise";
-      flake = "/home/${username}/nixos-config";
     };
 
     nixpkgs.config = {

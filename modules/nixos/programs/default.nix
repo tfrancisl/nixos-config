@@ -36,5 +36,6 @@ in {
     ./sudo.nix
     ./direnv.nix
     ./claude.nix
+    ./nh.nix
   ];
 }
