@@ -13,7 +13,6 @@ _: {
         args = {appdir = "~/my-apps/Applications";};
       }
       {name = "alacritty";}
-      {name = "aerospace";}
       {name = "zed";}
     ];
   };

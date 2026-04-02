@@ -1,7 +1,9 @@
-{...}: {
+{inputs, ...}: {
   imports = [
-    ./nix.nix
     ./user.nix
     ./brew.nix
+    ./aerospace.nix
+    ./sudo.nix
+    inputs.hjem.darwinModules.default
   ];
 }

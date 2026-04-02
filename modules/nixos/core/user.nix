@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  inputs,
   pkgs,
   ...
 }: let
@@ -15,12 +14,6 @@ in {
   };
 
   config = {
-    hjem = {
-      linker = pkgs.smfh;
-      clobberByDefault = true;
-
-      users.${username}.enable = true;
-    };
     xdg = {
       autostart.enable = lib.mkForce false;
       portal = {
@@ -56,8 +49,4 @@ in {
     time.timeZone = "America/New_York"; # EST/EDT
     i18n.defaultLocale = "en_US.UTF-8";
   };
-
-  imports = [
-    inputs.hjem.nixosModules.default
-  ];
 }
