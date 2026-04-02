@@ -28,9 +28,12 @@
       inputs.nix-darwin.follows = "nix-darwin";
     };
 
-    hyprland.url = "github:hyprwm/hyprland";
+    claude = {
+      url = "github:sadjow/claude-code-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    claude.url = "github:sadjow/claude-code-nix";
+    hyprland.url = "github:hyprwm/hyprland";
   };
 
   outputs = inputs @ {self, ...}: {
