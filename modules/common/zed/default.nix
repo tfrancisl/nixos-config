@@ -6,12 +6,19 @@
 }: let
   cfg = config.acme.zed-editor;
   inherit (config.acme.core) username;
-  zed-bin = "${pkgs.zed-editor}/bin/zeditor";
+  zed-bin = "${cfg.package}/bin/zeditor";
 in {
   options.acme = {
-    zed-editor.enable = lib.mkEnableOption "zed-editor";
+    zed-editor = {
+      package = lib.mkOption {
+        description = "Zed editor package.";
+        default = pkgs.zed-editor;
+        type = lib.types.package;
+      };
+    };
   };
-  config = lib.mkIf cfg.enable {
+
+  config = {
     hjem.users.${username} = {
       packages = [
         pkgs.zed-editor
@@ -23,7 +30,7 @@ in {
     environment.shellAliases = {
       "zed" = zed-bin;
     };
-    environment.sessionVariables = {
+    environment.variables = {
       "EDITOR" = zed-bin;
       "VISUAL" = zed-bin;
     };
