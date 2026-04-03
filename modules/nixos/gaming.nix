@@ -1,16 +1,11 @@
 {
   config,
   pkgs,
-  lib,
   ...
 }: let
-  cfg = config.acme.gaming;
   inherit (config.acme.core) username;
 in {
-  options.acme = {
-    gaming.enable = lib.mkEnableOption "gaming";
-  };
-  config = lib.mkIf cfg.enable {
+  config = {
     hjem.users.${username} = {
       packages = with pkgs; [
         rivalcfg # CLI for SteelSeries mouse hardware config

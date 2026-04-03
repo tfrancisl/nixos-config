@@ -1,15 +1,5 @@
-{
-  config,
-  lib,
-  ...
-}: let
-  cfg = config.acme.pipewire;
-in {
-  options.acme = {
-    pipewire.enable = lib.mkEnableOption "pipewire";
-  };
-
-  config = lib.mkIf cfg.enable {
+{lib, ...}: {
+  config = {
     services.pulseaudio.enable = lib.mkForce false;
     services.pipewire = {
       enable = true;

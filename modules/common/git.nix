@@ -7,8 +7,8 @@
 }: let
   cfg = config.acme.git;
   inherit (config.acme.core) username;
-  zed-bin = lib.getExe config.acme.zed-editor.package;
-  gh-bin = lib.getExe config.acme.gh.package;
+  zed-bin = lib.getExe pkgs.zed-editor;
+  gh-bin = lib.getExe pkgs.gh;
   fzfDiffTools =
     pkgs.callPackage
     "${self}/packages/fzf-diff-tools.nix"
@@ -26,19 +26,16 @@ in {
 
   config = {
     hjem.users.${username} = {
-      packages = with pkgs;
+      packages =
         [
-          (git.override {
+          (pkgs.git.override {
             pythonSupport = false;
             perlSupport = false;
             rustSupport = true;
           })
-
-          forgejo-cli
-          git-credential-oauth
-
-          jq
-          ripgrep
+          pkgs.forgejo-cli
+          pkgs.git-credential-oauth
+          pkgs.gh
         ]
         ++ fzfDiffTools.packages;
       files = {

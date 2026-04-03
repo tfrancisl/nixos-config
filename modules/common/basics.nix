@@ -14,6 +14,8 @@ in {
       packages = [
         pkgs.dust
         pkgs.htop
+        pkgs.jq
+        pkgs.ripgrep
         pkgs.hydra-check
         pkgs.alejandra
         pkgs.nixd
