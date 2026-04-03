@@ -22,6 +22,7 @@ in {
     hjem.users.${username} = {
       packages = [
         pkgs.zed-editor
+        pkgs.package-version-server
       ];
       xdg.config.files = {
         "zed/settings.json".source = ./zed-settings.json;
