@@ -6,6 +6,7 @@ _: {
       {name = "databricks";}
       {name = "mise";}
       {name = "usage";}
+      {name = "Arthur-Ficial/tap/apfel";}
     ];
     casks = [
       {
@@ -13,6 +14,9 @@ _: {
         args = {appdir = "~/my-apps/Applications";};
       }
       {name = "alacritty";}
+    ];
+    taps = [
+      {name = "Arthur-Ficial/tap";}
     ];
   };
 }
