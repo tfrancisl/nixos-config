@@ -36,8 +36,4 @@ in {
       "PROTON_USE_WOW64" = "1";
     };
   };
-  imports = [
-    ./steam.nix
-    ./discord.nix
-  ];
 }

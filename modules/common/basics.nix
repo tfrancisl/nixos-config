@@ -6,7 +6,6 @@
   ...
 }: let
   inherit (config.acme.core) username;
-
   myNixFmt = pkgs.callPackage "${self}/packages/fmt.nix" {};
 in {
   config = {
@@ -14,25 +13,12 @@ in {
     hjem.users.${username} = {
       packages = [
         pkgs.dust
-
         pkgs.htop
-
         pkgs.hydra-check
-
         pkgs.alejandra
         pkgs.nixd
-
         myNixFmt
       ];
     };
   };
-
-  imports = [
-    ./zed
-    ./hjem.nix
-    ./nix.nix
-    ./gh.nix
-    ./git.nix
-    ./claude.nix
-  ];
 }

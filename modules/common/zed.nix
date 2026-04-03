@@ -24,7 +24,7 @@ in {
         pkgs.zed-editor
       ];
       xdg.config.files = {
-        "zed/settings.json".source = ./settings.json;
+        "zed/settings.json".source = ./zed-settings.json;
       };
     };
     environment.shellAliases = {
