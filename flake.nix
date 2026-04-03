@@ -36,22 +36,37 @@
     hyprland.url = "github:hyprwm/hyprland";
   };
 
-  outputs = inputs @ {self, ...}: {
+  outputs = inputs @ {
+    self,
+    nixpkgs,
+    ...
+  }: let
+    inherit (self.lib') listNixFilesRecursive;
+  in {
+    lib' = import ./lib {inherit (nixpkgs) lib;};
+
     nixosConfigurations = {
       valhalla = let
         system = "x86_64-linux";
         specialArgs = {
           inherit inputs system self;
+          inherit (self) lib';
           inherit (inputs.claude.packages.${system}) claude-code;
         };
+        modules =
+          [
+            inputs.hjem.nixosModules.default
+          ]
+          ++ (listNixFilesRecursive
+            ./machines/valhalla)
+          ++ (listNixFilesRecursive
+            ./modules/common)
+          ++ (listNixFilesRecursive
+            ./modules/nixos);
       in
         inputs.nixpkgs.lib.nixosSystem {
           inherit specialArgs system;
-          modules = [
-            ./machines/valhalla
-            ./modules/common
-            ./modules/nixos
-          ];
+          inherit modules;
         };
     };
     darwinConfigurations = {
@@ -61,18 +76,24 @@
           inherit inputs system self;
           inherit (inputs.claude.packages.${system}) claude-code;
         };
-      in
-        inputs.nix-darwin.lib.darwinSystem {
-          inherit specialArgs system;
-          modules = [
+        modules =
+          [
             {
               system.configurationRevision = self.rev or self.dirtyRev or null;
               system.stateVersion = 6;
             }
-            ./machines/mymac
-            ./modules/common
-            ./modules/darwin
-          ];
+            inputs.hjem.darwinModules.default
+          ]
+          ++ (listNixFilesRecursive
+            ./machines/mymac)
+          ++ (listNixFilesRecursive
+            ./modules/common)
+          ++ (listNixFilesRecursive
+            ./modules/darwin);
+      in
+        inputs.nix-darwin.lib.darwinSystem {
+          inherit specialArgs system;
+          inherit modules;
         };
     };
 
@@ -80,12 +101,7 @@
       pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
     in
       pkgs.mkShell {
-        packages = [
-          pkgs.git
-          (pkgs.callPackage
-            "${self}/packages/fmt.nix"
-            {})
-        ];
+        packages = [];
         name = "nixos-config";
       };
   };
