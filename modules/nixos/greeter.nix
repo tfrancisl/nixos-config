@@ -11,14 +11,13 @@
 in {
   options.acme = {
     greeter = {
-      enable = lib.mkEnableOption "greeter";
       autologinCommand = lib.mkOption {
         type = lib.types.str;
       };
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = {
     services.greetd = {
       enable = true;
       settings = {

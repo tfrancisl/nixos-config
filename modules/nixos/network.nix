@@ -7,13 +7,12 @@
 in {
   options.acme = {
     network = {
-      enable = lib.mkEnableOption "network";
       hostname = lib.mkOption {
         type = lib.types.str;
       };
     };
   };
-  config = lib.mkIf cfg.enable {
+  config = {
     boot.blacklistedKernelModules = [
       "bluetooth"
       "iwlwifi"

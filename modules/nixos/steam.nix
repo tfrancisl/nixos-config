@@ -1,19 +1,11 @@
 {
   pkgs,
   config,
-  lib,
   ...
 }: let
-  cfg = config.acme.gaming.steam;
   inherit (config.acme.core) username;
 in {
-  options.acme = {
-    gaming.steam.enable = lib.mkOption {
-      default = config.acme.gaming.enable;
-      type = lib.types.bool;
-    };
-  };
-  config = lib.mkIf cfg.enable {
+  config = {
     users.users.${username} = {
       extraGroups = [
         "gamemode"
