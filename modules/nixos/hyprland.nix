@@ -1,10 +1,8 @@
 {
   self,
-  inputs,
   config,
   pkgs,
   lib,
-  system,
   ...
 }: let
   cfg = config.acme.hyprland;
