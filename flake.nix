@@ -74,10 +74,6 @@
         };
         modules =
           [
-            {
-              system.configurationRevision = self.rev or self.dirtyRev or null;
-              system.stateVersion = 6;
-            }
             inputs.hjem.darwinModules.default
           ]
           ++ (listNixFilesRecursive
