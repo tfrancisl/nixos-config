@@ -1,6 +1,6 @@
 # nixos-config
 
-My personal nix/NixOS configuration files. Currently targets one system, my gaming PC.
+My personal nix/NixOS configuration files. Currently targets two systems, my gaming PC, and my user configuration for my work MacBook.
 
 ### Configs I "Stole" From
 
