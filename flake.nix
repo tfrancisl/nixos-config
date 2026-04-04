@@ -1,5 +1,5 @@
 {
-  description = "NixOS flake";
+  description = "TFL's nix flake for NixOS and MacOS.";
 
   nixConfig = {
     extra-substituters = [
