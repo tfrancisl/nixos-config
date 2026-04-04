@@ -232,7 +232,6 @@
   # Binary variables for workspace toggle keybind
   bins =
     (binVar pkgs.alacritty "alacritty")
-    // (binVar pkgs.nnn "nnn")
     // (binVar pkgs.wofi "wofi");
 in {
   options.acme = {
@@ -416,7 +415,6 @@ in {
             "$super_mod, T, exec, ${toggleWorkspaceScript}"
 
             "$super_mod, Q, exec, $alacritty"
-            "$super_mod, E, exec, $alacritty -e $nnn"
             "$super_mod, R, exec, $wofi --show drun"
             "$super_mod, S, exec, screenshot"
 

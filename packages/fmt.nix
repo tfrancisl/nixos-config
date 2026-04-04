@@ -1,12 +1,12 @@
 {pkgs, ...}:
 pkgs.writeShellApplication {
   name = "nfmt";
-  runtimeInputs = with pkgs; [
-    alejandra
-    deadnix
-    statix
-    fd
-    nixf-diagnose
+  runtimeInputs = [
+    pkgs.alejandra
+    pkgs.deadnix
+    pkgs.statix
+    pkgs.fd
+    pkgs.nixf-diagnose
   ];
   text = ''
     fd "$@" -t f -e nix -x statix fix -- '{}'
