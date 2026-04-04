@@ -7,15 +7,15 @@
 in {
   config = {
     hjem.users.${username} = {
-      packages = with pkgs; [
-        rivalcfg # CLI for SteelSeries mouse hardware config
-        lunar-client
-        wofi
-        spotify
-        r2modman
-        balatro-mod-manager
-        prismlauncher
-        teamspeak6-client
+      packages = [
+        pkgs.rivalcfg # CLI for SteelSeries mouse hardware config
+        pkgs.lunar-client
+        pkgs.wofi
+        pkgs.spotify
+        pkgs.r2modman
+        pkgs.balatro-mod-manager
+        pkgs.prismlauncher
+        pkgs.teamspeak6-client
       ];
     };
 

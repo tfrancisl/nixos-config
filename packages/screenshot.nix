@@ -1,7 +1,13 @@
 {pkgs, ...}:
 pkgs.writeShellApplication {
   name = "screenshot";
-  runtimeInputs = with pkgs; [grim slurp wl-clipboard wayfreeze dunst];
+  runtimeInputs = [
+    pkgs.grim
+    pkgs.slurp
+    pkgs.wl-clipboard
+    pkgs.wayfreeze
+    pkgs.dunst
+  ];
   text = ''
     fileName="screenshot_$(date '+%Y-%m-%d_%H:%M:%S').png"
     screenshotDir="$HOME/screenshots"
