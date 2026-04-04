@@ -244,8 +244,6 @@ in {
   config = lib.mkIf cfg.enable {
     programs.hyprland = {
       enable = lib.mkForce cfg.enable;
-      package = inputs.hyprland.packages.${system}.hyprland;
-      portalPackage = inputs.hyprland.packages.${system}.xdg-desktop-portal-hyprland;
     };
 
     systemd.user.targets.hyprland-session = {
@@ -292,7 +290,7 @@ in {
     };
 
     # Could not get this to work using hjem.users.${username}.xdg.config.files
-    # Resorting to etc conf file. This probably has something to do with the hyprland repo module
+    # Resorting to etc conf file.
     environment.etc."xdg/hypr/hyprland.conf".text = let
       config =
         bins
