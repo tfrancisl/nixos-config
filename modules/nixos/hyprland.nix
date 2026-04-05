@@ -92,7 +92,7 @@
 
   :::
   */
-  # Taken blindly from https://github.com/hyprwm/Hyprland/blob/main/nix/lib.nix
+  # Adapted from https://github.com/hyprwm/Hyprland/blob/main/nix/lib.nix
   toHyprlang = {
     topCommandsPrefixes ? ["$" "bezier"],
     bottomCommandsPrefixes ? [],
@@ -208,7 +208,6 @@
   in
     flattenAttrs' "" attrs;
 
-  # TODO do this differently
   screenshotTool =
     pkgs.callPackage
     "${self}/packages/screenshot.nix"

@@ -6,8 +6,6 @@ in {
   hjem.users.${username}.files.".config/aerospace/aerospace.toml".text = ''
     config-version = 2
 
-    after-startup-command = [  ]
-
     start-at-login = true
 
     enable-normalization-flatten-containers = true
@@ -22,8 +20,6 @@ in {
 
     persistent-workspaces = [ "1", "2" ]
     automatically-unhide-macos-hidden-apps = true
-
-    on-mode-changed = [  ]
 
     [key-mapping]
     preset = "qwerty"
