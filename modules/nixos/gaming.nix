@@ -10,6 +10,7 @@ in {
       packages = [
         pkgs.rivalcfg # CLI for SteelSeries mouse hardware config
         pkgs.lunar-client
+        pkgs.mangohud
         pkgs.wofi
         pkgs.spotify
         pkgs.r2modman
@@ -29,6 +30,7 @@ in {
       "PROTON_ENABLE_WAYLAND" = "1";
       "WAYLANDDRV_PRIMARY_MONITOR" = "DP-3";
       "PROTON_USE_WOW64" = "1";
+      "VKD3D_CONFIG" = "dxr11";
     };
   };
 }
