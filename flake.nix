@@ -89,6 +89,19 @@
         };
     };
 
+    # Cross-platform shellcheck: catches errors in both scripts regardless
+    # of which platform you build on. Run: nix flake check
+    checks = let
+      forSystem = system: let
+        pkgs = inputs.nixpkgs.legacyPackages.${system};
+        syscheck = pkgs.callPackage ./packages/syscheck.nix {};
+      in
+        syscheck.checks;
+    in {
+      x86_64-linux = forSystem "x86_64-linux";
+      aarch64-darwin = forSystem "aarch64-darwin";
+    };
+
     devShells.x86_64-linux.default = let
       pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
     in
