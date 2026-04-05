@@ -13,7 +13,7 @@ _: {
       "/media/games" = {
         device = "/dev/disk/by-uuid/9b2fe55b-3428-49f8-b44c-bfd1abe0185e";
         fsType = "btrfs";
-        options = ["subvol=games"];
+        options = ["subvol=games" "compress=zstd:1"];
       };
     };
   };
