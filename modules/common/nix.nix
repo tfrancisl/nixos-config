@@ -14,9 +14,7 @@ _: {
       trusted-users = ["@wheel"];
     };
 
-    nixpkgs.config = {
-      allowUnfree = true;
-      documentation.nixos.enable = false;
-    };
+    nixpkgs.config.allowUnfree = true;
+    documentation.nixos.enable = false;
   };
 }
