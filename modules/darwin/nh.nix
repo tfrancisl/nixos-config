@@ -15,7 +15,7 @@ in {
 
     # Equivalent of programs.nh.clean on NixOS — same command, launchd instead of systemd
     launchd.daemons.nh-clean = {
-      command = "${nh} clean all --keep-since 10d --keep 4 --optimise";
+      command = "${nh} clean all ${config.acme.nh.cleanArgs}";
       serviceConfig = {
         StartCalendarInterval = [
           {
