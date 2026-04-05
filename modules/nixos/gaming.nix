@@ -10,6 +10,7 @@ in {
       packages = [
         pkgs.rivalcfg # CLI for SteelSeries mouse hardware config
         pkgs.lunar-client
+        pkgs.mangohud
         pkgs.wofi
         pkgs.spotify
         pkgs.r2modman
@@ -25,8 +26,6 @@ in {
     services.udev.extraRules = ''
       KERNEL=="ntsync", MODE="0644"
     '';
-    programs.mangohud.enable = true;
-
     environment.sessionVariables = {
       "PROTON_ENABLE_WAYLAND" = "1";
       "WAYLANDDRV_PRIMARY_MONITOR" = "DP-3";
