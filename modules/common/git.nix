@@ -39,7 +39,6 @@ in {
         ]
         ++ fzfDiffTools.packages;
       files = {
-        # TODO options for more of this (maybe the whole thing)
         ".gitconfig".source =
           (pkgs.formats.gitIni {}).generate "config"
           {

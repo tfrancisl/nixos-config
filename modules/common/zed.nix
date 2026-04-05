@@ -1,10 +1,11 @@
 {
   pkgs,
+  lib,
   config,
   ...
 }: let
   inherit (config.acme.core) username;
-  zed-bin = "${pkgs.zed-editor}/bin/zeditor";
+  zed-bin = lib.getExe pkgs.zed-editor;
 in {
   config = {
     hjem.users.${username} = {
