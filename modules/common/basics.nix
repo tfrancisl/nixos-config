@@ -12,10 +12,13 @@ in {
     environment.defaultPackages = lib.mkDefault [];
     hjem.users.${username} = {
       packages = [
+        pkgs.bat
         pkgs.dust
+        pkgs.eza
         pkgs.htop
         pkgs.jq
         pkgs.ripgrep
+        pkgs.zoxide
         pkgs.hydra-check
         pkgs.alejandra
         pkgs.nixd
