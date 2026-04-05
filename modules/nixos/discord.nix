@@ -10,7 +10,9 @@ in {
     hjem.users.${username} = {
       packages = [
         (pkgs.discord.override {
-          # we disable updates in settings.json
+          # false is the current upstream default; kept explicit so a
+          # nixpkgs change doesn't silently break the update nag we skip
+          # via SKIP_HOST_UPDATE in settings.json below
           disableUpdates = false;
           withTTS = false;
           enableAutoscroll = true;
