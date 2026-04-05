@@ -4,6 +4,7 @@
   ...
 }: {
   config = {
+    documentation.nixos.enable = false;
     boot.initrd.availableKernelModules = [
       "xhci_pci"
       "ahci"
