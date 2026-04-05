@@ -7,6 +7,7 @@
 }: let
   inherit (config.acme.core) username;
   myNixFmt = pkgs.callPackage "${self}/packages/fmt.nix" {};
+  mySyscheck = pkgs.callPackage "${self}/packages/syscheck.nix" {};
 in {
   config = {
     environment.defaultPackages = lib.mkDefault [];
@@ -23,6 +24,7 @@ in {
         pkgs.alejandra
         pkgs.nixd
         myNixFmt
+        mySyscheck
       ];
     };
   };
