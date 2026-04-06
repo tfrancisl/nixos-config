@@ -23,6 +23,7 @@ in {
       networkmanager.enable = false;
       useNetworkd = true;
       useDHCP = true;
+      nftables.enable = true;
     };
     systemd.network.enable = true;
   };
