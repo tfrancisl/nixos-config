@@ -28,7 +28,8 @@ in
         "$mod" = "SUPER";
         general = {gaps_in = 4;};
       };
-      pass = builtins.isString result
+      pass =
+        builtins.isString result
         && builtins.match ".*\\$mod = SUPER.*" result != null
         && builtins.match ".*general:gaps_in = 4.*" result != null;
     in
