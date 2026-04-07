@@ -22,6 +22,7 @@ in {
         pkgs.hydra-check
         pkgs.alejandra
         pkgs.nixd
+        pkgs.fzf
         myNixFmt
         mySyscheck
       ];
