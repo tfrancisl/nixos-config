@@ -1,5 +1,5 @@
 {pkgs, ...}: let
-  isLinux = pkgs.stdenv.isLinux;
+  inherit (pkgs.stdenv) isLinux;
 
   # Shared formatting helpers — prepended to both platform scripts
   formatHelpers = builtins.readFile ./syscheck/format-helpers.sh;

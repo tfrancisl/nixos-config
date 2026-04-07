@@ -1,8 +1,4 @@
-{
-  lib,
-  pkgs,
-  ...
-}: {
+{lib, ...}: {
   config = {
     security.sudo = lib.mkMerge [
       {
@@ -18,10 +14,6 @@
           Defaults timestamp_timeout=10
         '';
       }
-      (lib.mkIf pkgs.stdenv.isLinux {
-        enable = true;
-        execWheelOnly = true;
-      })
     ];
   };
 }
