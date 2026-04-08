@@ -1,4 +1,4 @@
-_: {
+{pkgs, ...}: {
   config = {
     nix.settings = {
       experimental-features = [
@@ -9,10 +9,10 @@ _: {
       allow-import-from-derivation = false;
       accept-flake-config = true;
       use-xdg-base-directories = true;
-      download-buffer-size = 500 * 1024 * 1024; # 500 MiB — helps on fast connections
       allowed-users = ["@wheel"];
       trusted-users = ["@wheel"];
     };
+    nix.package = pkgs.lixPackageSets.git.lix;
 
     nixpkgs.config.allowUnfree = true;
   };
