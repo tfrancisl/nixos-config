@@ -32,14 +32,10 @@
     };
   };
 
-  outputs = inputs @ {
-    self,
-    nixpkgs,
-    ...
-  }: let
+  outputs = inputs @ {self, ...}: let
     inherit (self.lib') listNixFilesRecursive;
   in {
-    lib' = import ./lib {inherit (nixpkgs) lib;};
+    lib' = import ./lib {inherit (inputs.nixpkgs) lib;};
 
     nixosConfigurations = {
       valhalla = let
