@@ -19,7 +19,6 @@ in {
         pkgs.htop
         pkgs.jq
         pkgs.ripgrep
-        pkgs.zoxide
         pkgs.hydra-check
         pkgs.alejandra
         pkgs.nixd
