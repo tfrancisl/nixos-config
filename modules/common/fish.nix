@@ -27,9 +27,6 @@ in {
           abbr --add ndev 'nix develop'
           abbr --add nse 'nix search nixpkgs'
         '';
-        ".config/fish/conf.d/zoxide.fish".text = ''
-          ${getExe pkgs.zoxide} init fish | source
-        '';
       };
     };
   };
