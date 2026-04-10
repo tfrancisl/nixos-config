@@ -14,6 +14,7 @@ _: {
       };
     };
     hyprland.enable = true;
+    noctalia.enable = true;
     claude-code.enable = true;
     network = {
       hostname = "valhalla";
