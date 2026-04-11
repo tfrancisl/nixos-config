@@ -5,22 +5,15 @@
     extra-substituters = [
       "https://cache.nixos.org?priority=10"
       "https://nix-community.cachix.org"
-      "https://noctalia.cachix.org"
     ];
     extra-trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
     ];
   };
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-
-    noctalia = {
-      url = "github:noctalia-dev/noctalia-shell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     nix-darwin = {
       url = "github:nix-darwin/nix-darwin/master";
@@ -48,7 +41,7 @@
       valhalla = let
         system = "x86_64-linux";
         specialArgs = {
-          inherit inputs system self;
+          inherit inputs self;
           inherit (self) lib';
           inherit (inputs.claude.packages.${system}) claude-code;
         };
@@ -64,15 +57,14 @@
             ./modules/nixos);
       in
         inputs.nixpkgs.lib.nixosSystem {
-          inherit specialArgs system;
-          inherit modules;
+          inherit specialArgs system modules;
         };
     };
     darwinConfigurations = {
       mymac = let
         system = "aarch64-darwin";
         specialArgs = {
-          inherit inputs system self;
+          inherit inputs self;
           inherit (inputs.claude.packages.${system}) claude-code;
         };
         modules =
@@ -87,8 +79,7 @@
             ./modules/darwin);
       in
         inputs.nix-darwin.lib.darwinSystem {
-          inherit specialArgs system;
-          inherit modules;
+          inherit specialArgs system modules;
         };
     };
 
