@@ -33,7 +33,7 @@
   };
 
   outputs = inputs @ {self, ...}: let
-    lib' = self.lib;
+    lib' = import ./lib {inherit (inputs.nixpkgs) lib;};
     inherit (lib') listNixFilesRecursive;
     relevantSystems = ["x86_64-linux" "aarch64-darwin"];
     forRelevantSystems = inputs.nixpkgs.lib.genAttrs relevantSystems;
@@ -48,8 +48,6 @@
         inherit (inputs.claude.packages.${system}) claude-code;
       };
   in {
-    lib = import ./lib {inherit (inputs.nixpkgs) lib;};
-
     nixosConfigurations = {
       valhalla = let
         system = "x86_64-linux";
@@ -96,13 +94,10 @@
         };
     };
 
-    checks = let
-      forSystem = system:
-        import ./checks.nix {pkgs = inputs.nixpkgs.legacyPackages.${system};};
-    in {
-      x86_64-linux = forSystem "x86_64-linux";
-      aarch64-darwin = forSystem "aarch64-darwin";
-    };
+    checks = forRelevantSystems (
+      system:
+        import ./checks.nix {pkgs = inputs.nixpkgs.legacyPackages.${system};}
+    );
 
     packages = forRelevantSystems (system: {
       myNixFmt = (pkgsFor system).callPackage "${self}/packages/fmt.nix" {};
