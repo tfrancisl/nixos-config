@@ -33,16 +33,16 @@
   };
 
   outputs = inputs @ {self, ...}: let
-    inherit (self.lib') listNixFilesRecursive;
+    inherit (self.lib) listNixFilesRecursive;
   in {
-    lib' = import ./lib {inherit (inputs.nixpkgs) lib;};
+    lib = import ./lib {inherit (inputs.nixpkgs) lib;};
 
     nixosConfigurations = {
       valhalla = let
         system = "x86_64-linux";
         specialArgs = {
           inherit inputs self;
-          inherit (self) lib';
+          lib' = self.lib;
           inherit (inputs.claude.packages.${system}) claude-code;
         };
         modules =
@@ -60,6 +60,7 @@
           inherit specialArgs system modules;
         };
     };
+
     darwinConfigurations = {
       mymac = let
         system = "aarch64-darwin";
@@ -83,7 +84,6 @@
         };
     };
 
-    # Cross-platform checks: shellcheck + lib unit tests. Run: nix flake check
     checks = let
       forSystem = system:
         import ./checks.nix {pkgs = inputs.nixpkgs.legacyPackages.${system};};
