@@ -13,6 +13,7 @@ in {
     greeter = {
       autologinCommand = lib.mkOption {
         type = lib.types.str;
+        default = "/run/current-system/sw/bin/fish";
       };
     };
   };

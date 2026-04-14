@@ -3,9 +3,6 @@ _: {
     core = {
       username = "freya";
     };
-    greeter = {
-      autologinCommand = "/run/current-system/sw/bin/start-hyprland";
-    };
     git = {
       user = {
         name = "Tim Lester";
