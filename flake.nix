@@ -33,7 +33,20 @@
   };
 
   outputs = inputs @ {self, ...}: let
-    inherit (self.lib) listNixFilesRecursive;
+    lib' = self.lib;
+    inherit (lib') listNixFilesRecursive;
+    relevantSystems = ["x86_64-linux" "aarch64-darwin"];
+    forRelevantSystems = inputs.nixpkgs.lib.genAttrs relevantSystems;
+    pkgsFor = system:
+      import inputs.nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
+    pkgsFor' = system:
+      self.packages.${system}
+      // {
+        inherit (inputs.claude.packages.${system}) claude-code;
+      };
   in {
     lib = import ./lib {inherit (inputs.nixpkgs) lib;};
 
@@ -41,9 +54,8 @@
       valhalla = let
         system = "x86_64-linux";
         specialArgs = {
-          inherit inputs self;
-          lib' = self.lib;
-          inherit (inputs.claude.packages.${system}) claude-code;
+          inherit inputs self lib';
+          pkgs' = pkgsFor' system;
         };
         modules =
           [
@@ -65,8 +77,8 @@
       mymac = let
         system = "aarch64-darwin";
         specialArgs = {
-          inherit inputs self;
-          inherit (inputs.claude.packages.${system}) claude-code;
+          inherit inputs self lib';
+          pkgs' = pkgsFor' system;
         };
         modules =
           [
@@ -91,6 +103,11 @@
       x86_64-linux = forSystem "x86_64-linux";
       aarch64-darwin = forSystem "aarch64-darwin";
     };
+
+    packages = forRelevantSystems (system: {
+      myNixFmt = (pkgsFor system).callPackage "${self}/packages/fmt.nix" {};
+      mySyscheck = ((pkgsFor system).callPackage "${self}/packages/syscheck.nix" {}).package;
+    });
 
     devShells.x86_64-linux.default = let
       pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;

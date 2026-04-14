@@ -1,7 +1,7 @@
 {
   config,
   lib,
-  claude-code,
+  pkgs',
   ...
 }: let
   cfg = config.acme.claude-code;
@@ -14,7 +14,7 @@ in {
   config = lib.mkIf cfg.enable {
     hjem.users.${username} = {
       packages = [
-        claude-code # Uses overlay from sadjow/claude-code-nix instead of nixpkgs
+        pkgs'.claude-code # Uses overlay from sadjow/claude-code-nix instead of nixpkgs
       ];
       files = {
         ".claude/CLAUDE.md".text = ''
