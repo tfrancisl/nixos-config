@@ -31,9 +31,8 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    programs.hyprland = {
-      enable = lib.mkForce cfg.enable;
-    };
+    programs.hyprland.enable = lib.mkForce true;
+    acme.greeter.autologinCommand = "/run/current-system/sw/bin/start-hyprland";
 
     systemd.user.targets.hyprland-session = {
       description = "Hyprland compositor session";
