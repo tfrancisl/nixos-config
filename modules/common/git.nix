@@ -39,9 +39,9 @@ in {
         ]
         ++ fzfDiffTools.packages;
       files = {
-        ".gitconfig".source =
-          (pkgs.formats.gitIni {}).generate "config"
-          {
+        ".gitconfig" = {
+          generator = lib.generators.toGitINI;
+          value = {
             user = {
               inherit (cfg.user) name;
               inherit (cfg.user) email;
@@ -100,6 +100,7 @@ in {
               skippedCherryPicks = false;
             };
           };
+        };
         ".config/git/ignore".text = ''
           .direnv/
           .venv/
