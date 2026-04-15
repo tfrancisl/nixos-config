@@ -99,13 +99,5 @@
       myNixFmt = (pkgsFor system).callPackage "${self}/packages/fmt.nix" {};
       mySyscheck = ((pkgsFor system).callPackage "${self}/packages/syscheck.nix" {}).package;
     });
-
-    devShells.x86_64-linux.default = let
-      pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
-    in
-      pkgs.mkShell {
-        packages = [];
-        name = "nixos-config";
-      };
   };
 }
