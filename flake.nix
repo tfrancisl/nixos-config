@@ -37,6 +37,7 @@
     inherit (lib') listNixFilesRecursive;
     relevantSystems = ["x86_64-linux" "aarch64-darwin"];
     forRelevantSystems = inputs.nixpkgs.lib.genAttrs relevantSystems;
+    commonModules = listNixFilesRecursive ./modules/common;
     pkgsFor = system:
       inputs.nixpkgs.legacyPackages.${system};
     pkgsFor' = system:
@@ -58,8 +59,7 @@
           ]
           ++ (listNixFilesRecursive
             ./machines/valhalla)
-          ++ (listNixFilesRecursive
-            ./modules/common)
+          ++ commonModules
           ++ (listNixFilesRecursive
             ./modules/nixos);
       in
@@ -81,8 +81,7 @@
           ]
           ++ (listNixFilesRecursive
             ./machines/mymac)
-          ++ (listNixFilesRecursive
-            ./modules/common)
+          ++ commonModules
           ++ (listNixFilesRecursive
             ./modules/darwin);
       in
