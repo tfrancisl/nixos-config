@@ -46,7 +46,52 @@ in {
           - Don't suggest this for every small choice — only decisions with real tradeoffs or rationale worth preserving.
 
         '';
-        ".claude/settings.json".source = ./claude/settings.json;
+        ".claude/settings.json" = {
+          generator = lib.generators.toJSON {};
+          value = {
+            permissions = {
+              allow = [
+                "WebFetch(domain:docs.astral.sh)"
+                "WebFetch(domain:docs.databricks.com)"
+                "Bash(date:*)"
+                "Bash(echo:*)"
+                "Bash(cat:*)"
+                "Bash(ls:*)"
+                "Bash(mkdir:*)"
+                "Bash(wc:*)"
+                "Bash(head:*)"
+                "Bash(tail:*)"
+                "Bash(sort:*)"
+                "Bash(grep:*)"
+                "Bash(tr:*)"
+                "Bash(git add:*)"
+                "Bash(git commit:*)"
+                "Bash(git status:*)"
+                "Bash(git log:*)"
+                "Bash(git diff:*)"
+                "Bash(git tag:*)"
+              ];
+              defaultMode = "plan";
+            };
+            hooks = {};
+            enabledPlugins = {
+              "context-mode@context-mode" = true;
+              "code-simplifier@claude-plugins-official" = true;
+              "superpowers@claude-plugins-official" = true;
+            };
+            extraKnownMarketplaces = {
+              context-mode = {
+                source = {
+                  source = "github";
+                  repo = "mksglu/context-mode";
+                };
+              };
+            };
+            effortLevel = "medium";
+            autoUpdatesChannel = "latest";
+            skipDangerousModePermissionPrompt = false;
+          };
+        };
         ".claude/skills/improve-codebase/SKILL.md".source = ./claude/skills/improve-codebase/SKILL.md;
         ".claude/skills/improve-codebase/REFERENCE.md".source = ./claude/skills/improve-codebase/REFERENCE.md;
         ".claude/skills/request-refactor/SKILL.md".source = ./claude/skills/request-refactor/SKILL.md;

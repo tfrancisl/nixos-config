@@ -6,6 +6,99 @@
 }: let
   inherit (config.acme.core) username;
   zed-bin = lib.getExe pkgs.zed-editor;
+  settings = {
+    active_pane_modifiers = {
+      border_size = 10.0;
+      inactive_opacity = 0.33;
+    };
+    base_keymap = "VSCode";
+    buffer_font_family = ".ZedMono";
+    buffer_font_features = {
+      calt = false;
+    };
+    buffer_font_size = 18;
+    buffer_line_height = "standard";
+    collaboration_panel.button = false;
+    debugger.button = false;
+    excerpt_context_lines = 15;
+    expand_excerpt_lines = 5;
+    "experimental.theme_overrides" = {
+      conflict = "#5383c0ff";
+      "conflict.background" = "#a6eef61a";
+      "conflict.border" = "#9be69fff";
+      "version_control.conflict_marker.ours" = "#4bbaab1a";
+      "version_control.conflict_marker.theirs" = "#ce8fdb1a";
+    };
+    git.inline_blame.enabled = false;
+    git_panel.button = false;
+    gutter = {
+      breakpoints = false;
+      folds = true;
+      line_numbers = true;
+      min_line_number_digits = 5;
+      runnables = false;
+    };
+    hide_mouse = "on_typing_and_movement";
+    icon_theme = "Zed (Default)";
+    indent_guides = {
+      active_line_width = 4;
+      background_coloring = "disabled";
+      coloring = "fixed";
+      enabled = true;
+      line_width = 2;
+    };
+    inlay_hints.enabled = false;
+    languages = {
+      Nix = {
+        formatter = [{external.command = "alejandra";}];
+        language_servers = ["nixd" "!nil"];
+      };
+      Python = {
+        formatter = [{external.command = "ruff format";}];
+        language_servers = ["ruff" "ty" "!basedpyright" "!pyright"];
+      };
+    };
+    minimap.show = "never";
+    preferred_line_length = 100;
+    redact_private_values = false;
+    relative_line_numbers = "disabled";
+    scroll_beyond_last_line = "vertical_scroll_margin";
+    soft_wrap = "none";
+    telemetry = {
+      diagnostics = true;
+      metrics = false;
+    };
+    terminal = {
+      dock = "bottom";
+      font_family = ".ZedMono";
+      font_size = 16;
+      font_weight = 400;
+      line_height = "standard";
+      max_scroll_history_lines = 10000;
+    };
+    theme = "KTRZ Monokai";
+    title_bar = {
+      show_branch_icon = false;
+      show_branch_name = true;
+      show_menus = false;
+      show_onboarding_banner = false;
+      show_project_items = true;
+      show_sign_in = true;
+      show_user_picture = true;
+    };
+    toolbar = {
+      agent_review = false;
+      breadcrumbs = true;
+      code_actions = true;
+      quick_actions = true;
+      selections_menu = true;
+    };
+    ui_font_family = ".ZedMono";
+    ui_font_size = 18;
+    unnecessary_code_fade = 0.3;
+    vertical_scroll_margin = 4;
+    wrap_guides = [50 72 100 144];
+  };
 in {
   config = {
     hjem.users.${username} = {
@@ -14,7 +107,10 @@ in {
         pkgs.package-version-server
       ];
       xdg.config.files = {
-        "zed/settings.json".source = ./zed-settings.json;
+        "zed/settings.json" = {
+          generator = lib.generators.toJSON {};
+          value = settings;
+        };
       };
     };
     environment.shellAliases = {
