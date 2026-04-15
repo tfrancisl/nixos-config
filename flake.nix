@@ -38,10 +38,7 @@
     relevantSystems = ["x86_64-linux" "aarch64-darwin"];
     forRelevantSystems = inputs.nixpkgs.lib.genAttrs relevantSystems;
     pkgsFor = system:
-      import inputs.nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-      };
+      inputs.nixpkgs.legacyPackages.${system};
     pkgsFor' = system:
       self.packages.${system}
       // {
