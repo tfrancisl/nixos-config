@@ -39,12 +39,6 @@ in {
           - One focused coding pass. Avoid write-delete-rewrite cycles.
           - Test once, fix if needed, verify once. No unnecessary iterations.
           - Budget: 50 tool calls maximum. Work efficiently.
-
-          ## Project tracking
-          - When a significant implementation or architectural decision is made, suggest logging it: "Worth running `/log-decision` on that?"
-          - When a good idea comes up but is explicitly deferred, suggest: "Want to `/log-idea` that for later?"
-          - Don't suggest this for every small choice — only decisions with real tradeoffs or rationale worth preserving.
-
         '';
         ".claude/settings.json" = {
           generator = lib.generators.toJSON {};
@@ -101,10 +95,8 @@ in {
         ".claude/skills/tdd/mocking.md".source = ./claude/skills/tdd/mocking.md;
         ".claude/skills/tdd/refactoring.md".source = ./claude/skills/tdd/refactoring.md;
         ".claude/skills/tdd/tests.md".source = ./claude/skills/tdd/tests.md;
-        ".claude/skills/orient/SKILL.md".source = ./claude/skills/orient/SKILL.md;
         ".claude/skills/log-decision/SKILL.md".source = ./claude/skills/log-decision/SKILL.md;
         ".claude/skills/log-idea/SKILL.md".source = ./claude/skills/log-idea/SKILL.md;
-        ".claude/skills/migrate-planning/SKILL.md".source = ./claude/skills/migrate-planning/SKILL.md;
         ".claude/skills/wrap-up/SKILL.md".source = ./claude/skills/wrap-up/SKILL.md;
       };
     };
