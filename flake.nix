@@ -103,10 +103,7 @@
       mySyscheck = (pkgs.callPackage ./packages/syscheck.nix {}).package;
       fzfGitLog = fzfDiffTools.gl;
       fzfGitDiff = fzfDiffTools.gd;
-      waylandScreenshot =
-        if system == "x86_64-linux"
-        then pkgs.callPackage ./packages/screenshot.nix {}
-        else pkgs.stdenv.mkDerivation {name = "nothing";};
+      waylandScreenshot = pkgs.callPackage ./packages/screenshot.nix {};
     });
   };
 }
