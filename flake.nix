@@ -50,7 +50,7 @@
       valhalla = let
         system = "x86_64-linux";
         specialArgs = {
-          inherit inputs self lib';
+          inherit lib';
           pkgs' = pkgsFor' system;
         };
         modules =
@@ -72,7 +72,7 @@
       mymac = let
         system = "aarch64-darwin";
         specialArgs = {
-          inherit inputs self lib';
+          inherit lib';
           pkgs' = pkgsFor' system;
         };
         modules =
@@ -92,12 +92,21 @@
 
     checks = forRelevantSystems (
       system:
-        import ./checks.nix {pkgs = inputs.nixpkgs.legacyPackages.${system};}
+        import ./checks.nix {pkgs = pkgsFor system;}
     );
 
-    packages = forRelevantSystems (system: {
-      myNixFmt = (pkgsFor system).callPackage "${self}/packages/fmt.nix" {};
-      mySyscheck = ((pkgsFor system).callPackage "${self}/packages/syscheck.nix" {}).package;
+    packages = forRelevantSystems (system: let
+      pkgs = pkgsFor system;
+      fzfDiffTools = pkgs.callPackage ./packages/fzf-diff-tools.nix {};
+    in {
+      myNixFmt = pkgs.callPackage ./packages/fmt.nix {};
+      mySyscheck = (pkgs.callPackage ./packages/syscheck.nix {}).package;
+      fzfGitLog = fzfDiffTools.gl;
+      fzfGitDiff = fzfDiffTools.gd;
+      waylandScreenshot =
+        if system == "x86_64-linux"
+        then pkgs.callPackage ./packages/screenshot.nix {}
+        else pkgs.stdenv.mkDerivation {name = "nothing";};
     });
   };
 }
