@@ -89,5 +89,5 @@
     '';
   };
 in {
-  packages = [gd gl];
+  inherit gd gl;
 }

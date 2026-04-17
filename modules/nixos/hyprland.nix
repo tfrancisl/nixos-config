@@ -1,7 +1,7 @@
 {
-  self,
   config,
   pkgs,
+  pkgs',
   lib,
   lib',
   ...
@@ -10,9 +10,7 @@
   inherit (config.acme.core) username;
 
   screenshotTool =
-    pkgs.callPackage
-    "${self}/packages/screenshot.nix"
-    {};
+    pkgs'.waylandScreenshot;
 
   # Script to toggle active window between workspaces 1 and 2
   # probably could be simpler/better
@@ -175,7 +173,7 @@ in {
           disable_splash_rendering = true;
           enable_swallow = 1; # Enable window swallowing
           swallow_regex = "Alacritty"; # Make Alacritty swallow executed windows
-          swallow_exception_regex = "Alacritty"; # Make Alacritty not swallow itself
+          swallow_exception_regex = "Alacritty"; # Make Alacritty not swallow Alacrity windows
           middle_click_paste = false;
           layers_hog_keyboard_focus = false; # wofi and such wont keep kb focus on mouse move
           on_focus_under_fullscreen = false; # games like CS2 and SMITE 2 will not tile if I open a web browser

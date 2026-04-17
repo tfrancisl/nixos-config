@@ -1,7 +1,7 @@
 {
-  self,
   config,
   pkgs,
+  pkgs',
   lib,
   ...
 }: let
@@ -9,10 +9,6 @@
   inherit (config.acme.core) username;
   zed-bin = lib.getExe pkgs.zed-editor;
   gh-bin = lib.getExe pkgs.gh;
-  fzfDiffTools =
-    pkgs.callPackage
-    "${self}/packages/fzf-diff-tools.nix"
-    {};
 in {
   options.acme = {
     git = {
@@ -37,7 +33,10 @@ in {
           pkgs.git-credential-oauth
           pkgs.gh
         ]
-        ++ fzfDiffTools.packages;
+        ++ [
+          pkgs'.fzfGitDiff
+          pkgs'.fzfGitLog
+        ];
       files = {
         ".gitconfig" = {
           generator = lib.generators.toGitINI;
