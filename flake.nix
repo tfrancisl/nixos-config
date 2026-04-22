@@ -32,81 +32,89 @@
     };
   };
 
-  outputs = inputs @ {self, ...}: let
-    lib' = import ./lib {inherit (inputs.nixpkgs) lib;};
-    inherit (lib') listNixFilesRecursive;
-    relevantSystems = ["x86_64-linux" "aarch64-darwin"];
-    forRelevantSystems = inputs.nixpkgs.lib.genAttrs relevantSystems;
-    commonModules = listNixFilesRecursive ./modules/common;
-    pkgsFor = system:
-      inputs.nixpkgs.legacyPackages.${system};
-    pkgsFor' = system:
-      self.packages.${system}
-      // {
-        inherit (inputs.claude.packages.${system}) claude-code;
+  outputs =
+    inputs@{ self, ... }:
+    let
+      lib' = import ./lib { inherit (inputs.nixpkgs) lib; };
+      inherit (lib') listNixFilesRecursive;
+      relevantSystems = [
+        "x86_64-linux"
+        "aarch64-darwin"
+      ];
+      forRelevantSystems = inputs.nixpkgs.lib.genAttrs relevantSystems;
+      commonModules = listNixFilesRecursive ./modules/common;
+      pkgsFor = system: inputs.nixpkgs.legacyPackages.${system};
+      pkgsFor' =
+        system:
+        self.packages.${system}
+        // {
+          inherit (inputs.claude.packages.${system}) claude-code;
+        };
+    in
+    {
+      nixosConfigurations = {
+        valhalla =
+          let
+            system = "x86_64-linux";
+            specialArgs = {
+              inherit lib';
+              pkgs' = pkgsFor' system;
+            };
+            modules = [
+              inputs.hjem.nixosModules.default
+            ]
+            ++ (listNixFilesRecursive ./machines/valhalla)
+            ++ commonModules
+            ++ (listNixFilesRecursive ./modules/nixos);
+          in
+          inputs.nixpkgs.lib.nixosSystem {
+            inherit specialArgs system modules;
+          };
       };
-  in {
-    nixosConfigurations = {
-      valhalla = let
-        system = "x86_64-linux";
-        specialArgs = {
-          inherit lib';
-          pkgs' = pkgsFor' system;
-        };
-        modules =
-          [
-            inputs.hjem.nixosModules.default
-          ]
-          ++ (listNixFilesRecursive
-            ./machines/valhalla)
-          ++ commonModules
-          ++ (listNixFilesRecursive
-            ./modules/nixos);
-      in
-        inputs.nixpkgs.lib.nixosSystem {
-          inherit specialArgs system modules;
-        };
-    };
 
-    darwinConfigurations = {
-      mymac = let
-        system = "aarch64-darwin";
-        specialArgs = {
-          inherit lib';
-          pkgs' = pkgsFor' system;
-        };
-        modules =
-          [
-            inputs.hjem.darwinModules.default
-          ]
-          ++ (listNixFilesRecursive
-            ./machines/mymac)
-          ++ commonModules
-          ++ (listNixFilesRecursive
-            ./modules/darwin);
-      in
-        inputs.nix-darwin.lib.darwinSystem {
-          inherit specialArgs system modules;
-        };
-    };
+      darwinConfigurations = {
+        mymac =
+          let
+            system = "aarch64-darwin";
+            specialArgs = {
+              inherit lib';
+              pkgs' = pkgsFor' system;
+            };
+            modules = [
+              inputs.hjem.darwinModules.default
+            ]
+            ++ (listNixFilesRecursive ./machines/mymac)
+            ++ commonModules
+            ++ (listNixFilesRecursive ./modules/darwin);
+          in
+          inputs.nix-darwin.lib.darwinSystem {
+            inherit specialArgs system modules;
+          };
+      };
 
-    checks = forRelevantSystems (
-      system:
+      formatter = forRelevantSystems (system: (pkgsFor system).nixfmt-tree);
+
+      checks = forRelevantSystems (
+        system:
         import ./checks.nix {
           inherit self;
           pkgs = pkgsFor system;
         }
-    );
+      );
 
-    packages = forRelevantSystems (system: let
-      pkgs = pkgsFor system;
-      fzfDiffTools = pkgs.callPackage ./packages/fzf-diff-tools.nix {};
-    in {
-      myNixFmt = pkgs.callPackage ./packages/fmt.nix {};
-      mySyscheck = (pkgs.callPackage ./packages/syscheck.nix {}).package;
-      fzfGitLog = fzfDiffTools.gl;
-      fzfGitDiff = fzfDiffTools.gd;
-      waylandScreenshot = pkgs.callPackage ./packages/screenshot.nix {};
-    });
-  };
+      packages = forRelevantSystems (
+        system:
+        let
+          pkgs = pkgsFor system;
+          fzfDiffTools = pkgs.callPackage ./packages/fzf-diff-tools.nix { };
+        in
+        {
+          myNixFmt = pkgs.callPackage ./packages/fmt.nix { };
+          mySyscheck = (pkgs.callPackage ./packages/syscheck.nix { }).package;
+          fzfGitLog = fzfDiffTools.gl;
+          fzfGitDiff = fzfDiffTools.gd;
+          waylandScreenshot = pkgs.callPackage ./packages/screenshot.nix { };
+        }
+      );
+    };
 }

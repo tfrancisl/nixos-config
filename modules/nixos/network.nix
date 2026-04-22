@@ -2,9 +2,11 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.acme.network;
-in {
+in
+{
   options.acme = {
     network = {
       hostname = lib.mkOption {

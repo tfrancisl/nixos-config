@@ -5,12 +5,13 @@
   git,
   delta,
   ...
-}: let
+}:
+let
   # Preview command for gd (file-level diff).
   # GIT_ARGS_STR are exported shell vars; bash expands them
   # at fzf-command-construction time (double-quoted --preview string).
   # {-1} is an fzf placeholder substituted at preview time.
-  filePreviewCmd = ''git diff ''${GIT_ARGS_STR} -- {-1} | delta --width=variable'';
+  filePreviewCmd = "git diff \${GIT_ARGS_STR} -- {-1} | delta --width=variable";
 
   # Preview command for gl (commit-level diff). {1} = short hash from --oneline.
   commitPreviewCmd = "git show {1} | delta --width=variable";
@@ -20,7 +21,11 @@
 
   gd = writeShellApplication {
     name = "gd";
-    runtimeInputs = [fzf git delta];
+    runtimeInputs = [
+      fzf
+      git
+      delta
+    ];
     text = ''
       # Browse git diffs through fzf + delta. Accepts any flags that
       # git diff supports.
@@ -54,7 +59,12 @@
 
   gl = writeShellApplication {
     name = "gl";
-    runtimeInputs = [fzf git delta gd];
+    runtimeInputs = [
+      fzf
+      git
+      delta
+      gd
+    ];
     text = ''
       # Browse git log through fzf + delta.
       # Tab/Shift-Tab: select/deselect commits.
@@ -88,6 +98,7 @@
 
     '';
   };
-in {
+in
+{
   inherit gd gl;
 }

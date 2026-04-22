@@ -2,9 +2,11 @@
   pkgs,
   config,
   ...
-}: let
+}:
+let
   inherit (config.acme.core) username;
-in {
+in
+{
   config = {
     users.users.${username} = {
       extraGroups = [
@@ -20,7 +22,7 @@ in {
     programs = {
       steam = {
         enable = true;
-        extraCompatPackages = [pkgs.proton-ge-bin];
+        extraCompatPackages = [ pkgs.proton-ge-bin ];
       };
       gamemode = {
         enable = true;

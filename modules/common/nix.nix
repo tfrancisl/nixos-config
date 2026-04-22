@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   config = {
     nix.settings = {
       experimental-features = [
@@ -9,8 +10,8 @@
       allow-import-from-derivation = false;
       accept-flake-config = true;
       use-xdg-base-directories = true;
-      allowed-users = ["@wheel"];
-      trusted-users = ["@wheel"];
+      allowed-users = [ "@wheel" ];
+      trusted-users = [ "@wheel" ];
     };
     nix.package = pkgs.lixPackageSets.git.lix;
 

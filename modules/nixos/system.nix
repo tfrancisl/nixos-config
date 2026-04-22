@@ -2,7 +2,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   config = {
     documentation.nixos.enable = false;
     boot = {
@@ -14,7 +15,7 @@
         "sd_mod"
       ];
       kernelPackages = pkgs.linuxPackages_latest;
-      kernelModules = ["kvm-amd"];
+      kernelModules = [ "kvm-amd" ];
       kernel.sysctl = {
         # Taken from https://github.com/fufexan/nix-gaming/blob/master/modules/platformOptimizations.nix
         # SteamOS platform optimization
@@ -32,7 +33,7 @@
 
     hardware.enableRedistributableFirmware = lib.mkDefault true;
     hardware.cpu.amd.updateMicrocode = lib.mkDefault true;
-    swapDevices = [];
+    swapDevices = [ ];
     system.stateVersion = "25.05"; # Do not change this!
   };
 }

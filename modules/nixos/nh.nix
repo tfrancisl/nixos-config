@@ -1,7 +1,9 @@
-{config, ...}: let
+{ config, ... }:
+let
   inherit (config.acme.core) username;
   inherit (config.acme.nh) cleanArgs;
-in {
+in
+{
   config = {
     programs.nh = {
       enable = true;

@@ -3,10 +3,12 @@
   lib,
   pkgs',
   ...
-}: let
+}:
+let
   cfg = config.acme.claude-code;
   inherit (config.acme.core) username;
-in {
+in
+{
   options.acme = {
     claude-code.enable = lib.mkEnableOption "Claude Code";
   };
@@ -41,7 +43,7 @@ in {
           - Budget: 50 tool calls maximum. Work efficiently.
         '';
         ".claude/settings.json" = {
-          generator = lib.generators.toJSON {};
+          generator = lib.generators.toJSON { };
           value = {
             permissions = {
               allow = [
@@ -67,7 +69,7 @@ in {
               ];
               defaultMode = "plan";
             };
-            hooks = {};
+            hooks = { };
             enabledPlugins = {
               "context-mode@context-mode" = true;
               "code-simplifier@claude-plugins-official" = true;
@@ -87,7 +89,8 @@ in {
           };
         };
         ".claude/skills/improve-codebase/SKILL.md".source = ./claude/skills/improve-codebase/SKILL.md;
-        ".claude/skills/improve-codebase/REFERENCE.md".source = ./claude/skills/improve-codebase/REFERENCE.md;
+        ".claude/skills/improve-codebase/REFERENCE.md".source =
+          ./claude/skills/improve-codebase/REFERENCE.md;
         ".claude/skills/request-refactor/SKILL.md".source = ./claude/skills/request-refactor/SKILL.md;
         ".claude/skills/tdd/SKILL.md".source = ./claude/skills/tdd/SKILL.md;
         ".claude/skills/tdd/deep-modules.md".source = ./claude/skills/tdd/deep-modules.md;

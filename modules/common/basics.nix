@@ -4,11 +4,13 @@
   pkgs,
   pkgs',
   ...
-}: let
+}:
+let
   inherit (config.acme.core) username;
-in {
+in
+{
   config = {
-    environment.defaultPackages = lib.mkDefault [];
+    environment.defaultPackages = lib.mkDefault [ ];
     hjem.users.${username} = {
       packages = [
         pkgs.bat
