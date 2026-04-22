@@ -92,7 +92,10 @@
 
     checks = forRelevantSystems (
       system:
-        import ./checks.nix {pkgs = pkgsFor system;}
+        import ./checks.nix {
+          inherit self;
+          pkgs = pkgsFor system;
+        }
     );
 
     packages = forRelevantSystems (system: let
