@@ -2,11 +2,9 @@
   config,
   pkgs,
   ...
-}:
-let
+}: let
   inherit (config.acme.core) username;
-in
-{
+in {
   config = {
     hjem.users.${username} = {
       packages = [
@@ -19,7 +17,6 @@ in
         pkgs.balatro-mod-manager
         pkgs.prismlauncher
         pkgs.teamspeak6-client
-        pkgs.shipwright
       ];
     };
 
