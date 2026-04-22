@@ -2,9 +2,11 @@
   config,
   pkgs,
   ...
-}: let
+}:
+let
   inherit (config.acme.core) username;
-in {
+in
+{
   config = {
     programs.direnv = {
       enable = true;
@@ -13,7 +15,10 @@ in {
       nix-direnv.enable = true;
     };
     hjem.users.${username} = {
-      packages = [pkgs.mise pkgs.usage];
+      packages = [
+        pkgs.mise
+        pkgs.usage
+      ];
     };
   };
 }

@@ -1,8 +1,10 @@
-{config, ...}: let
+{ config, ... }:
+let
   inherit (config.acme.core) username;
-in {
+in
+{
   services.aerospace.enable = false; # managed with brew
-  homebrew.casks = [{name = "aerospace";}];
+  homebrew.casks = [ { name = "aerospace"; } ];
   hjem.users.${username}.files.".config/aerospace/aerospace.toml".text = ''
     config-version = 2
 

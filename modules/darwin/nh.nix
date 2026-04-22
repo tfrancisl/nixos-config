@@ -3,14 +3,16 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   inherit (config.acme.core) username;
   nh = lib.getExe pkgs.nh;
-in {
+in
+{
   config = {
     # nh works on darwin via `nh darwin switch` but nix-darwin
     # doesn't have a programs.nh module, so install and configure manually
-    hjem.users.${username}.packages = [pkgs.nh];
+    hjem.users.${username}.packages = [ pkgs.nh ];
     environment.variables.NH_FLAKE = "/Users/${username}/nixos-config";
 
     # Equivalent of programs.nh.clean on NixOS — same command, launchd instead of systemd

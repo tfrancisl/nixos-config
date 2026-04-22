@@ -3,9 +3,11 @@
   config,
   pkgs,
   ...
-}: let
+}:
+let
   inherit (config.acme.core) username;
-in {
+in
+{
   options.acme = {
     core.username = lib.mkOption {
       type = lib.types.str;

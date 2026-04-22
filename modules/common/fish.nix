@@ -3,10 +3,12 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   inherit (config.acme.core) username;
   inherit (lib) getExe;
-in {
+in
+{
   config = {
     hjem.users.${username} = {
       files = {

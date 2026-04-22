@@ -3,9 +3,11 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   inherit (config.acme.core) username;
-in {
+in
+{
   config = {
     hjem.users.${username} = {
       packages = [
@@ -20,7 +22,7 @@ in {
       ];
       xdg.config.files = {
         "discord/settings.json" = {
-          generator = lib.generators.toJSON {};
+          generator = lib.generators.toJSON { };
           value = {
             SKIP_HOST_UPDATE = true;
             OPEN_ON_STARTUP = false;

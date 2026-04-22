@@ -3,7 +3,8 @@
   lib,
   config,
   ...
-}: let
+}:
+let
   inherit (config.acme.core) username;
   zed-bin = lib.getExe pkgs.zed-editor;
   settings = {
@@ -50,12 +51,20 @@
     inlay_hints.enabled = false;
     languages = {
       Nix = {
-        formatter = [{external.command = "alejandra";}];
-        language_servers = ["nixd" "!nil"];
+        formatter = [ { external.command = "nix fmt"; } ];
+        language_servers = [
+          "nixd"
+          "!nil"
+        ];
       };
       Python = {
-        formatter = [{external.command = "ruff format";}];
-        language_servers = ["ruff" "ty" "!basedpyright" "!pyright"];
+        formatter = [ { external.command = "ruff format"; } ];
+        language_servers = [
+          "ruff"
+          "ty"
+          "!basedpyright"
+          "!pyright"
+        ];
       };
     };
     minimap.show = "never";
@@ -97,9 +106,15 @@
     ui_font_size = 18;
     unnecessary_code_fade = 0.3;
     vertical_scroll_margin = 4;
-    wrap_guides = [50 72 100 144];
+    wrap_guides = [
+      50
+      72
+      100
+      144
+    ];
   };
-in {
+in
+{
   config = {
     hjem.users.${username} = {
       packages = [
@@ -108,7 +123,7 @@ in {
       ];
       xdg.config.files = {
         "zed/settings.json" = {
-          generator = lib.generators.toJSON {};
+          generator = lib.generators.toJSON { };
           value = settings;
         };
       };

@@ -1,6 +1,7 @@
-{config, ...}: {
+{ config, ... }:
+{
   config = {
-    services.xserver.videoDrivers = ["nvidia"];
+    services.xserver.videoDrivers = [ "nvidia" ];
 
     hardware = {
       nvidia = {
@@ -25,7 +26,7 @@
         "nvidia_uvm"
         "nvidia_drm"
       ];
-      blacklistedKernelModules = ["nouveau"];
+      blacklistedKernelModules = [ "nouveau" ];
 
       kernelParams = [
         "nvidia.NVreg_UsePageAttributeTable=1"

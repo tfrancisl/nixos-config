@@ -1,9 +1,11 @@
-{config, ...}: let
+{ config, ... }:
+let
   inherit (config.acme.core) username;
-in {
+in
+{
   config = {
     nix.settings = {
-      trusted-users = [username];
+      trusted-users = [ username ];
     };
   };
 }

@@ -1,4 +1,5 @@
-{lib, ...}: {
+{ lib, ... }:
+{
   options.acme.nh = {
     cleanArgs = lib.mkOption {
       type = lib.types.str;

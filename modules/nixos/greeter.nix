@@ -2,13 +2,15 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   cfg = config.acme.greeter;
   defaultSession = {
     command = cfg.autologinCommand;
     user = config.acme.core.username;
   };
-in {
+in
+{
   options.acme = {
     greeter = {
       autologinCommand = lib.mkOption {

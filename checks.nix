@@ -1,28 +1,30 @@
 {
   self,
   pkgs,
-}: let
-  syscheck = pkgs.callPackage ./packages/syscheck.nix {};
-  hyprlib = import ./lib/hyprland.nix {inherit (pkgs) lib;};
+}:
+let
+  syscheck = pkgs.callPackage ./packages/syscheck.nix { };
+  hyprlib = import ./lib/hyprland.nix { inherit (pkgs) lib; };
   lintChecks = {
-    check-deadnix = pkgs.runCommand "check-deadnix" {} ''
+    check-deadnix = pkgs.runCommand "check-deadnix" { } ''
       ${pkgs.deadnix}/bin/deadnix --fail ${self}
       touch $out
     '';
-    check-statix = pkgs.runCommand "check-statix" {} ''
+    check-statix = pkgs.runCommand "check-statix" { } ''
       ${pkgs.statix}/bin/statix check ${self}
       touch $out
     '';
-    check-nixf-diagnose = pkgs.runCommand "check-nixf-diagnose" {} ''
+    check-nixf-diagnose = pkgs.runCommand "check-nixf-diagnose" { } ''
       ${pkgs.nixf-diagnose}/bin/nixf-diagnose ${self}/**.nix
       touch $out
     '';
   };
 in
-  syscheck.checks
-  // lintChecks
-  // {
-    test-flattenAttrs = let
+syscheck.checks
+// lintChecks
+// {
+  test-flattenAttrs =
+    let
       result = hyprlib.flattenAttrs (p: k: "${p}:${k}") {
         a = "3";
         b = {
@@ -31,26 +33,28 @@ in
         };
       };
       pass =
-        result
-        == {
+        result == {
           a = "3";
           "b:c" = "4";
           "b:d" = "5";
         };
     in
-      assert pass;
-        pkgs.runCommand "test-flattenAttrs" {} "touch $out";
+    assert pass;
+    pkgs.runCommand "test-flattenAttrs" { } "touch $out";
 
-    test-toHyprlang = let
-      result = hyprlib.toHyprlang {} {
+  test-toHyprlang =
+    let
+      result = hyprlib.toHyprlang { } {
         "$mod" = "SUPER";
-        general = {gaps_in = 4;};
+        general = {
+          gaps_in = 4;
+        };
       };
       pass =
         builtins.isString result
         && builtins.match ".*\\$mod = SUPER.*" result != null
         && builtins.match ".*general:gaps_in = 4.*" result != null;
     in
-      assert pass;
-        pkgs.runCommand "test-toHyprlang" {} "touch $out";
-  }
+    assert pass;
+    pkgs.runCommand "test-toHyprlang" { } "touch $out";
+}
