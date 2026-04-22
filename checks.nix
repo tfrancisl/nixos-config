@@ -1,8 +1,26 @@
-{pkgs}: let
+{
+  self,
+  pkgs,
+}: let
   syscheck = pkgs.callPackage ./packages/syscheck.nix {};
   hyprlib = import ./lib/hyprland.nix {inherit (pkgs) lib;};
+  lintChecks = {
+    check-deadnix = pkgs.runCommand "check-deadnix" {} ''
+      ${pkgs.deadnix}/bin/deadnix --fail ${self}
+      touch $out
+    '';
+    check-statix = pkgs.runCommand "check-statix" {} ''
+      ${pkgs.statix}/bin/statix check ${self}
+      touch $out
+    '';
+    check-nixf-diagnose = pkgs.runCommand "check-nixf-diagnose" {} ''
+      ${pkgs.nixf-diagnose}/bin/nixf-diagnose ${self}/**.nix
+      touch $out
+    '';
+  };
 in
   syscheck.checks
+  // lintChecks
   // {
     test-flattenAttrs = let
       result = hyprlib.flattenAttrs (p: k: "${p}:${k}") {
