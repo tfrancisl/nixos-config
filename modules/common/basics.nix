@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  pkgs',
   ...
 }:
 let
@@ -23,7 +22,6 @@ in
         pkgs.alejandra
         pkgs.nixd
         pkgs.fzf
-        pkgs'.mySyscheck
       ];
     };
   };

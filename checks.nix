@@ -3,7 +3,6 @@
   pkgs,
 }:
 let
-  syscheck = pkgs.callPackage ./packages/syscheck.nix { };
   hyprlib = import ./lib/hyprland.nix { inherit (pkgs) lib; };
   lintChecks = {
     check-deadnix = pkgs.runCommand "check-deadnix" { } ''
@@ -20,8 +19,7 @@ let
     '';
   };
 in
-syscheck.checks
-// lintChecks
+lintChecks
 // {
   test-flattenAttrs =
     let
