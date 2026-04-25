@@ -109,7 +109,6 @@
           fzfDiffTools = pkgs.callPackage ./packages/fzf-diff-tools.nix { };
         in
         {
-          mySyscheck = (pkgs.callPackage ./packages/syscheck.nix { }).package;
           fzfGitLog = fzfDiffTools.gl;
           fzfGitDiff = fzfDiffTools.gd;
           waylandScreenshot = pkgs.callPackage ./packages/screenshot.nix { };
