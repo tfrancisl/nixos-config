@@ -2,9 +2,11 @@
   config,
   pkgs,
   ...
-}: let
+}:
+let
   inherit (config.acme.core) username;
-in {
+in
+{
   config = {
     hjem.users.${username} = {
       packages = [

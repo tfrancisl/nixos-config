@@ -23,7 +23,6 @@ in
         pkgs.alejandra
         pkgs.nixd
         pkgs.fzf
-        pkgs'.myNixFmt
         pkgs'.mySyscheck
       ];
     };
