@@ -1,0 +1,57 @@
+{
+  "pins": {
+    "claude": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "sadjow",
+        "repo": "claude-code-nix"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "bf3e43090b15d1e335f08e21c80678d6457458e8",
+      "url": "https://github.com/sadjow/claude-code-nix/archive/bf3e43090b15d1e335f08e21c80678d6457458e8.tar.gz",
+      "hash": "sha256-RD/HyNMkmeN4zqENph5Xzks/fz/ZwdUyL1x8rr5tQyA="
+    },
+    "hjem": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "feel-co",
+        "repo": "hjem"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "35c2158ba101d7b42b05debfcb169ba32dad3bbc",
+      "url": "https://github.com/feel-co/hjem/archive/35c2158ba101d7b42b05debfcb169ba32dad3bbc.tar.gz",
+      "hash": "sha256-a0O56qWfPEKe0mBKgvcQL5UDpWmon70AKJspHNkEJV8="
+    },
+    "nix-darwin": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nix-darwin",
+        "repo": "nix-darwin"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "06648f4902343228ce2de79f291dd5a58ee12146",
+      "url": "https://github.com/nix-darwin/nix-darwin/archive/06648f4902343228ce2de79f291dd5a58ee12146.tar.gz",
+      "hash": "sha256-KM2WYj6EA7M/FVZVCl3rqWY+TFV5QzSyyGE2gQxeODU="
+    },
+    "nixpkgs": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "NixOS",
+        "repo": "nixpkgs"
+      },
+      "branch": "nixos-unstable",
+      "submodules": false,
+      "revision": "1c3fe55ad329cbcb28471bb30f05c9827f724c76",
+      "url": "https://github.com/NixOS/nixpkgs/archive/1c3fe55ad329cbcb28471bb30f05c9827f724c76.tar.gz",
+      "hash": "sha256-bxrdOn8SCOv8tN4JbTF/TXq7kjo9ag4M+C8yzzIRYbE="
+    }
+  },
+  "version": 7
+}
