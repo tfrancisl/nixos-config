@@ -11,9 +11,9 @@ let
   forRelevantSystems = lib.genAttrs relevantSystems;
 
   pkgsFor =
-    s:
+    system:
     import sources.nixpkgs {
-      system = s;
+      inherit system;
       config.allowUnfree = true;
     };
 
@@ -56,9 +56,9 @@ let
     };
 
   packages = forRelevantSystems (
-    s:
+    system:
     let
-      p = pkgsFor s;
+      p = pkgsFor system;
       fzfDiffTools = p.callPackage ./packages/fzf-diff-tools.nix { };
     in
     {
@@ -69,10 +69,10 @@ let
   );
 
   pkgsFor' =
-    s:
-    packages.${s}
+    system:
+    packages.${system}
     // {
-      claude-code = (pkgsFor s).callPackage "${sources.claude}/package.nix" { };
+      claude-code = (pkgsFor system).callPackage "${sources.claude}/package.nix" { };
     };
 
   commonModules = listNixFilesRecursive ./modules/common;
@@ -108,13 +108,13 @@ in
     ++ (listNixFilesRecursive ./modules/darwin);
   };
 
-  formatter = forRelevantSystems (s: (pkgsFor s).nixfmt-tree);
+  formatter = forRelevantSystems (system: (pkgsFor system).nixfmt-tree);
 
   checks = forRelevantSystems (
-    s:
+   system:
     import ./checks.nix {
       src = ./.;
-      pkgs = pkgsFor s;
+      pkgs = pkgsFor system;
     }
   );
 }
