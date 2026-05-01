@@ -6,7 +6,7 @@
 }:
 let
   inherit (config.acme.core) username;
-  zed-bin = lib.getExe pkgs.zed-editor;
+  inherit (config.acme.zed) zed-bin;
   settings = {
     active_pane_modifiers = {
       border_size = 10.0;
@@ -115,12 +115,14 @@ let
   };
 in
 {
+  options.acme.zed = {
+    zed-bin = lib.mkOption {
+      description = "The store path for the zed binary. Used to handle nixpkgs vs brew zed.";
+    };
+  };
+
   config = {
     hjem.users.${username} = {
-      packages = [
-        pkgs.zed-editor
-        pkgs.package-version-server
-      ];
       xdg.config.files = {
         "zed/settings.json" = {
           generator = lib.generators.toJSON { };
