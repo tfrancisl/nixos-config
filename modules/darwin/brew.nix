@@ -4,9 +4,6 @@ _: {
     enableFishIntegration = true;
     brews = [
       { name = "databricks"; }
-      { name = "mise"; }
-      { name = "usage"; }
-      { name = "Arthur-Ficial/tap/apfel"; }
     ];
     casks = [
       {
@@ -16,9 +13,6 @@ _: {
         };
       }
       { name = "alacritty"; }
-    ];
-    taps = [
-      { name = "Arthur-Ficial/tap"; }
     ];
   };
 }
