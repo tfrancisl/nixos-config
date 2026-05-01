@@ -74,12 +74,19 @@ in
               "context-mode@context-mode" = true;
               "code-simplifier@claude-plugins-official" = true;
               "superpowers@claude-plugins-official" = true;
+              "marimo-pair@marimo-pair" = true;
             };
             extraKnownMarketplaces = {
               context-mode = {
                 source = {
                   source = "github";
                   repo = "mksglu/context-mode";
+                };
+              };
+              marimo = {
+                source = {
+                  source = "github";
+                  repo = "marimo-team/marimo-pair";
                 };
               };
             };
