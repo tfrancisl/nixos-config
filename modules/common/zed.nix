@@ -67,6 +67,13 @@ let
         ];
       };
     };
+    lsp = {
+      rust-analyzer = {
+        binary = {
+          path_lookup = true;
+        };
+      };
+    };
     minimap.show = "never";
     preferred_line_length = 100;
     redact_private_values = false;
