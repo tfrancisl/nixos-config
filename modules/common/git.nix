@@ -4,39 +4,40 @@
   pkgs',
   lib,
   ...
-}: let
+}:
+let
   cfg = config.acme.git;
   inherit (config.acme.core) username;
   inherit (config.acme.zed) zed-bin;
   gh-bin = lib.getExe pkgs.gh;
-in {
+in
+{
   options.acme = {
     git = {
       user = {
-        name = lib.mkOption {type = lib.types.str;};
-        email = lib.mkOption {type = lib.types.str;};
-        username = lib.mkOption {type = lib.types.str;};
+        name = lib.mkOption { type = lib.types.str; };
+        email = lib.mkOption { type = lib.types.str; };
+        username = lib.mkOption { type = lib.types.str; };
       };
     };
   };
 
   config = {
     hjem.users.${username} = {
-      packages =
-        [
-          (pkgs.git.override {
-            pythonSupport = false;
-            perlSupport = false;
-            rustSupport = true;
-          })
-          pkgs.forgejo-cli
-          pkgs.git-credential-oauth
-          pkgs.gh
-        ]
-        ++ [
-          pkgs'.fzfGitDiff
-          pkgs'.fzfGitLog
-        ];
+      packages = [
+        (pkgs.git.override {
+          pythonSupport = false;
+          perlSupport = false;
+          rustSupport = true;
+        })
+        pkgs.forgejo-cli
+        pkgs.git-credential-oauth
+        pkgs.gh
+      ]
+      ++ [
+        pkgs'.fzfGitDiff
+        pkgs'.fzfGitLog
+      ];
       files = {
         ".gitconfig" = {
           generator = lib.generators.toGitINI;
