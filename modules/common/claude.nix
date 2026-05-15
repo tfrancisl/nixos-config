@@ -75,8 +75,15 @@ in
               "code-simplifier@claude-plugins-official" = true;
               "superpowers@claude-plugins-official" = true;
               "marimo-pair@marimo-pair" = true;
+              "deep-wiki@skills" = true;
             };
             extraKnownMarketplaces = {
+              microsoft = {
+                source = {
+                  source = "github";
+                  repo = "microsoft/skills";
+                };
+              };
               context-mode = {
                 source = {
                   source = "github";
