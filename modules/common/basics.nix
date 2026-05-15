@@ -22,6 +22,7 @@ in
         pkgs.alejandra
         pkgs.nixd
         pkgs.fzf
+        pkgs.logseq
       ];
     };
   };
