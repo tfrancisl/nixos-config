@@ -97,24 +97,10 @@ in
                 };
               };
             };
-            effortLevel = "medium";
+            effortLevel = "high";
             autoUpdatesChannel = "latest";
-            skipDangerousModePermissionPrompt = false;
           };
         };
-        ".claude/skills/improve-codebase/SKILL.md".source = ./claude/skills/improve-codebase/SKILL.md;
-        ".claude/skills/improve-codebase/REFERENCE.md".source =
-          ./claude/skills/improve-codebase/REFERENCE.md;
-        ".claude/skills/request-refactor/SKILL.md".source = ./claude/skills/request-refactor/SKILL.md;
-        ".claude/skills/tdd/SKILL.md".source = ./claude/skills/tdd/SKILL.md;
-        ".claude/skills/tdd/deep-modules.md".source = ./claude/skills/tdd/deep-modules.md;
-        ".claude/skills/tdd/interface-design.md".source = ./claude/skills/tdd/interface-design.md;
-        ".claude/skills/tdd/mocking.md".source = ./claude/skills/tdd/mocking.md;
-        ".claude/skills/tdd/refactoring.md".source = ./claude/skills/tdd/refactoring.md;
-        ".claude/skills/tdd/tests.md".source = ./claude/skills/tdd/tests.md;
-        ".claude/skills/log-decision/SKILL.md".source = ./claude/skills/log-decision/SKILL.md;
-        ".claude/skills/log-idea/SKILL.md".source = ./claude/skills/log-idea/SKILL.md;
-        ".claude/skills/wrap-up/SKILL.md".source = ./claude/skills/wrap-up/SKILL.md;
       };
     };
   };
