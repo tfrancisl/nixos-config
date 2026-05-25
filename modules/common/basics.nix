@@ -23,6 +23,7 @@ in
         pkgs.nixd
         pkgs.fzf
         pkgs.logseq
+        pkgs.fd
       ];
     };
   };
