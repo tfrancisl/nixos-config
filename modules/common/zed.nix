@@ -1,5 +1,4 @@
 {
-  pkgs,
   lib,
   config,
   ...
@@ -136,9 +135,11 @@ in
           value = settings;
         };
       };
-    };
-    environment.shellAliases = {
-      "zed" = zed-bin;
+      files = {
+        ".config/fish/conf.d/aliases.fish".text = ''
+          alias zed '${zed-bin}'
+        '';
+      };
     };
     environment.variables = {
       "EDITOR" = zed-bin;
