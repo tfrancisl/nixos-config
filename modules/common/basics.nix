@@ -9,7 +9,8 @@ let
 in
 {
   config = {
-    environment.defaultPackages = lib.mkDefault [ ];
+    environment.defaultPackages = lib.mkForce [ ];
+    environment.shellAliases = lib.mkForce { };
     hjem.users.${username} = {
       packages = [
         pkgs.bat
