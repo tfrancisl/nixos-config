@@ -64,10 +64,10 @@ in
               };
             };
             core = {
-              editor = "${zed-bin} --wait";
+              editor = "${zed-bin} --wait --existing";
             };
             difftool.zed = {
-              cmd = "${zed-bin} --wait --diff \"$LOCAL\" \"$REMOTE\"";
+              cmd = "${zed-bin} --wait --existing --diff \"$LOCAL\" \"$REMOTE\"";
             };
             diff = {
               tool = "zed";
