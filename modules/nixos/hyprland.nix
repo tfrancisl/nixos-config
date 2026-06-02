@@ -64,7 +64,6 @@ in
         pkgs.pavucontrol
         pkgs.graphite-cursors
         pkgs.ghostty
-        pkgs.logseq
         screenshotTool
       ];
       # fixes some apps cursor theme
