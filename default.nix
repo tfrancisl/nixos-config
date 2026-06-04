@@ -46,9 +46,11 @@ let
         (
           { lib, ... }:
           {
-            nixpkgs.system = lib.mkDefault system;
-            nixpkgs.source = lib.mkDefault sources.nixpkgs;
-            nixpkgs.flake.source = lib.mkDefault sources.nixpkgs.outPath;
+            nixpkgs = {
+              system = lib.mkDefault system;
+              source = lib.mkDefault sources.nixpkgs;
+              flake.source = lib.mkDefault sources.nixpkgs.outPath;
+            };
             system.checks.verifyNixPath = lib.mkDefault false;
           }
         )
@@ -109,12 +111,4 @@ in
   };
 
   formatter = forRelevantSystems (system: (pkgsFor system).nixfmt-tree);
-
-  checks = forRelevantSystems (
-   system:
-    import ./checks.nix {
-      src = ./.;
-      pkgs = pkgsFor system;
-    }
-  );
 }

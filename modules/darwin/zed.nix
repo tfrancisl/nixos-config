@@ -1,4 +1,4 @@
-{ ... }:
+_:
 {
   config = {
     acme.zed.zed-bin = "~/my-apps/Applications/Zed.app/Contents/MacOS/cli";
