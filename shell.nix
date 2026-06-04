@@ -5,6 +5,7 @@ in
 pkgs.mkShell {
   name = "nixos-config";
   packages = [
+    pkgs.just
     pkgs.npins
     pkgs.nixfmt-tree
     pkgs.deadnix
