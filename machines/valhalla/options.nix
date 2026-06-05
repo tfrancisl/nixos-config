@@ -11,7 +11,6 @@ _: {
       };
     };
     hyprland.enable = true;
-    claude-code.enable = true;
     network = {
       hostname = "valhalla";
     };
