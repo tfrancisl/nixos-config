@@ -9,9 +9,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "cc0c3dbca8490169974f03fe7feb4e362dfcca89",
-      "url": "https://github.com/sadjow/claude-code-nix/archive/cc0c3dbca8490169974f03fe7feb4e362dfcca89.tar.gz",
-      "hash": "sha256-aI9BuXyq7/MNAhSGaQ3i6nTz9bovfvAxj7cndY5UMPU="
+      "revision": "2370568ed1eac96474fa3bb2e73081cc971f9c03",
+      "url": "https://github.com/sadjow/claude-code-nix/archive/2370568ed1eac96474fa3bb2e73081cc971f9c03.tar.gz",
+      "hash": "sha256-Cg2mx6ILPC/cAoomJrwx1TvMaFvvNi9DNbd3Hy+7L18="
     },
     "hjem": {
       "type": "Git",
@@ -35,9 +35,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "56c666e108467d87d13508936aade6d567f2a501",
-      "url": "https://github.com/nix-darwin/nix-darwin/archive/56c666e108467d87d13508936aade6d567f2a501.tar.gz",
-      "hash": "sha256-zXcwYQGCT6pzinK+1dBB2ekTVtfxGZAapb3Evdcu4fY="
+      "revision": "6a771120d607dcccb279a27d227650e324815c35",
+      "url": "https://github.com/nix-darwin/nix-darwin/archive/6a771120d607dcccb279a27d227650e324815c35.tar.gz",
+      "hash": "sha256-AkWx4Zt9pQbD/f82Z8N57+d0HGLN/rV3gdMKJTpBPKs="
     },
     "nixpkgs": {
       "type": "Git",
@@ -48,9 +48,9 @@
       },
       "branch": "nixos-unstable",
       "submodules": false,
-      "revision": "331800de5053fcebacf6813adb5db9c9dca22a0c",
-      "url": "https://github.com/NixOS/nixpkgs/archive/331800de5053fcebacf6813adb5db9c9dca22a0c.tar.gz",
-      "hash": "sha256-x5UQuRsH3MqI0U9afaXSNqzTPSeZlRLvFAav2Ux1pNw="
+      "revision": "a799d3e3886da994fa307f817a6bc705ae538eeb",
+      "url": "https://github.com/NixOS/nixpkgs/archive/a799d3e3886da994fa307f817a6bc705ae538eeb.tar.gz",
+      "hash": "sha256-3av0pIjlOWQ6rDbNOmpUSvbNnJkGORQKKjb4LtCZsIY="
     }
   },
   "version": 8
