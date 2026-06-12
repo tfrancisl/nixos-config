@@ -10,17 +10,6 @@ let
   inherit (config.acme.core) username;
 
   screenshotTool = pkgs'.waylandScreenshot;
-
-  # Script to toggle active window between workspaces 1 and 2
-  toggleWorkspaceScript = pkgs.writeShellScript "toggle-workspace" ''
-    current_workspace=$(${pkgs.hyprland}/bin/hyprctl activewindow -j | ${pkgs.jq}/bin/jq -r '.workspace.id')
-
-    if [ "$current_workspace" -eq 1 ]; then
-      ${pkgs.hyprland}/bin/hyprctl dispatch movetoworkspace 2
-    else
-      ${pkgs.hyprland}/bin/hyprctl dispatch movetoworkspace 1
-    fi
-  '';
 in
 {
   options.acme = {
@@ -83,7 +72,6 @@ in
         local mainMod              = "SUPER"
         local alacritty            = "${pkgs.alacritty}/bin/alacritty"
         local wofi                 = "${pkgs.wofi}/bin/wofi"
-        local toggleWorkspaceScript = "${toggleWorkspaceScript}"
 
         -------------------
         ---- AUTOSTART ----
@@ -255,7 +243,6 @@ in
         hl.bind(mainMod .. " + M", hl.dsp.exit())
         hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen())
         hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
-        hl.bind(mainMod .. " + T", hl.dsp.exec_cmd(toggleWorkspaceScript))
         hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(alacritty))
         hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(wofi .. " --show drun"))
         hl.bind(mainMod .. " + S", hl.dsp.exec_cmd("screenshot"))
