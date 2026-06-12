@@ -9,7 +9,10 @@ in
       enable = true;
       clean.enable = true;
       clean.extraArgs = cleanArgs;
-      flake = "/home/${username}/nixos-config";
+    };
+    environment.variables = {
+      NH_FILE = "/home/${username}/nixos-config";
+      NH_ATTRP = "nixosConfigurations.valhalla";
     };
   };
 }
