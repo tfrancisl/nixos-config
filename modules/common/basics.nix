@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  pkgs',
   ...
 }:
 let
@@ -25,6 +26,7 @@ in
         pkgs.fzf
         pkgs.logseq
         pkgs.fd
+        pkgs'.cade
       ];
     };
     nixpkgs.config.permittedInsecurePackages = [

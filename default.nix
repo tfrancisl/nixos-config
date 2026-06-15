@@ -75,6 +75,7 @@ let
     packages.${system}
     // {
       claude-code = (pkgsFor system).callPackage "${sources.claude}/package.nix" { };
+      cade = (pkgsFor system).callPackage "${sources.cade}/nix/package.nix" { };
     };
 
   commonModules = listNixFilesRecursive ./modules/common;

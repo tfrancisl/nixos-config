@@ -8,12 +8,12 @@ let
 in
 {
   config = {
-    programs.direnv = {
-      enable = true;
-      enableBashIntegration = false;
-      enableZshIntegration = false;
-      nix-direnv.enable = true;
-    };
+    # programs.direnv = {
+    #   enable = true;
+    #   enableBashIntegration = false;
+    #   enableZshIntegration = false;
+    #   nix-direnv.enable = true;
+    # };
     hjem.users.${username} = {
       packages = [
         pkgs.mise

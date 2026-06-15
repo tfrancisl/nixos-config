@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  pkgs',
   ...
 }:
 let
@@ -12,6 +13,9 @@ in
   config = {
     hjem.users.${username} = {
       files = {
+        ".config/fish/config.fish".text = ''
+            source ${(pkgs.runCommand "cade.fish" { } ''${lib.getExe (pkgs'.cade)} hook fish >> "$out"'')}
+        '';
         ".config/fish/conf.d/aliases.fish".text = ''
           alias ls '${getExe pkgs.eza} --group-directories-first'
           alias l '${getExe pkgs.eza} -l --group-directories-first'
