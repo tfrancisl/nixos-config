@@ -13,7 +13,10 @@ in
     # nh works on darwin via `nh darwin switch` but nix-darwin
     # doesn't have a programs.nh module, so install and configure manually
     hjem.users.${username}.packages = [ pkgs.nh ];
-    environment.variables.NH_FLAKE = "/Users/${username}/nixos-config";
+    environment.variables = {
+      NH_FILE = "/Users/${username}/nixos-config";
+      NH_ATTRP = "darwinConfigurations.mymac";
+    };
 
     # Equivalent of programs.nh.clean on NixOS — same command, launchd instead of systemd
     launchd.daemons.nh-clean = {
