@@ -7,17 +7,7 @@
   ...
 }:
 let
-  # Preview command for gd (file-level diff).
-  # GIT_ARGS_STR are exported shell vars; bash expands them
-  # at fzf-command-construction time (double-quoted --preview string).
-  # {-1} is an fzf placeholder substituted at preview time.
-  filePreviewCmd = "git diff \${GIT_ARGS_STR} -- {-1} | delta --width=variable";
-
-  # Preview command for gl (commit-level diff). {1} = short hash from --oneline.
-  commitPreviewCmd = "git show {1} | delta --width=variable";
-
-  # Peek binding for gl: open full diff in pager, then return to gl.
-  commitPeekCmd = "git show {1} | delta | less -FRX";
+  fzfDefaultOpts ="--layout reverse --style full";
 
   gd = writeShellApplication {
     name = "gd";
@@ -27,8 +17,7 @@ let
       delta
     ];
     text = ''
-      # Browse git diffs through fzf + delta. Accepts any flags that
-      # git diff supports.
+      # Browse git diffs through fzf + delta.
       #
       # Examples:
       #   gd
@@ -38,21 +27,11 @@ let
       set -o pipefail
       set -o nounset
 
-      GIT_ARGS=()
-      for arg in "$@"; do
-        GIT_ARGS+=("$arg")
-      done
-      GIT_ARGS+=("--color=always")
+      export FZF_DEFAULT_OPTS="${fzfDefaultOpts}"
 
-      # Join to a plain string for fzf preview (exported so it survives into
-      # the double-quoted --preview string where bash expands it).
-      # Safe: git diff flags do not contain spaces.
-      GIT_ARGS_STR="''${GIT_ARGS[*]}"
-      export GIT_ARGS_STR
-
-      git diff --name-only "''${GIT_ARGS[@]}" |
-        fzf --ansi \
-          --preview "${filePreviewCmd}" \
+      git diff --name-only --color=always "$@" |
+      fzf --ansi --bind=ctrl-s:toggle-sort \
+          --preview "git diff -- {-1} | delta --width=variable" \
           --preview-window="right,75%" || true
     '';
   };
@@ -63,13 +42,10 @@ let
       fzf
       git
       delta
-      gd
     ];
     text = ''
-      # Browse git log through fzf + delta.
-      # Tab/Shift-Tab: select/deselect commits.
-      # Ctrl-P: peek at highlighted commit's full diff in pager, return to gl.
-      # Enter: drill into gd file picker for highlighted commit
+      # Browse git log with fzf and delta.
+      # Enter to view the delta diff for the commit
       #
       # Examples:
       #   gl
@@ -79,23 +55,14 @@ let
       set -o pipefail
       set -o nounset
 
-      SELECTION=$(
-        git log --oneline --color=always "$@" |
-          fzf --ansi \
-            --no-sort \
-            --multi \
-            --preview "${commitPreviewCmd}" \
-            --preview-window="right,70%" \
-            --bind "ctrl-p:execute(${commitPeekCmd})" \
-            || true
-      )
+      export FZF_DEFAULT_OPTS="${fzfDefaultOpts}"
 
-      [[ -z "$SELECTION" ]] && exit 0
-
-      mapfile -t HASHES < <(echo "$SELECTION" | awk '{print $1}')
-
-      gd "''${HASHES[0]}^..''${HASHES[0]}"
-
+      git log --oneline --color=always "$@" |
+      fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
+          --bind "ctrl-m:execute:
+          echo {} |
+          grep -o '[a-f0-9]\{7\}' |
+          head -1 | xargs -I % sh -c 'git show % | delta | less -R'"
     '';
   };
 in
