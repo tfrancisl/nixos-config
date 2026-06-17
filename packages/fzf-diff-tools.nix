@@ -7,7 +7,7 @@
   ...
 }:
 let
-  fzfDefaultOpts ="--layout reverse --style full";
+  fzfDefaultOpts = "--layout reverse --style full";
 
   gd = writeShellApplication {
     name = "gd";

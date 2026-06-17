@@ -1,10 +1,13 @@
 {
   config,
   pkgs,
+  lib,
+  pkgs',
   ...
 }:
 let
   inherit (config.acme.core) username;
+
 in
 {
   config = {
@@ -19,6 +22,7 @@ in
         pkgs.balatro-mod-manager
         pkgs.prismlauncher
         pkgs.teamspeak6-client
+        pkgs'.exiled-exchange-2
       ];
     };
 
@@ -33,7 +37,8 @@ in
       "WAYLANDDRV_PRIMARY_MONITOR" = "DP-3";
       "PROTON_USE_WOW64" = "1";
       "VKD3D_CONFIG" = "dxr11";
-      "POE2_FILTERS_DIR" = "/home/freya/.local/share/Steam/steamapps/compatdata/2694490/pfx/drive_c/users/steamuser/Documents/My Games/Path of Exile 2/";
+      "POE2_FILTERS_DIR" =
+        "/home/freya/.local/share/Steam/steamapps/compatdata/2694490/pfx/drive_c/users/steamuser/Documents/My Games/Path of Exile 2/";
     };
   };
 }
