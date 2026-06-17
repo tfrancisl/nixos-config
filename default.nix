@@ -67,6 +67,7 @@ let
       fzfGitLog = fzfDiffTools.gl;
       fzfGitDiff = fzfDiffTools.gd;
       waylandScreenshot = p.callPackage ./packages/screenshot.nix { };
+      exiled-exchange-2 = p.callPackage ./packages/exiled-exchange-2.nix { };
     }
   );
 
