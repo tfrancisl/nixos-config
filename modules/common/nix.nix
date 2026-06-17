@@ -6,7 +6,6 @@
         "nix-command"
         "flakes"
       ];
-      pure-eval = true;
       warn-dirty = false;
       allow-import-from-derivation = false;
       accept-flake-config = true;
