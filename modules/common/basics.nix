@@ -23,12 +23,8 @@ in
         pkgs.alejandra
         pkgs.nixd
         pkgs.fzf
-        pkgs.logseq
         pkgs.fd
       ];
     };
-    nixpkgs.config.permittedInsecurePackages = [
-      "electron-39.8.10" # FIXME: remove when logseq updates electron
-    ];
   };
 }
