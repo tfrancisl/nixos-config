@@ -1,0 +1,105 @@
+{
+  nixosSystem,
+  darwinSystem,
+  sources,
+  lib,
+  forRelevantSystems,
+  pkgs,
+  lib',
+  hjemNixosModule,
+  hjemDarwinModule,
+  ...
+}:
+let
+  inherit (lib') listNixFilesRecursive;
+  mkNixosSystem =
+    {
+      system,
+      modules,
+      specialArgs ? { },
+    }:
+    nixosSystem {
+      inherit system specialArgs modules;
+    };
+
+  mkDarwinSystem =
+    {
+      system,
+      modules,
+      specialArgs ? { },
+    }:
+    darwinSystem {
+      inherit lib specialArgs;
+      modules = modules ++ [
+        (
+          { lib, ... }:
+          {
+            nixpkgs = {
+              system = lib.mkDefault system;
+              source = lib.mkDefault sources.nixpkgs;
+              flake.source = lib.mkDefault sources.nixpkgs.outPath;
+            };
+            system.checks.verifyNixPath = lib.mkDefault false;
+          }
+        )
+      ];
+    };
+
+  packages = forRelevantSystems (
+    system:
+    let
+      pkgs' = pkgs.${system};
+      fzfDiffTools = pkgs'.callPackage ./packages/fzf-diff-tools.nix { };
+    in
+    {
+      fzfGitLog = fzfDiffTools.gl;
+      fzfGitDiff = fzfDiffTools.gd;
+      waylandScreenshot = pkgs'.callPackage ./packages/screenshot.nix { };
+      exiled-exchange-2 = pkgs'.callPackage ./packages/exiled-exchange-2.nix { };
+      claude-code = pkgs.${system}.callPackage "${sources.claude}/package.nix" { };
+    }
+  );
+
+  commonModules = listNixFilesRecursive ./modules/common;
+in
+{
+
+  inherit packages;
+
+  nixosConfigurations.valhalla =
+    let
+      system = "x86_64-linux";
+    in
+    mkNixosSystem {
+      inherit system;
+      specialArgs = {
+        pkgs' = packages.${system};
+      };
+      modules = [
+        hjemNixosModule
+      ]
+      ++ (listNixFilesRecursive ./machines/valhalla)
+      ++ commonModules
+      ++ (listNixFilesRecursive ./modules/nixos);
+    };
+
+  darwinConfigurations.mymac =
+    let
+      system = "aarch64-darwin";
+    in
+    mkDarwinSystem {
+      inherit system;
+      specialArgs = {
+        pkgs' = packages.${system};
+      };
+      modules = [
+        hjemDarwinModule
+      ]
+      ++ (listNixFilesRecursive ./machines/mymac)
+      ++ commonModules
+      ++ (listNixFilesRecursive ./modules/darwin);
+    };
+
+  formatter = forRelevantSystems (system: pkgs.${system}.nixfmt-tree);
+
+}
