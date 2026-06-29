@@ -14,7 +14,6 @@ in
       packages = [
         pkgs.rivalcfg # CLI for SteelSeries mouse hardware config
         pkgs.lunar-client
-        pkgs.mangohud
         pkgs.wofi
         pkgs.spotify
         pkgs.r2modman
