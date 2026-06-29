@@ -1,15 +1,12 @@
 {
   config,
   pkgs,
-  pkgs',
   lib,
   ...
 }:
 let
   cfg = config.acme.hyprland;
   inherit (config.acme.core) username;
-
-  screenshotTool = pkgs'.waylandScreenshot;
 in
 {
   options.acme = {
@@ -17,7 +14,9 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    acme.desktop.enable = lib.mkForce true;
     programs.hyprland.enable = lib.mkForce true;
+
     acme.greeter.autologinCommand = "/run/current-system/sw/bin/start-hyprland";
 
     systemd.user.targets.hyprland-session = {
@@ -29,39 +28,11 @@ in
     };
 
     environment.sessionVariables = {
-      # these five could be in a "wayland fixes" section
-      ELECTRON_OZONE_PLATFORM_HINT = "auto";
-      GDK_BACKEND = "wayland,x11";
-      QT_QPA_PLATFORM = "wayland;xcb";
-      # fix java bug on tiling wm's / compositors
-      _JAVA_AWT_WM_NONREPARENTING = "1";
-      # enable java anti aliasing
-      _JAVA_OPTIONS = "-Dawt.useSystemAAFontSettings=on";
-
-      # cursor stuff could be elsewhere
       HYPRCURSOR_THEME = "graphite-light";
       HYPRCURSOR_SIZE = 32;
-      XCURSOR_THEME = "graphite-light";
-      XCURSOR_SIZE = 32;
     };
 
     hjem.users.${username} = {
-      # these pkgs should be in a "graphical env" space, not hypr specifically
-      packages = [
-        pkgs.gparted
-        pkgs.dunst
-        pkgs.pavucontrol
-        pkgs.graphite-cursors
-        pkgs.ghostty
-        screenshotTool
-      ];
-      # fixes some apps cursor theme
-      xdg.data.files."icons/default/index.theme" = {
-        generator = lib.generators.toINI { };
-        value = {
-          "Icon Theme".Inherits = "graphite-light";
-        };
-      };
       xdg.config.files."hypr/hyprland.lua".text = ''
         -- https://wiki.hypr.land/Configuring/Start/
 
