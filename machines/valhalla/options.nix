@@ -10,7 +10,8 @@ _: {
         username = "tfrancisl";
       };
     };
-    hyprland.enable = true;
+    mangowc.enable = true;
+    hyprland.enable = false;
     network = {
       hostname = "valhalla";
     };
