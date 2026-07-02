@@ -2,9 +2,9 @@
   nixosSystem,
   darwinSystem,
   sources,
-  lib,
   forRelevantSystems,
   pkgs,
+  lib,
   lib',
   hjemNixosModule,
   hjemDarwinModule,
@@ -12,24 +12,31 @@
 }:
 let
   inherit (lib') listNixFilesRecursive;
+  nixpkgs-source = sources.nixpkgs;
   mkNixosSystem =
     {
       system,
       modules,
-      specialArgs ? { },
     }:
     nixosSystem {
-      inherit system specialArgs modules;
+      inherit system modules;
+      specialArgs = {
+        inherit nixpkgs-source;
+        pkgs' = packages.${system};
+      };
     };
 
   mkDarwinSystem =
     {
       system,
       modules,
-      specialArgs ? { },
     }:
     darwinSystem {
-      inherit lib specialArgs;
+      inherit lib;
+      specialArgs = {
+        inherit nixpkgs-source;
+        pkgs' = packages.${system};
+      };
       modules = modules ++ [
         (
           { lib, ... }:
@@ -72,9 +79,6 @@ in
     in
     mkNixosSystem {
       inherit system;
-      specialArgs = {
-        pkgs' = packages.${system};
-      };
       modules = [
         hjemNixosModule
       ]
@@ -89,9 +93,6 @@ in
     in
     mkDarwinSystem {
       inherit system;
-      specialArgs = {
-        pkgs' = packages.${system};
-      };
       modules = [
         hjemDarwinModule
       ]
