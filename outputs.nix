@@ -63,7 +63,7 @@ let
       fzfGitDiff = fzfDiffTools.gd;
       waylandScreenshot = pkgs'.callPackage ./packages/screenshot.nix { };
       exiled-exchange-2 = pkgs'.callPackage ./packages/exiled-exchange-2.nix { };
-      claude-code = pkgs.${system}.callPackage "${sources.claude}/package.nix" { };
+      claude-code = pkgs'.callPackage "${sources.claude}/package.nix" { };
     }
   );
 
