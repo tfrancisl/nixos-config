@@ -9,9 +9,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "e64c198efb1ad4b91d349369a161d95d8e8f54b5",
-      "url": "https://github.com/sadjow/claude-code-nix/archive/e64c198efb1ad4b91d349369a161d95d8e8f54b5.tar.gz",
-      "hash": "sha256-lbAYB7r2H5B7n/verak4R6YbnuUaqCzpRfascDcL9SA="
+      "revision": "9b05ec91a00ee8edea17b9279d55a5c1f084d754",
+      "url": "https://github.com/sadjow/claude-code-nix/archive/9b05ec91a00ee8edea17b9279d55a5c1f084d754.tar.gz",
+      "hash": "sha256-rIawyN3+D9uqGmoYpTLZ2D6PYEp8xPykto8Uu+ER830="
     },
     "hjem": {
       "type": "Git",
@@ -48,9 +48,9 @@
       },
       "branch": "nixos-unstable",
       "submodules": false,
-      "revision": "b5aa0fbd538984f6e3d201be0005b4463d8b09f8",
-      "url": "https://github.com/NixOS/nixpkgs/archive/b5aa0fbd538984f6e3d201be0005b4463d8b09f8.tar.gz",
-      "hash": "sha256-oPXCU/SSUokcGaJREHibG1CBX3+s/W7orDWQOZDsEeQ="
+      "revision": "65179426c83bb3f6bc14898b42ea1c6f01d374b0",
+      "url": "https://github.com/NixOS/nixpkgs/archive/65179426c83bb3f6bc14898b42ea1c6f01d374b0.tar.gz",
+      "hash": "sha256-xnJJk+ct+D2+wdRxj1wk36w5zV9RVESwRqcklPdt3fM="
     }
   },
   "version": 8
