@@ -24,9 +24,11 @@ in
       hostName = cfg.hostname;
       networkmanager.enable = false;
       useNetworkd = true;
+      nameservers = [ "192.168.1.224" ];
       useDHCP = true;
       nftables.enable = true;
     };
+    services.resolved.enable = true;
     systemd.network.enable = true;
   };
 }
