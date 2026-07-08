@@ -25,11 +25,7 @@ in
   config = {
     hjem.users.${username} = {
       packages = [
-        (pkgs.git.override {
-          pythonSupport = false;
-          perlSupport = false;
-          rustSupport = true;
-        })
+        pkgs.git
         pkgs.forgejo-cli
         pkgs.git-credential-oauth
         pkgs.gh
