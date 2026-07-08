@@ -1,8 +1,8 @@
 let
 
-  sources = import ./npins;
-  lib = import "${sources.nixpkgs}/lib";
-  lib' = import ./lib { inherit lib; };
+  inputs = import ./.tack;
+
+  lib = inputs.nixpkgs.lib;
 
   relevantSystems = [
     "x86_64-linux"
@@ -10,26 +10,19 @@ let
   ];
   forRelevantSystems = lib.genAttrs relevantSystems;
 
-  pkgs = forRelevantSystems (
-    system:
-    import sources.nixpkgs {
-      inherit system;
-      config.allowUnfree = true;
-    }
-  );
+  pkgs = forRelevantSystems (system: inputs.nixpkgs.legacyPackages.${system});
 
-  nixosSystem = import "${sources.nixpkgs}/nixos/lib/eval-config.nix";
-  darwinSystem = import "${sources.nix-darwin}/eval-config.nix";
+  nixosSystem = inputs.nixpkgs.lib.nixosSystem;
+  darwinSystem = inputs.nix-darwin.lib.darwinSystem;
 
-  hjemNixosModule = (import "${sources.hjem}/modules/nixos").default;
-  hjemDarwinModule = (import "${sources.hjem}/modules/nix-darwin").default;
+  hjemNixosModule = inputs.hjem.nixosModules.default;
+  hjemDarwinModule = inputs.hjem.darwinModules.default;
 
 in
 {
   inherit
-    sources
+    inputs
     lib
-    lib'
     relevantSystems
     forRelevantSystems
     pkgs

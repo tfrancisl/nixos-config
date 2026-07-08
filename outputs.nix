@@ -1,18 +1,19 @@
 {
+  inputs,
   nixosSystem,
   darwinSystem,
-  sources,
   forRelevantSystems,
   pkgs,
   lib,
-  lib',
   hjemNixosModule,
   hjemDarwinModule,
   ...
 }:
 let
-  inherit (lib') listNixFilesRecursive;
-  nixpkgs-source = sources.nixpkgs;
+  listNixFilesRecursive =
+    module: lib.filter (n: lib.strings.hasSuffix ".nix" n) (lib.filesystem.listFilesRecursive module);
+
+  nixpkgs-source = inputs.nixpkgs;
   mkNixosSystem =
     {
       system,
@@ -43,8 +44,8 @@ let
           {
             nixpkgs = {
               system = lib.mkDefault system;
-              source = lib.mkDefault sources.nixpkgs;
-              flake.source = lib.mkDefault sources.nixpkgs.outPath;
+              source = lib.mkDefault inputs.nixpkgs;
+              flake.source = lib.mkDefault inputs.nixpkgs.outPath;
             };
             system.checks.verifyNixPath = lib.mkDefault false;
           }
@@ -63,7 +64,7 @@ let
       fzfGitDiff = fzfDiffTools.gd;
       waylandScreenshot = pkgs'.callPackage ./packages/screenshot.nix { };
       exiled-exchange-2 = pkgs'.callPackage ./packages/exiled-exchange-2.nix { };
-      claude-code = pkgs'.callPackage "${sources.claude}/package.nix" { };
+      claude-code = pkgs'.callPackage "${inputs.claude}/package.nix" { }; # switch to flake output?
     }
   );
 
