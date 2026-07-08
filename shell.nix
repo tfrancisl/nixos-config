@@ -1,7 +1,8 @@
 let
-  sources = import ./npins;
-  pkgs = import sources.nixpkgs { };
-in
+  inputs = import ./inputs.nix;
+  system = builtins.currentSystem;
+  pkgs = inputs.pkgs.${system};
+  in
 pkgs.mkShell {
   name = "nixos-config";
   packages = [
