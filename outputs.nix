@@ -63,7 +63,6 @@ let
       fzfGitLog = fzfDiffTools.gl;
       fzfGitDiff = fzfDiffTools.gd;
       waylandScreenshot = pkgs'.callPackage ./packages/screenshot.nix { };
-      exiled-exchange-2 = pkgs'.callPackage ./packages/exiled-exchange-2.nix { };
       claude-code = inputs.claude.outputs.packages.${system}.default;
     }
   );
