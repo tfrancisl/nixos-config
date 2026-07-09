@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  pkgs',
   ...
 }:
 let
@@ -20,7 +19,6 @@ in
         pkgs.balatro-mod-manager
         pkgs.prismlauncher
         pkgs.teamspeak6-client
-        pkgs'.exiled-exchange-2
       ];
     };
 
