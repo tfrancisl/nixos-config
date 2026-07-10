@@ -1,4 +1,4 @@
-exclude-nix-files := ('npins/default.nix')
+exclude-nix-files := ('.tack/default.nix')
 
 format:
     treefmt
