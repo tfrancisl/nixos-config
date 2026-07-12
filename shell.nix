@@ -7,6 +7,7 @@ pkgs.mkShell {
   name = "nixos-config";
   packages = [
     pkgs.just
+    pkgs.tack
     pkgs.nixfmt-tree
     pkgs.deadnix
     pkgs.statix
