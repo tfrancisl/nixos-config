@@ -13,3 +13,6 @@ url = "github:nix-darwin/nix-darwin"
 
 [inputs.claude]
 url = "github:sadjow/claude-code-nix"
+
+[inputs.ncro]
+url = "github:manic-systems/ncro"

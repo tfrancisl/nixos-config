@@ -15,6 +15,14 @@
     "narHash": "sha256-so1hIImuLtTKTVUokJ/6C2D2b2D4znCx+/PAjMSAnpw=",
     "lastModified": 1782267080
   },
+  "ncro": {
+    "type": "github",
+    "owner": "manic-systems",
+    "repo": "ncro",
+    "rev": "3536f6c989522041b72ba36a6266d13faf7c6ee8",
+    "narHash": "sha256-ipt1PjC5uLjsyP/T3wptW4GoLKoNlvpiI8Rcsiv5tck=",
+    "lastModified": 1783936161
+  },
   "nix-darwin": {
     "type": "github",
     "owner": "nix-darwin",
