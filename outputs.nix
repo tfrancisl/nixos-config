@@ -64,10 +64,12 @@ let
       fzfGitDiff = fzfDiffTools.gd;
       waylandScreenshot = pkgs'.callPackage ./packages/screenshot.nix { };
       claude-code = inputs.claude.outputs.packages.${system}.default;
+      ncroPkg = inputs.ncro.packages.${system}.ncro;
     }
   );
 
   commonModules = listNixFilesRecursive ./modules/common;
+
 in
 {
 
@@ -76,11 +78,13 @@ in
   nixosConfigurations.valhalla =
     let
       system = "x86_64-linux";
+      ncroNixosModule = inputs.ncro.nixosModules.default;
     in
     mkNixosSystem {
       inherit system;
       modules = [
         hjemNixosModule
+        ncroNixosModule
       ]
       ++ (listNixFilesRecursive ./machines/valhalla)
       ++ commonModules
