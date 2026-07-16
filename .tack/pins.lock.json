@@ -3,40 +3,40 @@
     "type": "github",
     "owner": "sadjow",
     "repo": "claude-code-nix",
-    "rev": "41146e01a683653d69b8176c5784a66315263835",
-    "narHash": "sha256-dW639Zi7R46zzHhHxlvolQwiNFwi4qkWwjV9Yx2laaw=",
-    "lastModified": 1784011142
+    "rev": "1c3cb70c212d7f2ea4decab4a65697b6f6268442",
+    "narHash": "sha256-eluLGU+dZ7AzGowwsNjNZ4R9lHcs3eZnof3XHKwSWeM=",
+    "lastModified": 1784157477
   },
   "hjem": {
     "type": "github",
     "owner": "feel-co",
     "repo": "hjem",
-    "rev": "dd0ba9e22fb46581f843e6121de33ca7a4a80224",
-    "narHash": "sha256-so1hIImuLtTKTVUokJ/6C2D2b2D4znCx+/PAjMSAnpw=",
-    "lastModified": 1782267080
+    "rev": "57f1dacffe7a2d7ad803ad224a0efa1817aa4d07",
+    "narHash": "sha256-EyBAHpQYuXAdQlIx/sja+Auw9IpHJGjE4PZ9g39I7sQ=",
+    "lastModified": 1784171173
   },
   "ncro": {
     "type": "github",
     "owner": "manic-systems",
     "repo": "ncro",
-    "rev": "3536f6c989522041b72ba36a6266d13faf7c6ee8",
-    "narHash": "sha256-ipt1PjC5uLjsyP/T3wptW4GoLKoNlvpiI8Rcsiv5tck=",
-    "lastModified": 1783936161
+    "rev": "8681ec50b9570de825786f9ec599b1301214a1ff",
+    "narHash": "sha256-E4sJw/ySR3bEGd3eyqXErmDtjj0TF+8JGYXH9uDPctc=",
+    "lastModified": 1784212632
   },
   "nix-darwin": {
     "type": "github",
     "owner": "nix-darwin",
     "repo": "nix-darwin",
-    "rev": "d5bd9cd77aea4c0a8f49e7fd85545671a208ed15",
-    "narHash": "sha256-AAbexQvDoK+6GFJdhY6kqjA+6ECKRkidgWxkn4gMwAA=",
-    "lastModified": 1783395956
+    "rev": "a4cf1d10853b0d2be19b9eca35d749e201d70b55",
+    "narHash": "sha256-IOWwQMJhUxcojm0MRvuKs1fKLH727u4+hHeEOPhdUyA=",
+    "lastModified": 1784123936
   },
   "nixpkgs": {
     "type": "github",
     "owner": "NixOS",
     "repo": "nixpkgs",
-    "rev": "6cdc7fc76e8bf7fde9fa43a849fcaaa70e230dee",
-    "narHash": "sha256-FmieJB8/OUvNxbkboi7+IGfIuSXY3nF/hZQm8kD0r50=",
-    "lastModified": 1783915482
+    "rev": "35d3407a3816f3b341d8cf1d60abaf2b7b8166ac",
+    "narHash": "sha256-BoYPdqk6jlKXy+DyUzyGV/CtRGfAhk2MmIgBhsemTGI=",
+    "lastModified": 1784115452
   }
 }
