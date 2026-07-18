@@ -5,6 +5,7 @@ let
 in
 pkgs.mkShell {
   name = "nixos-config";
+  TACK_DIR=./.tack; # my inputs.nix confuses tack
   packages = [
     pkgs.just
     pkgs.tack
