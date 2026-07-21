@@ -33,24 +33,11 @@ let
       modules,
     }:
     darwinSystem {
-      inherit lib;
+      inherit system modules;
       specialArgs = {
         inherit nixpkgs-source;
         pkgs' = packages.${system};
       };
-      modules = modules ++ [
-        (
-          { lib, ... }:
-          {
-            nixpkgs = {
-              system = lib.mkDefault system;
-              source = lib.mkDefault inputs.nixpkgs;
-              flake.source = lib.mkDefault inputs.nixpkgs.outPath;
-            };
-            system.checks.verifyNixPath = lib.mkDefault false;
-          }
-        )
-      ];
     };
 
   packages = forRelevantSystems (
