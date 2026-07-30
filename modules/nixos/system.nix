@@ -31,9 +31,8 @@
       };
     };
 
-    hardware.enableRedistributableFirmware = lib.mkDefault true;
     hardware.cpu.amd.updateMicrocode = lib.mkDefault true;
-    swapDevices = [ ];
+
     system.stateVersion = "25.05"; # Do not change this!
   };
 }
