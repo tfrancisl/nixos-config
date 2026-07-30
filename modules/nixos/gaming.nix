@@ -8,33 +8,32 @@ let
 
 in
 {
-  config = {
-    hjem.users.${username} = {
-      packages = [
-        pkgs.rivalcfg # CLI for SteelSeries mouse hardware config
-        pkgs.lunar-client
-        pkgs.wofi
-        pkgs.spotify
-        pkgs.r2modman
-        pkgs.balatro-mod-manager
-        pkgs.prismlauncher
-        pkgs.teamspeak6-client
-      ];
-    };
-
-    boot.kernelModules = [
-      "ntsync"
+  hjem.users.${username} = {
+    packages = [
+      pkgs.rivalcfg # CLI for SteelSeries mouse hardware config
+      pkgs.lunar-client
+      pkgs.wofi
+      pkgs.spotify
+      pkgs.r2modman
+      pkgs.balatro-mod-manager
+      pkgs.prismlauncher
+      pkgs.teamspeak6-client
     ];
-    services.udev.extraRules = ''
-      KERNEL=="ntsync", MODE="0644"
-    '';
-    environment.sessionVariables = {
-      "PROTON_ENABLE_WAYLAND" = "1";
-      "WAYLANDDRV_PRIMARY_MONITOR" = "DP-3";
-      "PROTON_USE_WOW64" = "1";
-      "VKD3D_CONFIG" = "dxr11";
-      "POE2_FILTERS_DIR" =
-        "/home/freya/.local/share/Steam/steamapps/compatdata/2694490/pfx/drive_c/users/steamuser/Documents/My Games/Path of Exile 2/";
-    };
   };
+
+  boot.kernelModules = [
+    "ntsync"
+  ];
+  services.udev.extraRules = ''
+    KERNEL=="ntsync", MODE="0644"
+  '';
+  environment.sessionVariables = {
+    "PROTON_ENABLE_WAYLAND" = "1";
+    "WAYLANDDRV_PRIMARY_MONITOR" = "DP-3";
+    "PROTON_USE_WOW64" = "1";
+    "VKD3D_CONFIG" = "dxr11";
+    "POE2_FILTERS_DIR" =
+      "/home/freya/.local/share/Steam/steamapps/compatdata/2694490/pfx/drive_c/users/steamuser/Documents/My Games/Path of Exile 2/";
+  };
+
 }

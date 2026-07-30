@@ -1,12 +1,11 @@
-{ config, ... }:
-{
+_: {
   config = {
     services.xserver.videoDrivers = [ "nvidia" ];
 
     hardware = {
       nvidia = {
         open = false;
-        gsp.enable = config.hardware.nvidia.open;
+        gsp.enable = false;
         nvidiaSettings = false;
         modesetting.enable = true;
         powerManagement.enable = false;
