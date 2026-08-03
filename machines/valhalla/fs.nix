@@ -1,23 +1,21 @@
 _: {
-  config = {
-    fileSystems = {
-      "/" = {
-        device = "/dev/disk/by-uuid/59dc666f-1a13-4028-a4a0-90dcf6333084";
-        fsType = "ext4";
-      };
-      "/mnt/big_drive/" = {
-        mountPoint = "/mnt/big_drive";
-        device = "/dev/disk/by-uuid/db55e664-3ec1-4aac-bf63-486ab796b1d7";
-        fsType = "ext4";
-      };
-      "/media/games" = {
-        device = "/dev/disk/by-uuid/9b2fe55b-3428-49f8-b44c-bfd1abe0185e";
-        fsType = "btrfs";
-        options = [
-          "subvol=games"
-          "compress=zstd:1"
-        ];
-      };
+  fileSystems = {
+    "/" = {
+      device = "/dev/disk/by-uuid/59dc666f-1a13-4028-a4a0-90dcf6333084";
+      fsType = "ext4";
+    };
+    "/mnt/big_drive/" = {
+      mountPoint = "/mnt/big_drive";
+      device = "/dev/disk/by-uuid/db55e664-3ec1-4aac-bf63-486ab796b1d7";
+      fsType = "ext4";
+    };
+    "/media/games" = {
+      device = "/dev/disk/by-uuid/9b2fe55b-3428-49f8-b44c-bfd1abe0185e";
+      fsType = "btrfs";
+      options = [
+        "subvol=games"
+        "compress=zstd:1"
+      ];
     };
   };
 }
