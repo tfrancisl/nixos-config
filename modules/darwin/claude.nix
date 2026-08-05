@@ -20,10 +20,6 @@ in
       ];
       files = {
         ".claude/CLAUDE.md".text = ''
-          ## General tone and terminology
-          - Abbreviations of common words are acceptable as long as they are clear.
-          - Application or project specific jargon can be acceptable, as long as its documented.
-
           ## Approach
           - Think before acting. Read existing files before writing code.
           - Be concise in output but thorough in reasoning.
@@ -40,7 +36,6 @@ in
           - No redundant file reads. Read each file once.
           - One focused coding pass. Avoid write-delete-rewrite cycles.
           - Test once, fix if needed, verify once. No unnecessary iterations.
-          - Budget: 50 tool calls maximum. Work efficiently.
         '';
         ".claude/settings.json" = {
           generator = lib.generators.toJSON { };
@@ -71,25 +66,10 @@ in
             };
             hooks = { };
             enabledPlugins = {
-              "context-mode@context-mode" = true;
-              "code-simplifier@claude-plugins-official" = true;
               "superpowers@claude-plugins-official" = true;
               "marimo-pair@marimo-pair" = true;
-              "deep-wiki@skills" = true;
             };
             extraKnownMarketplaces = {
-              microsoft = {
-                source = {
-                  source = "github";
-                  repo = "microsoft/skills";
-                };
-              };
-              context-mode = {
-                source = {
-                  source = "github";
-                  repo = "mksglu/context-mode";
-                };
-              };
               marimo = {
                 source = {
                   source = "github";
@@ -97,7 +77,7 @@ in
                 };
               };
             };
-            effortLevel = "high";
+            effortLevel = "medium";
             autoUpdatesChannel = "latest";
           };
         };
