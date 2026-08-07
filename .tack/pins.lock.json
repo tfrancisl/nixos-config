@@ -3,25 +3,25 @@
     "type": "github",
     "owner": "sadjow",
     "repo": "claude-code-nix",
-    "rev": "b03bf902ceb0163929f8a4d5ad3a7635802cfba3",
-    "narHash": "sha256-MK+5xu/3jD22eXRfZNgi4R1mhryVN3aAIzxS1Nb29N0=",
-    "lastModified": 1785802791
+    "rev": "2464294b1d41bc2d49572f4cb569a3892c64d4ef",
+    "narHash": "sha256-PYwgIz1ySMppKqiwC1YImgekPx9g4Fo0yCYzRZ0Ft6w=",
+    "lastModified": 1786077675
   },
   "hjem": {
     "type": "github",
     "owner": "feel-co",
     "repo": "hjem",
-    "rev": "d628ecda714785fddf86cad28ee4f506dc5b7eb9",
-    "narHash": "sha256-M9v4zyKLYSVv2RYB4iYTg2THKvW3mDlj+fR1KvW9G3w=",
-    "lastModified": 1785525782
+    "rev": "b610953d0c56da6b28fd39c21bd193b88e91341c",
+    "narHash": "sha256-qwppDYdtxqtDpI1iSp7bs8prOJ0KQSvhJchfROD04f0=",
+    "lastModified": 1785929776
   },
   "ncro": {
     "type": "github",
     "owner": "manic-systems",
     "repo": "ncro",
-    "rev": "7a8709121650e1f25ec0ae2053f1d221570b0737",
-    "narHash": "sha256-4f00HW6n52RuhaY+uiKE18bQ+YDU5h13C9Ul8ZlwH/I=",
-    "lastModified": 1785869556
+    "rev": "c6e07f2adeca2b7673b52628e531187dcbfc34e9",
+    "narHash": "sha256-q3A6b0bIqOM1Ewzzi/dp/+MAzmAkAIpGwyE1KPBBxcM=",
+    "lastModified": 1786045750
   },
   "nix-darwin": {
     "type": "github",
