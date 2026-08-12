@@ -3,9 +3,9 @@
     "type": "github",
     "owner": "sadjow",
     "repo": "claude-code-nix",
-    "rev": "9bf9ac959eaee3b06d6ef13f18a711ae64a581b4",
-    "narHash": "sha256-Rm3yXcjHmoebdRA35SVy/AM9PsckDPPJkY+xGodiIHQ=",
-    "lastModified": 1786159714
+    "rev": "fad470f88fe10a834954cf701bb7a1a937f2c988",
+    "narHash": "sha256-YPU/GTIghkZlrXxVtoOJ+lT8v1X8cHUSr3MEo0O+JwI=",
+    "lastModified": 1786479130
   },
   "hjem": {
     "type": "github",
@@ -35,8 +35,8 @@
     "type": "github",
     "owner": "NixOS",
     "repo": "nixpkgs",
-    "rev": "afb4584a80bbf779ce0f691509ff902d188c2b3d",
-    "narHash": "sha256-shi1tjDhCGGd0kIgVPNY03V8NBWSTzhMSFDb7IqSoec=",
-    "lastModified": 1786098110
+    "rev": "8e2eeb9477c9d40009a5bd51cd3eef2f5abb26f1",
+    "narHash": "sha256-JTbODJPDcd3d8U7lO4MVUU3Yo0jz2KQSAHXka+IWBEo=",
+    "lastModified": 1786410043
   }
 }
