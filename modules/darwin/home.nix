@@ -8,7 +8,7 @@ let
 in
 {
   hjem.users.${username} = {
-    clobberFiles = false; # a bit risky on an existing macos install
+    clobberFiles = true; # Required, or else updates prevent hjem from rewriting files it owns.
     directory = "/Users/${username}";
   };
   users.users.${username} = {
