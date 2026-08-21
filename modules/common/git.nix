@@ -71,10 +71,9 @@ in
             };
             alias = {
               st = "status";
-              dis = "difftool -y --staged";
               oops = "reset HEAD~1";
               new = "switch -c";
-              logp = "log  --pretty=format:'%C(green)%ad%Creset %<(11,trunc)(%cr) %C(yellow)%h%Creset %<(50,mtrunc)%s %C(blue)[%an]%Creset' --date='format-local:%d%b%Y %H:%M'";
+              logp = "log  --pretty=format:'%C(green)%ad%Creset %<(11,trunc)(%cr) %C(yellow)%h%Creset %C(blue)[%an]%Creset %s' --date='format-local:%d%b%Y %H:%M'";
             };
             fetch = {
               all = true;
