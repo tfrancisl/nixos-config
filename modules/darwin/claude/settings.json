@@ -1,0 +1,41 @@
+{
+  "autoUpdatesChannel": "latest",
+  "effortLevel": "medium",
+  "enabledPlugins": {
+    "marimo-pair@marimo-pair": true,
+    "superpowers@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "marimo": {
+      "source": {
+        "repo": "marimo-team/marimo-pair",
+        "source": "github"
+      }
+    }
+  },
+  "hooks": {},
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:docs.astral.sh)",
+      "WebFetch(domain:docs.databricks.com)",
+      "Bash(date:*)",
+      "Bash(echo:*)",
+      "Bash(cat:*)",
+      "Bash(ls:*)",
+      "Bash(mkdir:*)",
+      "Bash(wc:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(sort:*)",
+      "Bash(grep:*)",
+      "Bash(tr:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git status:*)",
+      "Bash(git log:*)",
+      "Bash(git diff:*)",
+      "Bash(git tag:*)"
+    ],
+    "defaultMode": "plan"
+  }
+}
