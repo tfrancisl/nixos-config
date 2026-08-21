@@ -10,9 +10,9 @@ accordion-padding = 0
 default-root-container-layout = "tiles"
 default-root-container-orientation = "auto"
 
-on-focused-monitor-changed = [ "move-mouse monitor-lazy-center" ]
+on-focused-monitor-changed = ["move-mouse monitor-lazy-center"]
 
-persistent-workspaces = [ "1", "2" ]
+persistent-workspaces = ["1", "2"]
 automatically-unhide-macos-hidden-apps = true
 
 [key-mapping]
@@ -23,12 +23,12 @@ preset = "qwerty"
 2 = "secondary"
 
 [gaps]
-inner.horizontal = [ { monitor.secondary = 0 }, { monitor.main = 12 }, 0 ]
-inner.vertical = [ { monitor.secondary = 0 }, { monitor.main = 12 }, 0 ]
-outer.left = [ { monitor.secondary = 0 }, { monitor.main = 6 }, 0 ]
-outer.bottom = [ { monitor.secondary = 0 }, { monitor.main = 6 }, 0 ]
-outer.top = [ { monitor.secondary = 0 }, { monitor.main = 6 }, 0 ]
-outer.right = [ { monitor.secondary = 0 }, { monitor.main = 6 }, 0 ]
+inner.horizontal = [{ monitor.secondary = 0 }, { monitor.main = 12 }, 0]
+inner.vertical = [{ monitor.secondary = 0 }, { monitor.main = 12 }, 0]
+outer.left = [{ monitor.secondary = 0 }, { monitor.main = 6 }, 0]
+outer.bottom = [{ monitor.secondary = 0 }, { monitor.main = 6 }, 0]
+outer.top = [{ monitor.secondary = 0 }, { monitor.main = 6 }, 0]
+outer.right = [{ monitor.secondary = 0 }, { monitor.main = 6 }, 0]
 
 [mode.main.binding]
 
@@ -53,5 +53,11 @@ alt-shift-c = "reload-config"
 alt-v = "layout floating tiling" # like toggle float in hypr
 alt-f = "fullscreen"
 
-alt-left = ["focus left --boundaries all-monitors-outer-frame", "move-mouse window-force-center"]
-alt-right = ["focus right --boundaries all-monitors-outer-frame", "move-mouse window-force-center"]
+alt-left = [
+  "focus left --boundaries all-monitors-outer-frame",
+  "move-mouse window-force-center",
+]
+alt-right = [
+  "focus right --boundaries all-monitors-outer-frame",
+  "move-mouse window-force-center",
+]

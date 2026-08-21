@@ -9,7 +9,10 @@ pkgs.mkShell {
   packages = [
     pkgs.just
     pkgs.tack
-    pkgs.nixfmt-tree
+    pkgs.treefmt
+    pkgs.nixfmt
+    pkgs.taplo
+    (pkgs.callPackage ./packages/jqfmt.nix { })
     pkgs.deadnix
     pkgs.statix
     pkgs.nixf-diagnose
