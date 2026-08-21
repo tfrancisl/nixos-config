@@ -1,7 +1,6 @@
 {
   pkgs,
   config,
-  lib,
   ...
 }:
 let
@@ -20,14 +19,7 @@ in
       })
     ];
     xdg.config.files = {
-      "discord/settings.json" = {
-        generator = lib.generators.toJSON { };
-        value = {
-          SKIP_HOST_UPDATE = true;
-          OPEN_ON_STARTUP = false;
-          enableHardwareAcceleration = true;
-        };
-      };
+      "discord/settings.json".source = ./settings.json;
     };
   };
 }
