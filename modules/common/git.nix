@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  pkgs',
   lib,
   ...
 }:
@@ -29,10 +28,6 @@ in
         pkgs.forgejo-cli
         pkgs.git-credential-oauth
         pkgs.gh
-      ]
-      ++ [
-        pkgs'.fzfGitDiff
-        pkgs'.fzfGitLog
       ];
       files = {
         ".gitconfig" = {

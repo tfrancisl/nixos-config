@@ -44,11 +44,8 @@ let
     system:
     let
       pkgs' = pkgs.${system};
-      fzfDiffTools = pkgs'.callPackage ./packages/fzf-diff-tools.nix { };
     in
     {
-      fzfGitLog = fzfDiffTools.gl;
-      fzfGitDiff = fzfDiffTools.gd;
       waylandScreenshot = pkgs'.callPackage ./packages/screenshot.nix { };
       claude-code = inputs.claude.outputs.packages.${system}.default;
       ncroPkg = inputs.ncro.packages.${system}.ncro;
