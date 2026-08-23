@@ -1,4 +1,4 @@
-{ config, nixpkgs-source, ... }:
+{ config, nixpkgs, ... }:
 let
   inherit (config.acme.core) username;
 in
@@ -10,6 +10,6 @@ in
 
   nixpkgs = {
     config.allowUnfree = true;
-    source = nixpkgs-source;
+    source = nixpkgs;
   };
 }

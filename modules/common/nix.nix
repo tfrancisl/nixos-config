@@ -1,8 +1,8 @@
-{ pkgs, nixpkgs-source, ... }:
+{ pkgs, nixpkgs, ... }:
 {
   nix = {
     package = pkgs.lixPackageSets.git.lix;
-    nixPath = [ "nixpkgs=${nixpkgs-source}" ];
+    nixPath = [ "nixpkgs=${nixpkgs}" ];
     settings = {
       experimental-features = [
         "nix-command"

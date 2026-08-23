@@ -1,44 +1,24 @@
 {
-  inputs,
-  nixosSystem,
-  darwinSystem,
-  forRelevantSystems,
-  pkgs,
-  lib,
-  hjemNixosModule,
-  hjemDarwinModule,
+  nixpkgs,
+  hjem,
+  claude,
+  ncro,
+  mkNixosSystem,
+  mkDarwinSystem,
   ...
 }:
 let
+  relevantSystems = [
+    "x86_64-linux"
+    "aarch64-darwin"
+  ];
+  forRelevantSystems = nixpkgs.lib.genAttrs relevantSystems;
+  pkgs = forRelevantSystems (system: nixpkgs.legacyPackages.${system});
+
+  inherit (nixpkgs) lib;
+
   listNixFilesRecursive =
     module: lib.filter (n: lib.strings.hasSuffix ".nix" n) (lib.filesystem.listFilesRecursive module);
-
-  nixpkgs-source = inputs.nixpkgs;
-  mkNixosSystem =
-    {
-      system,
-      modules,
-    }:
-    nixosSystem {
-      inherit system modules;
-      specialArgs = {
-        inherit nixpkgs-source;
-        pkgs' = packages.${system};
-      };
-    };
-
-  mkDarwinSystem =
-    {
-      system,
-      modules,
-    }:
-    darwinSystem {
-      inherit system modules;
-      specialArgs = {
-        inherit nixpkgs-source;
-        pkgs' = packages.${system};
-      };
-    };
 
   packages = forRelevantSystems (
     system:
@@ -47,25 +27,24 @@ let
     in
     {
       waylandScreenshot = pkgs'.callPackage ./packages/screenshot.nix { };
-      claude-code = inputs.claude.outputs.packages.${system}.default;
-      ncroPkg = inputs.ncro.packages.${system}.ncro;
+      claude-code = claude.outputs.packages.${system}.default;
+      ncroPkg = ncro.packages.${system}.ncro;
     }
   );
 
   commonModules = listNixFilesRecursive ./modules/common;
-
 in
 {
-
   inherit packages;
 
   nixosConfigurations.valhalla =
     let
       system = "x86_64-linux";
-      ncroNixosModule = inputs.ncro.nixosModules.default;
+      ncroNixosModule = ncro.nixosModules.default;
+      hjemNixosModule = hjem.nixosModules.default;
     in
     mkNixosSystem {
-      inherit system;
+      inherit system packages;
       modules = [
         hjemNixosModule
         ncroNixosModule
@@ -78,9 +57,10 @@ in
   darwinConfigurations.mymac =
     let
       system = "aarch64-darwin";
+      hjemDarwinModule = hjem.darwinModules.default;
     in
     mkDarwinSystem {
-      inherit system;
+      inherit system packages;
       modules = [
         hjemDarwinModule
       ]
@@ -88,7 +68,4 @@ in
       ++ commonModules
       ++ (listNixFilesRecursive ./modules/darwin);
     };
-
-  formatter = forRelevantSystems (system: pkgs.${system}.nixfmt-tree);
-
 }
