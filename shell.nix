@@ -1,7 +1,7 @@
 let
   inputs = import ./inputs.nix;
   system = builtins.currentSystem;
-  pkgs = inputs.pkgs.${system};
+  pkgs = inputs.nixpkgs.legacyPackages.${system};
 in
 pkgs.mkShell {
   name = "nixos-config";
