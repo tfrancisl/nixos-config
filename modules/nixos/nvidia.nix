@@ -9,6 +9,7 @@ _: {
       modesetting.enable = true;
       powerManagement.enable = false;
       powerManagement.finegrained = false;
+      branch = "latest";
     };
     graphics = {
       enable = true;
