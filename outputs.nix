@@ -3,8 +3,7 @@
   hjem,
   claude,
   ncro,
-  mkNixosSystem,
-  mkDarwinSystem,
+  nix-darwin,
   ...
 }:
 let
@@ -34,39 +33,40 @@ let
   );
 
   commonModules = listNixFilesRecursive ./modules/common;
+
+  pkgsPrimeModule =
+    { config, ... }:
+    {
+      _module.args.pkgs' = packages.${config.nixpkgs.hostPlatform.system};
+    };
 in
 {
   inherit packages;
 
-  nixosConfigurations.valhalla =
-    let
-      system = "x86_64-linux";
-      ncroNixosModule = ncro.nixosModules.default;
-      hjemNixosModule = hjem.nixosModules.default;
-    in
-    mkNixosSystem {
-      inherit system packages;
-      modules = [
-        hjemNixosModule
-        ncroNixosModule
-      ]
-      ++ (listNixFilesRecursive ./machines/valhalla)
-      ++ commonModules
-      ++ (listNixFilesRecursive ./modules/nixos);
+  nixosConfigurations.valhalla = nixpkgs.lib.nixosSystem {
+    specialArgs = {
+      inherit nixpkgs;
     };
+    modules = [
+      pkgsPrimeModule
+      hjem.nixosModules.default
+      ncro.nixosModules.default
+    ]
+    ++ (listNixFilesRecursive ./machines/valhalla)
+    ++ commonModules
+    ++ (listNixFilesRecursive ./modules/nixos);
+  };
 
-  darwinConfigurations.mymac =
-    let
-      system = "aarch64-darwin";
-      hjemDarwinModule = hjem.darwinModules.default;
-    in
-    mkDarwinSystem {
-      inherit system packages;
-      modules = [
-        hjemDarwinModule
-      ]
-      ++ (listNixFilesRecursive ./machines/mymac)
-      ++ commonModules
-      ++ (listNixFilesRecursive ./modules/darwin);
+  darwinConfigurations.mymac = nix-darwin.lib.darwinSystem {
+    specialArgs = {
+      inherit nixpkgs;
     };
+    modules = [
+      pkgsPrimeModule
+      hjem.darwinModules.default
+    ]
+    ++ (listNixFilesRecursive ./machines/mymac)
+    ++ commonModules
+    ++ (listNixFilesRecursive ./modules/darwin);
+  };
 }

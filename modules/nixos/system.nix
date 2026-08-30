@@ -30,6 +30,8 @@
     };
   };
 
+  nixpkgs.hostPlatform = "x86_64-linux";
+
   hardware.cpu.amd.updateMicrocode = lib.mkDefault true;
 
   system.stateVersion = "25.05"; # Do not change this!
