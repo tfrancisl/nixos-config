@@ -19,9 +19,9 @@
     "type": "github",
     "owner": "manic-systems",
     "repo": "ncro",
-    "rev": "efc8bb3a705b9bc6d8de89e9477e41ef1c094054",
-    "narHash": "sha256-05VSg/5Da3J5r9K5+mXLAp2qt8qi33KHIDM3i0CYLM4=",
-    "lastModified": 1787653968
+    "rev": "a367692d67bed3225d64fed0fffefed141927fd3",
+    "narHash": "sha256-TB3Q6xpaV7APiC6qAM4ENV6MNuUjR4OgatQtj88PBWY=",
+    "lastModified": 1788018155
   },
   "nix-darwin": {
     "type": "github",
@@ -35,8 +35,8 @@
     "type": "github",
     "owner": "NixOS",
     "repo": "nixpkgs",
-    "rev": "c27cdad491a991b11ed731760aa2ef8db0cb0410",
-    "narHash": "sha256-PYZq1qzCJXC2zGI0mH07vrZBsw6DRBAOX0jN1pPtqOQ=",
-    "lastModified": 1787814960
+    "rev": "e8be7818e19ada32105a8af937a6a473b38167ca",
+    "narHash": "sha256-0N9nghg3nwzX6b6qc77EzjR9cu/Z+UR66FlfsCqiURs=",
+    "lastModified": 1787964612
   }
 }
