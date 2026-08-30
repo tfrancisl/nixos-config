@@ -29,6 +29,7 @@ let
       waylandScreenshot = pkgs'.callPackage ./packages/screenshot.nix { };
       claude-code = claude.outputs.packages.${system}.default;
       ncroPkg = ncro.packages.${system}.ncro;
+      hjemCli = hjem.packages.${system}.hjem;
     }
   );
 

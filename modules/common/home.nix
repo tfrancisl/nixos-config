@@ -2,6 +2,7 @@
   lib,
   config,
   pkgs,
+  pkgs',
   ...
 }:
 let
@@ -15,6 +16,7 @@ in
   };
   config = {
     hjem = {
+      cli.package = pkgs'.hjemCli;
       linker = pkgs.smfh;
       clobberByDefault = true;
       users.${username}.enable = true;
