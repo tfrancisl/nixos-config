@@ -11,13 +11,10 @@ let
     "x86_64-linux"
     "aarch64-darwin"
   ];
+
   forRelevantSystems = nixpkgs.lib.genAttrs relevantSystems;
+
   pkgs = forRelevantSystems (system: nixpkgs.legacyPackages.${system});
-
-  inherit (nixpkgs) lib;
-
-  listNixFilesRecursive =
-    module: lib.filter (n: lib.strings.hasSuffix ".nix" n) (lib.filesystem.listFilesRecursive module);
 
   packages = forRelevantSystems (
     system:
@@ -32,13 +29,20 @@ let
     }
   );
 
-  commonModules = listNixFilesRecursive ./modules/common;
-
   pkgsPrimeModule =
     { config, ... }:
     {
       _module.args.pkgs' = packages.${config.nixpkgs.hostPlatform.system};
     };
+
+  listNixFilesRecursive =
+    let
+      inherit (nixpkgs) lib;
+    in
+    module: lib.filter (n: lib.strings.hasSuffix ".nix" n) (lib.filesystem.listFilesRecursive module);
+
+  commonModules = listNixFilesRecursive ./modules/common;
+
 in
 {
   inherit packages;
