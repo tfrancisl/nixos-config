@@ -15,16 +15,20 @@ in
   };
 
   config = {
-    hjem.users.${username} = {
-      xdg.config.files = {
-        "zed/settings.json".source = ./settings.json;
+    hjem.users.${username} =
+      let
+        dots = config.hjem.users.${username}.impure.dotsDir;
+      in
+      {
+        xdg.config.files = {
+          "zed/settings.json".source = dots + "/modules/common/zed/settings.json"; # TODO derive this
+        };
+        files = {
+          ".config/fish/conf.d/aliases.fish".text = ''
+            alias zed '${zed-bin}'
+          '';
+        };
       };
-      files = {
-        ".config/fish/conf.d/aliases.fish".text = ''
-          alias zed '${zed-bin}'
-        '';
-      };
-    };
     environment.variables = {
       "EDITOR" = zed-bin;
       "VISUAL" = zed-bin;

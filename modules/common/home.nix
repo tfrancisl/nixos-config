@@ -3,6 +3,7 @@
   config,
   pkgs,
   pkgs',
+  hjemImpureModule,
   ...
 }:
 let
@@ -19,7 +20,16 @@ in
       cli.package = pkgs'.hjemCli;
       linker = pkgs.smfh;
       clobberByDefault = true;
-      users.${username}.enable = true;
+      users.${username} = {
+        enable = true;
+        impure = {
+          enable = true;
+
+          dotsDir = "${./../..}";
+          dotsDirImpure = "${config.environment.variables.NH_FILE}";
+        };
+      };
+      extraModules = [ hjemImpureModule ];
     };
     environment.variables = {
       XDG_CONFIG_HOME = "$HOME/.config";

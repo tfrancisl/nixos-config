@@ -1,6 +1,7 @@
 {
   nixpkgs,
   hjem,
+  hjem-impure,
   claude,
   ncro,
   nix-darwin,
@@ -42,6 +43,7 @@ let
     module: lib.filter (n: lib.strings.hasSuffix ".nix" n) (lib.filesystem.listFilesRecursive module);
 
   commonModules = listNixFilesRecursive ./modules/common;
+  hjemImpureModule = hjem-impure.hjemModules.default;
 
 in
 {
@@ -49,7 +51,7 @@ in
 
   nixosConfigurations.valhalla = nixpkgs.lib.nixosSystem {
     specialArgs = {
-      inherit nixpkgs;
+      inherit nixpkgs hjemImpureModule;
     };
     modules = [
       pkgsPrimeModule
@@ -63,7 +65,7 @@ in
 
   darwinConfigurations.mymac = nix-darwin.lib.darwinSystem {
     specialArgs = {
-      inherit nixpkgs;
+      inherit nixpkgs hjemImpureModule;
     };
     modules = [
       pkgsPrimeModule

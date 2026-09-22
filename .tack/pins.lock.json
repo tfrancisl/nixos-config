@@ -15,6 +15,14 @@
     "narHash": "sha256-0nvWuRbgL4GEKpR8Y4wsB3kmsVgyd0cW8kLHc2BqlTc=",
     "lastModified": 1789234255
   },
+  "hjem-impure": {
+    "type": "github",
+    "owner": "Rexcrazy804",
+    "repo": "hjem-impure",
+    "rev": "206320fa7d060232f19c4d2831e66471d8e5d161",
+    "narHash": "sha256-2S8BRs/a9ElePH7o7LSTib4t/oQ0p9sn/qjAP6BmTK8=",
+    "lastModified": 1786164166
+  },
   "ncro": {
     "type": "github",
     "owner": "manic-systems",
