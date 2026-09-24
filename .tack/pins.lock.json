@@ -3,17 +3,17 @@
     "type": "github",
     "owner": "sadjow",
     "repo": "claude-code-nix",
-    "rev": "736ada361161f0a3e69844e3918b6e9bc69ed035",
-    "narHash": "sha256-bV8YsQ4mV92qwj7kwYH6FFKvECRos8SyrAFvgikXxsY=",
-    "lastModified": 1789790521
+    "rev": "f10421316cc6df045497f5aa0009adce648e89ee",
+    "narHash": "sha256-bApGLOF5XDhf3UCM1/e1yIQCoY5wW1+B88lHkcYlp2U=",
+    "lastModified": 1790280108
   },
   "hjem": {
     "type": "github",
     "owner": "feel-co",
     "repo": "hjem",
-    "rev": "e5e30b4320a8cbcd6cdfc65f044763669a8f0363",
-    "narHash": "sha256-0nvWuRbgL4GEKpR8Y4wsB3kmsVgyd0cW8kLHc2BqlTc=",
-    "lastModified": 1789234255
+    "rev": "cef02450f2c18a7e2b9297ea8d366f9a597254f7",
+    "narHash": "sha256-tycoVCB2KSVdy9ERT1lJGHdP9Hf4FHanaEY25hUxylw=",
+    "lastModified": 1790081753
   },
   "hjem-impure": {
     "type": "github",
@@ -27,9 +27,9 @@
     "type": "github",
     "owner": "manic-systems",
     "repo": "ncro",
-    "rev": "2f28dcf17a62bed3cc4a9741914f9efb3ea363cb",
-    "narHash": "sha256-s/vFy7F+iaHM3zW31fAR/LeTwZWiVKxiMzR941qgg4A=",
-    "lastModified": 1789461427
+    "rev": "bb4fb8329e30dc294b2298618ba96379860dfd4d",
+    "narHash": "sha256-o5qPU/QPxcAmeVwFydXqEkn1HI6TbPgkHpecXyme6Bs=",
+    "lastModified": 1790039094
   },
   "nix-darwin": {
     "type": "github",
@@ -43,8 +43,8 @@
     "type": "github",
     "owner": "NixOS",
     "repo": "nixpkgs",
-    "rev": "a32edd7654519351e48e80372a928df336394670",
-    "narHash": "sha256-RjR8AyvGlWuw16XRj7C1YDEw4E27ciuyPeB2nDMzgTU=",
-    "lastModified": 1789632929
+    "rev": "34ca302a9572963c02e385c056be37c85ff51b77",
+    "narHash": "sha256-ym4BG18Pu2awiJIehla1Lo9xiB2QYRcCzW3SB74gEBY=",
+    "lastModified": 1790238896
   }
 }
