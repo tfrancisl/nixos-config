@@ -6,6 +6,7 @@
 let
   inherit (config.acme.core) username;
   inherit (config.acme.zed) zed-bin;
+  inherit (config.acme) hjemImpureDotsDir;
 in
 {
   options.acme.zed = {
@@ -15,20 +16,16 @@ in
   };
 
   config = {
-    hjem.users.${username} =
-      let
-        dots = config.hjem.users.${username}.impure.dotsDir;
-      in
-      {
-        xdg.config.files = {
-          "zed/settings.json".source = dots + "/modules/common/zed/settings.json"; # TODO derive this
-        };
-        files = {
-          ".config/fish/conf.d/aliases.fish".text = ''
-            alias zed '${zed-bin}'
-          '';
-        };
+    hjem.users.${username} = {
+      xdg.config.files = {
+        "zed/settings.json".source = hjemImpureDotsDir + "/modules/common/zed/settings.json"; # TODO derive the second half
       };
+      files = {
+        ".config/fish/conf.d/aliases.fish".text = ''
+          alias zed '${zed-bin}'
+        '';
+      };
+    };
     environment.variables = {
       "EDITOR" = zed-bin;
       "VISUAL" = zed-bin;

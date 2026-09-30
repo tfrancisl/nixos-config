@@ -14,6 +14,10 @@ in
     core.username = lib.mkOption {
       type = lib.types.str;
     };
+    hjemImpureDotsDir = lib.mkOption {
+      default = config.hjem.users.${username}.impure.dotsDir;
+      type = lib.types.str;
+    };
   };
   config = {
     hjem = {
