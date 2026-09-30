@@ -2,12 +2,12 @@
 {
   nix = {
     package = pkgs.lixPackageSets.git.lix;
-    nixPath = [ "nixpkgs=${nixpkgs}" ];
     settings = {
       experimental-features = [
         "nix-command"
         "flakes"
       ];
+      nix-path = [ "nixpkgs=${nixpkgs}" ];
       warn-dirty = false;
       allow-import-from-derivation = false;
       accept-flake-config = true;
