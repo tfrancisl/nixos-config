@@ -3,8 +3,8 @@
   services.ncro = {
     enable = true;
     package = pkgs'.ncroPkg;
+    addUpstreamPublicKeys = true;
     settings = {
-      addUpstreamPublicKeys = true;
       upstreams =
         let
           manicSystemsPubkey = "cache.manic.systems-1:s6OZanN8Us8vRi0jVivP3qlMn0cYHBjBALKrNe5nH8s=";
