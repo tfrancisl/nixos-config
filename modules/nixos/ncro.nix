@@ -21,11 +21,6 @@
             public_key = "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=";
           }
           {
-            url = "https://claude-code.cachix.org";
-            priority = 30;
-            public_key = "claude-code.cachix.org-1:YeXf2aNu7UTX8Vwrze0za1WEDS+4DuI2kVeWEE4fsRk=";
-          }
-          {
             url = "https://ci.manic.systems/projects/ncro/nix-cache";
             priority = 30;
             public_key = manicSystemsPubkey;

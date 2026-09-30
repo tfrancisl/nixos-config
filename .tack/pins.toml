@@ -13,12 +13,6 @@ exclude_follow = ["nixpkgs"] # packages.<system>.hjem is cached
 url = "github:manic-systems/ncro"
 exclude_follow = ["nixpkgs"]      # packages.<system>.ncro is cached
 
-[inputs.nix-darwin]
-url = "github:nix-darwin/nix-darwin"
-
-[inputs.claude]
-url = "github:sadjow/claude-code-nix"
-
 [inputs.hjem-impure]
 url = "github:Rexcrazy804/hjem-impure"
 follows = { "nixpkgs" = "", "hjem" = "" } # unused by module

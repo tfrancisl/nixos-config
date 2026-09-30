@@ -2,15 +2,12 @@
   nixpkgs,
   hjem,
   hjem-impure,
-  claude,
   ncro,
-  nix-darwin,
   ...
 }:
 let
   relevantSystems = [
     "x86_64-linux"
-    "aarch64-darwin"
   ];
 
   forRelevantSystems = nixpkgs.lib.genAttrs relevantSystems;
@@ -24,7 +21,6 @@ let
     in
     {
       waylandScreenshot = pkgs'.callPackage ./packages/screenshot.nix { };
-      claude-code = claude.outputs.packages.${system}.default;
       ncroPkg = ncro.packages.${system}.ncro;
       hjemCli = hjem.packages.${system}.hjem;
     }
@@ -61,18 +57,5 @@ in
     ++ (listNixFilesRecursive ./machines/valhalla)
     ++ commonModules
     ++ (listNixFilesRecursive ./modules/nixos);
-  };
-
-  darwinConfigurations.mymac = nix-darwin.lib.darwinSystem {
-    specialArgs = {
-      inherit nixpkgs hjemImpureModule;
-    };
-    modules = [
-      pkgsPrimeModule
-      hjem.darwinModules.default
-    ]
-    ++ (listNixFilesRecursive ./machines/mymac)
-    ++ commonModules
-    ++ (listNixFilesRecursive ./modules/darwin);
   };
 }
