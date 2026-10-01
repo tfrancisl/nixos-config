@@ -8,7 +8,7 @@
 let
   cfg = config.acme.hyprland;
   inherit (config.acme.core) username;
-  inherit (config.acme) hjemImpureDotsDir;
+  inherit (config.acme) hjemImpureSource;
 in
 {
   options.acme = {
@@ -38,7 +38,7 @@ in
       lib.genAttrs' [ "hyprland" "session" "monitors" "appearance" "windows" "input" ] (
         name:
         lib.nameValuePair "hypr/${name}.lua" {
-          source = hjemImpureDotsDir + "/modules/nixos/desktop/hyprland/${name}.lua"; # TODO derive the second half
+          source = hjemImpureSource ./${name}.lua;
         }
       )
       // {

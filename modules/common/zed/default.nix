@@ -6,7 +6,7 @@
 let
   inherit (config.acme.core) username;
   inherit (config.acme.zed) zed-bin;
-  inherit (config.acme) hjemImpureDotsDir;
+  inherit (config.acme) hjemImpureSource;
 in
 {
   options.acme.zed = {
@@ -18,7 +18,7 @@ in
   config = {
     hjem.users.${username} = {
       xdg.config.files = {
-        "zed/settings.json".source = hjemImpureDotsDir + "/modules/common/zed/settings.json"; # TODO derive the second half
+        "zed/settings.json".source = hjemImpureSource ./settings.json;
       };
       files = {
         ".config/fish/conf.d/aliases.fish".text = ''

@@ -14,9 +14,13 @@ in
     core.username = lib.mkOption {
       type = lib.types.str;
     };
-    hjemImpureDotsDir = lib.mkOption {
-      default = config.hjem.users.${username}.impure.dotsDir;
-      type = lib.types.str;
+    hjemImpureSource = lib.mkOption {
+      description = "Maps a path in this repo to a hjem source that hjem-impure can relink.";
+      readOnly = true;
+      type = lib.types.functionTo lib.types.str;
+      default =
+        path:
+        config.hjem.users.${username}.impure.dotsDir + lib.removePrefix (toString ./../..) (toString path);
     };
   };
   config = {
