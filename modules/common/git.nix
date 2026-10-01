@@ -8,7 +8,7 @@ let
   cfg = config.acme.git;
   inherit (config.acme.core) username;
   inherit (config.acme.zed) zed-bin;
-  gh-bin = lib.getExe pkgs.gh;
+  gh-bin = config.acme.exe pkgs.gh;
 in
 {
   options.acme = {
@@ -22,6 +22,12 @@ in
   };
 
   config = {
+    acme.brews = [
+      "git"
+      "gh"
+      "git-credential-oauth"
+      "forgejo-cli"
+    ];
     hjem.users.${username} = {
       packages = [
         pkgs.git
@@ -41,7 +47,7 @@ in
             credential = {
               "https://github.com" = {
                 helper = [
-                  "${gh-bin} auth git-credential"
+                  "!${gh-bin} auth git-credential"
                 ];
               };
               "https://codeberg.org" = {

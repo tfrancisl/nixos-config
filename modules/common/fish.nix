@@ -1,14 +1,14 @@
 {
   config,
-  lib,
   pkgs,
   ...
 }:
 let
   inherit (config.acme.core) username;
-  inherit (lib) getExe;
+  getExe = config.acme.exe;
 in
 {
+  acme.brews = [ "fish" ];
   hjem.users.${username} = {
     files = {
       ".config/fish/conf.d/aliases.fish".text = ''

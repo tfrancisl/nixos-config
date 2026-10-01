@@ -7,6 +7,11 @@ let
   inherit (config.acme.core) username;
 in
 {
+  acme.brews = [
+    "direnv"
+    "mise"
+    "usage"
+  ];
   programs.direnv = {
     enable = true;
     enableBashIntegration = false;

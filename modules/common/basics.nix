@@ -8,6 +8,16 @@ let
   inherit (config.acme.core) username;
 in
 {
+  acme.brews = [
+    "bat"
+    "dust"
+    "eza"
+    "htop"
+    "jq"
+    "ripgrep"
+    "fzf"
+    "fd"
+  ];
   environment.defaultPackages = lib.mkForce [ ];
   environment.shellAliases = lib.mkForce { };
   hjem.users.${username} = {

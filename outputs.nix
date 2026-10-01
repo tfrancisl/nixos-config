@@ -23,6 +23,11 @@ let
       waylandScreenshot = pkgs'.callPackage ./packages/screenshot.nix { };
       ncroPkg = ncro.packages.${system}.ncro;
       hjemCli = hjem.packages.${system}.hjem;
+      darwinDots = import ./export/darwin {
+        inherit (nixpkgs) lib;
+        inherit hjem;
+        pkgs = pkgs';
+      };
     }
   );
 

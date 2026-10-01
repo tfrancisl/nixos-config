@@ -1,0 +1,97 @@
+#!/bin/sh
+# Fetches darwin-dots releases of tfrancisl/nixos-config and links them into $HOME.
+set -eu
+
+slug=${ACME_DOTS_REPO:-tfrancisl/nixos-config}
+base=${ACME_DOTS_DIR:-$HOME/.local/share/acme-dots}
+
+usage() {
+  cat >&2 <<USAGE
+usage: acme-dots update [tag] [--brew]   download a release (default: latest) and switch to it
+       acme-dots use <tag> [--brew]      switch to an already downloaded release
+       acme-dots local <tarball> [--brew] switch to a locally built tarball
+       acme-dots list                    show downloaded releases
+USAGE
+  exit 2
+}
+
+sha256_check() {
+  if command -v shasum >/dev/null 2>&1; then shasum -a 256 -c "$1"; else sha256sum -c "$1"; fi
+}
+
+# activate <tag> [install.sh args]: point current at <tag>, link it, drop links the
+# previous release had that this one doesn't.
+activate() {
+  tag=$1
+  shift
+  [ -d "$base/$tag" ] || { echo "acme-dots: $tag is not downloaded" >&2; exit 1; }
+  old=$(mktemp)
+  if [ -f "$base/current/links.tsv" ]; then cp "$base/current/links.tsv" "$old"; fi
+  ln -sfn "$tag" "$base/current"
+  DOTS="$base/current" sh "$base/current/install.sh" "$@"
+  awk -F '\t' 'NR == FNR { keep[$2] = 1; next } !($2 in keep) { print $2 }' \
+    "$base/current/links.tsv" "$old" | while IFS= read -r target; do
+    if [ -L "$HOME/$target" ]; then
+      rm "$HOME/$target"
+      echo "removed stale $HOME/$target"
+    fi
+  done
+  rm -f "$old"
+  echo "acme-dots: now on $tag"
+}
+
+# unpack <tarball> <tag>
+unpack() {
+  mkdir -p "$base"
+  rm -rf "$base/$2.tmp"
+  mkdir "$base/$2.tmp"
+  tar -xzf "$1" -C "$base/$2.tmp"
+  rm -rf "${base:?}/$2"
+  mv "$base/$2.tmp" "$base/$2"
+}
+
+cmd=${1:-}
+[ $# -gt 0 ] && shift
+case $cmd in
+  update)
+    tag=latest
+    case ${1:-} in "" | --*) ;; *) tag=$1; shift ;; esac
+    if [ "$tag" = latest ]; then
+      # /releases/latest redirects to /releases/tag/<tag>
+      tag=$(curl -fsSLI -o /dev/null -w '%{url_effective}' "https://github.com/$slug/releases/latest")
+      tag=${tag##*/}
+    fi
+    tmp=$(mktemp -d)
+    trap 'rm -rf "$tmp"' EXIT
+    url="https://github.com/$slug/releases/download/$tag"
+    curl -fsSL -o "$tmp/darwin-dots.tar.gz" "$url/darwin-dots.tar.gz"
+    curl -fsSL -o "$tmp/darwin-dots.tar.gz.sha256" "$url/darwin-dots.tar.gz.sha256"
+    (cd "$tmp" && sha256_check darwin-dots.tar.gz.sha256)
+    unpack "$tmp/darwin-dots.tar.gz" "$tag"
+    activate "$tag" "$@"
+    ;;
+  use)
+    [ $# -ge 1 ] || usage
+    tag=$1
+    shift
+    activate "$tag" "$@"
+    ;;
+  local)
+    [ $# -ge 1 ] || usage
+    tarball=$1
+    shift
+    tag=local-$(date +%Y%m%d%H%M%S)
+    unpack "$tarball" "$tag"
+    activate "$tag" "$@"
+    ;;
+  list)
+    current=$(readlink "$base/current" 2>/dev/null || true)
+    for d in "$base"/*/; do
+      [ -d "$d" ] || continue
+      t=$(basename "$d")
+      [ "$t" = current ] && continue
+      if [ "$t" = "$current" ]; then echo "* $t"; else echo "  $t"; fi
+    done
+    ;;
+  *) usage ;;
+esac

@@ -1,0 +1,48 @@
+name: Release darwin dots
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - modules/common/**
+      - export/**
+      - outputs.nix
+      - inputs.nix
+      - .tack/**
+      - .github/workflows/darwin-dots.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: darwin-dots
+  cancel-in-progress: false
+defaults:
+  run:
+    shell: bash
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: samueldr/lix-gha-installer-action@7b7f14d320d6aacfb65bd1ef761566b3b69e474c # v2026-02-22
+      - run: nix build -f . packages.x86_64-linux.darwinDots
+      - run: ls -alFR result/
+      - name: Package
+        run: |
+          tar --sort=name --mtime=@1 --owner=0 --group=0 --numeric-owner --mode=u+w \
+            -C result/ -cf - . | gzip -n > darwin-dots.tar.gz
+          sha256sum darwin-dots.tar.gz > darwin-dots.tar.gz.sha256
+          cat darwin-dots.tar.gz.sha256
+      - name: Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag="dots-$(date -u +%Y%m%d)-${GITHUB_SHA::7}"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            echo "$tag already released"
+            exit 0
+          fi
+          gh release create "$tag" darwin-dots.tar.gz darwin-dots.tar.gz.sha256 \
+            --target "$GITHUB_SHA" \
+            --title "$tag" \
+            --notes "darwin dotfiles built from $GITHUB_SHA. Install with \`acme-dots update $tag\`."
