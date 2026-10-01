@@ -36,7 +36,8 @@ in
         pkgs.dunst
         pkgs.pavucontrol
         pkgs.graphite-cursors
-        pkgs.ghostty
+        pkgs.alacritty
+        pkgs.wofi
         screenshotTool
       ];
       # fixes some apps cursor theme

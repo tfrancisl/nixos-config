@@ -1,12 +1,14 @@
 {
   config,
   pkgs,
+  pkgs',
   lib,
   ...
 }:
 let
   cfg = config.acme.hyprland;
   inherit (config.acme.core) username;
+  inherit (config.acme) hjemImpureDotsDir;
 in
 {
   options.acme = {
@@ -32,20 +34,22 @@ in
       HYPRCURSOR_SIZE = 32;
     };
 
-    hjem.users.${username} = {
-      xdg.config.files."hypr/hyprland.lua".text = ''
-        -- https://wiki.hypr.land/Configuring/Start/
-
-        --------------------
-        ---- MY PROGRAMS ----
-        --------------------
-
-        local mainMod   = "SUPER"
-        local alacritty = "${pkgs.alacritty}/bin/alacritty"
-        local wofi      = "${pkgs.wofi}/bin/wofi"
-
-      ''
-      + builtins.readFile ./hyprland.lua;
-    };
+    hjem.users.${username}.xdg.config.files =
+      lib.genAttrs' [ "hyprland" "session" "monitors" "appearance" "windows" "input" ] (
+        name:
+        lib.nameValuePair "hypr/${name}.lua" {
+          source = hjemImpureDotsDir + "/modules/nixos/desktop/hyprland/${name}.lua"; # TODO derive the second half
+        }
+      )
+      // {
+        # program paths shared with the lua files; `require("nix")`
+        "hypr/nix.lua".text = ''
+          return {
+            terminal = "${lib.getExe pkgs.alacritty}",
+            launcher = "${lib.getExe pkgs.wofi} --show drun",
+            screenshot = "${lib.getExe pkgs'.waylandScreenshot}",
+          }
+        '';
+      };
   };
 }
