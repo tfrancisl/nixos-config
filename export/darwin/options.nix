@@ -1,4 +1,3 @@
-# The work MacBook. Successor to machines/mymac/options.nix from the nix-darwin days.
 { lib, ... }:
 let
   username = "tlester";
@@ -11,8 +10,7 @@ in
       email = "tflester@tflester.com";
       inherit username;
     };
-    # Unverified guess at where the .dmg install lives.
-    zed.zed-bin = "$HOME/Applications/Zed.app/Contents/MacOS/cli";
+    zed.zed-bin = "/Applications/Zed.app/Contents/MacOS/cli";
     # brew puts everything on PATH, so generated files refer to commands by name.
     exe = p: p.meta.mainProgram or (lib.getName p);
   };
