@@ -7,5 +7,6 @@ in
     hjem
     hjem-impure
     ncro
+    rom
     ;
 }

@@ -3,6 +3,7 @@
   hjem,
   hjem-impure,
   ncro,
+  rom,
   ...
 }:
 let
@@ -18,8 +19,16 @@ let
     system:
     let
       pkgs' = pkgs.${system};
+      nixPackage = pkgs'.lixPackageSets.git.lix;
+      romPkg = rom.packages.${system}.default;
     in
     {
+      inherit nixPackage romPkg;
+      # `nix` that renders build progress with ROM on a TTY
+      nixRom = pkgs'.callPackage ./packages/nix-rom.nix {
+        nix = nixPackage;
+        rom = romPkg;
+      };
       waylandScreenshot = pkgs'.callPackage ./packages/screenshot.nix { };
       ncroPkg = ncro.packages.${system}.ncro;
       hjemCli = hjem.packages.${system}.hjem;

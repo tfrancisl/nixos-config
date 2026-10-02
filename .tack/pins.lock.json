@@ -30,5 +30,13 @@
     "rev": "b6c8664de9b6cc07fe5666a29f91884ba81197c4",
     "narHash": "sha256-641r7xrlSOHYoktL9/aArPIYNgZJ9eM5URzSEOtPJDY=",
     "lastModified": 1790652569
+  },
+  "rom": {
+    "type": "github",
+    "owner": "manic-systems",
+    "repo": "rom",
+    "rev": "1902066137cdf83760c794bb7e149595a07a8e18",
+    "narHash": "sha256-l8pLaoaSxlqjc82UHQJ6oN5KquvbOXjJ++/EEPxNdKs=",
+    "lastModified": 1787139264
   }
 }

@@ -16,3 +16,6 @@ exclude_follow = ["nixpkgs"]      # packages.<system>.ncro is cached
 [inputs.hjem-impure]
 url = "github:Rexcrazy804/hjem-impure"
 follows = { "nixpkgs" = "", "hjem" = "" } # unused by module
+
+[inputs.rom]
+url = "github:manic-systems/rom"

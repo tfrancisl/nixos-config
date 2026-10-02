@@ -1,7 +1,12 @@
-{ pkgs, nixpkgs, ... }:
+{
+  lib,
+  pkgs',
+  nixpkgs,
+  ...
+}:
 {
   nix = {
-    package = pkgs.lixPackageSets.git.lix;
+    package = pkgs'.nixPackage;
     settings = {
       experimental-features = [
         "nix-command"
@@ -16,6 +21,9 @@
       trusted-users = [ "@wheel" ];
     };
   };
+
+  # shadows nix's own bin/nix in the system profile
+  environment.systemPackages = [ (lib.hiPrio pkgs'.nixRom) ];
 
   nixpkgs.config.allowUnfree = true;
 }
