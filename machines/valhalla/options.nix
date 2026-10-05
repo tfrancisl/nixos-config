@@ -11,7 +11,8 @@ _: {
       };
     };
     mangowc.enable = false;
-    hyprland.enable = true;
+    hyprland.enable = false;
+    niri.enable = true;
     network = {
       hostname = "valhalla";
     };
