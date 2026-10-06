@@ -1,0 +1,41 @@
+input {
+    keyboard {
+        xkb {
+            layout "us"
+        }
+        repeat-delay 300
+        repeat-rate 99
+    }
+    focus-follows-mouse
+    disable-power-key-handling
+}
+
+gestures {
+    hot-corners {
+        off
+    }
+}
+
+clipboard {
+    disable-primary
+}
+
+hotkey-overlay {
+    skip-at-startup
+}
+
+binds {
+    Mod+C { close-window; }
+    Mod+M { quit skip-confirmation=true; }
+    Mod+F { fullscreen-window; }
+    Mod+V { toggle-window-floating; }
+    Mod+O { toggle-overview; }
+
+    Mod+W      { switch-preset-column-width; }
+    Mod+Shift+F { expand-column-to-available-width; }
+
+    Mod+Left  { focus-column-or-monitor-left; }
+    Mod+Right { focus-column-or-monitor-right; }
+    Mod+Up    { focus-window-or-workspace-up; }
+    Mod+Down  { focus-window-or-workspace-down; }
+}

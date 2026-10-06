@@ -1,0 +1,60 @@
+cursor {
+    xcursor-theme "graphite-light"
+    xcursor-size 32
+}
+
+prefer-no-csd
+
+layout {
+    gaps 4
+
+    background-color "#151515"
+
+    focus-ring {
+        off
+    }
+
+    border {
+        on
+        width 4
+        active-gradient from="#41d8d5" to="#15f88d" angle=45
+        inactive-color "#680726"
+    }
+
+    shadow {
+        off
+    }
+
+    default-column-width { proportion 1.0; }
+    preset-column-widths {
+        proportion 0.5
+        proportion 1.0
+    }
+}
+
+animations {
+    window-open {
+        duration-ms 300
+        curve "cubic-bezier" 0.25 0.65 0.0 1.0
+    }
+    window-close {
+        duration-ms 400
+        curve "cubic-bezier" 0.25 0.65 0.0 1.0
+    }
+    window-movement {
+        duration-ms 400
+        curve "cubic-bezier" 0.25 0.65 0.0 1.0
+    }
+    window-resize {
+        duration-ms 400
+        curve "cubic-bezier" 0.25 0.65 0.0 1.0
+    }
+    horizontal-view-movement {
+        duration-ms 400
+        curve "cubic-bezier" 0.25 0.65 0.0 1.0
+    }
+}
+
+blur {
+    off
+}

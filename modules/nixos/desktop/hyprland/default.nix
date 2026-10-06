@@ -35,10 +35,10 @@ in
     };
 
     hjem.users.${username}.xdg.config.files =
-      lib.genAttrs' [ "hyprland" "session" "monitors" "appearance" "windows" "input" ] (
+      lib.genAttrs' (lib.filter (lib.hasSuffix ".lua") (lib.attrNames (builtins.readDir ./.))) (
         name:
-        lib.nameValuePair "hypr/${name}.lua" {
-          source = hjemImpureSource ./${name}.lua;
+        lib.nameValuePair "hypr/${name}" {
+          source = hjemImpureSource ./${name};
         }
       )
       // {

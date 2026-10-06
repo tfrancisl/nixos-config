@@ -1,0 +1,37 @@
+window-rule {
+    geometry-corner-radius 4
+    clip-to-geometry true
+}
+
+window-rule {
+    match is-active=false
+    opacity 0.935
+}
+
+// sized and placed for the 3440x1440 output
+window-rule {
+    match app-id="^Alacritty$"
+    open-floating true
+    default-column-width { fixed 1280; }
+    default-window-height { fixed 720; }
+    default-floating-position x=688 y=288 relative-to="top-left"
+}
+
+window-rule {
+    match app-id="^Alacritty$" is-active=false
+    opacity 0.34
+}
+
+window-rule {
+    match is-floating=true is-active=false
+    border {
+        inactive-color "#2222225E"
+    }
+}
+
+window-rule {
+    match is-floating=true is-active=true
+    border {
+        active-color "#4122d5"
+    }
+}

@@ -25,17 +25,23 @@ in
     hjem.users.${username} = {
       # niri starts this on demand for X11 clients
       packages = [ pkgs.xwayland-satellite ];
-      xdg.config.files = {
-        "niri/config.kdl".source = hjemImpureSource ./niri.kdl;
-        # binds that need program paths; `include "nix.kdl"`
-        "niri/nix.kdl".text = ''
-          binds {
-              Mod+Q { spawn "${lib.getExe pkgs.alacritty}"; }
-              Mod+R { spawn "${lib.getExe pkgs.wofi}" "--show" "drun"; }
-              Mod+S { spawn "${lib.getExe pkgs'.waylandScreenshot}"; }
+      xdg.config.files =
+        lib.genAttrs' (lib.filter (lib.hasSuffix ".kdl") (lib.attrNames (builtins.readDir ./.))) (
+          name:
+          lib.nameValuePair "niri/${name}" {
+            source = hjemImpureSource ./${name};
           }
-        '';
-      };
+        )
+        // {
+          # binds that need program paths; `include "nix.kdl"`
+          "niri/nix.kdl".text = ''
+            binds {
+                Mod+Q { spawn "${lib.getExe pkgs.alacritty}"; }
+                Mod+R { spawn "${lib.getExe pkgs.wofi}" "--show" "drun"; }
+                Mod+S { spawn "${lib.getExe pkgs'.waylandScreenshot}"; }
+            }
+          '';
+        };
     };
   };
 }
