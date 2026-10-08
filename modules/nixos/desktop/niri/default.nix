@@ -18,6 +18,7 @@ in
   config = lib.mkIf cfg.enable {
     acme.desktop.enable = lib.mkForce true;
     programs.niri.enable = lib.mkForce true;
+    services.gnome.gnome-keyring.enable = lib.mkForce false; # niri turns this on for some reason??
 
     # niri-session runs niri as a systemd user service bound to graphical-session.target
     acme.greeter.autologinCommand = "/run/current-system/sw/bin/niri-session";

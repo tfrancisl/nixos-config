@@ -30,6 +30,7 @@ in
     };
 
     environment.sessionVariables = {
+      GDK_BACKEND = "wayland,x11";
       HYPRCURSOR_THEME = "graphite-light";
       HYPRCURSOR_SIZE = 32;
     };
