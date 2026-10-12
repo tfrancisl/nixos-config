@@ -10,14 +10,11 @@ in
 {
   hjem.users.${username} = {
     packages = [
-      pkgs.rivalcfg # CLI for SteelSeries mouse hardware config
-      pkgs.lunar-client
       pkgs.wofi
       pkgs.spotify
       pkgs.r2modman
       pkgs.balatro-mod-manager
       pkgs.prismlauncher
-      pkgs.teamspeak6-client
     ];
   };
 
