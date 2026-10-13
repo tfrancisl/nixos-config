@@ -5,32 +5,23 @@
     package = pkgs'.ncroPkg;
     addUpstreamPublicKeys = true;
     settings = {
-      upstreams =
-        let
-          manicSystemsPubkey = "cache.manic.systems-1:s6OZanN8Us8vRi0jVivP3qlMn0cYHBjBALKrNe5nH8s=";
-        in
-        [
-          {
-            url = "https://cache.nixos.org";
-            priority = 10;
-            public_key = "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=";
-          }
-          {
-            url = "https://nix-community.cachix.org";
-            priority = 20;
-            public_key = "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=";
-          }
-          {
-            url = "https://ci.manic.systems/projects/ncro/nix-cache";
-            priority = 30;
-            public_key = manicSystemsPubkey;
-          }
-          {
-            url = "https://ci.manic.systems/projects/hjem/nix-cache";
-            priority = 30;
-            public_key = manicSystemsPubkey;
-          }
-        ];
+      upstreams = [
+        {
+          url = "https://cache.nixos.org";
+          priority = 10;
+          public_key = "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=";
+        }
+        {
+          url = "https://nix-community.cachix.org";
+          priority = 20;
+          public_key = "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=";
+        }
+        {
+          url = "https://cache.manic.systems";
+          priority = 30;
+          public_key = "cache.manic.systems-1:s6OZanN8Us8vRi0jVivP3qlMn0cYHBjBALKrNe5nH8s=";
+        }
+      ];
       logging.timestamps = false;
     };
   };
