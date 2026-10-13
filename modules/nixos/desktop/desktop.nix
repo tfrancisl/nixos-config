@@ -19,6 +19,8 @@ in
   config = lib.mkIf cfg.enable {
 
     environment.sessionVariables = {
+      __GL_SHADER_DISK_CACHE_SKIP_CLEANUP = "1"; # should generally prevent cleaning up of vulkan shaders
+
       ELECTRON_OZONE_PLATFORM_HINT = "auto";
       QT_QPA_PLATFORM = "wayland;xcb";
 
