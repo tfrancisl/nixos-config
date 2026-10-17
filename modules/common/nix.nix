@@ -1,7 +1,7 @@
 { pkgs, nixpkgs, ... }:
 {
   nix = {
-    package = pkgs.lixPackageSets.git.lix;
+    package = pkgs.lixPackageSets.stable.lix; # rather use git.latest but its broken
     settings = {
       experimental-features = [
         "nix-command"
