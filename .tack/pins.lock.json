@@ -19,16 +19,16 @@
     "type": "github",
     "owner": "manic-systems",
     "repo": "ncro",
-    "rev": "f224e3e8852cebbe1f74a2d43537e5e5eece8368",
-    "narHash": "sha256-MYNywU2QeJ22mb3nd18TVrJQAPfDaI1ZGYj/QVh8mhw=",
-    "lastModified": 1791615473
+    "rev": "e125f8a9b2b7c9414f780604cae02182e8772597",
+    "narHash": "sha256-wdmRnrB60UVo6MERmPijnVoyo/ialR1b62I/NrXGLw8=",
+    "lastModified": 1792183455
   },
   "nixpkgs": {
     "type": "github",
     "owner": "NixOS",
     "repo": "nixpkgs",
-    "rev": "8edc0c72e3a38faf5434e40d1f19431125fe4b30",
-    "narHash": "sha256-tqM7xDEsaeK1p6VvRygeZ9LkQRpUUkbRT02BHv6hnTM=",
-    "lastModified": 1791487292
+    "rev": "f20cd90e28fe0403873f473b29e42662cd86e8c4",
+    "narHash": "sha256-EjZqHKObBfIOeHZnMRVV87HB3pPq/WBkmRJWyFxmZu8=",
+    "lastModified": 1792116957
   }
 }
