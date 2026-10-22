@@ -13,7 +13,6 @@ in
       pkgs.wofi
       pkgs.spotify
       pkgs.r2modman
-      pkgs.balatro-mod-manager
       pkgs.prismlauncher
     ];
   };
