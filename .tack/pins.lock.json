@@ -3,9 +3,9 @@
     "type": "github",
     "owner": "feel-co",
     "repo": "hjem",
-    "rev": "4cd448d5b3220b8bbccdb6e7e8185b515f63a776",
-    "narHash": "sha256-xj1hq1P05Lekx9tAtyJGSMFw8Z5oK4jh+n7Qr0Q1m5k=",
-    "lastModified": 1792547720
+    "rev": "8408642aa3035135fa6d70269dc93e0814e2a4f6",
+    "narHash": "sha256-hmlUXxCk6On7Hrop/TyS3//dgI2BLvaN4TEsOq1ma+Y=",
+    "lastModified": 1793333241
   },
   "hjem-impure": {
     "type": "github",
@@ -19,16 +19,16 @@
     "type": "github",
     "owner": "manic-systems",
     "repo": "ncro",
-    "rev": "22fe03fb15db30445a530c468b38675cae51c9e4",
-    "narHash": "sha256-fW3kELu4ofUjD35wGxKbMVDQq02+kplR/Sgxn88u9ZQ=",
-    "lastModified": 1792420640
+    "rev": "9f231aef9cb9e1ce8d892a69d3b8be2d33497967",
+    "narHash": "sha256-ON8IV/K+GAEeVQi2+KfP5IQS3hzfptF40ggcF3Nz9jE=",
+    "lastModified": 1793328236
   },
   "nixpkgs": {
     "type": "github",
     "owner": "NixOS",
     "repo": "nixpkgs",
-    "rev": "5adc50831c259f87faeb09ddf930d43597197473",
-    "narHash": "sha256-Q/8KLB6jNfpaUN1HAedE/u/Et9feE/zYSsutBLKrCFk=",
-    "lastModified": 1792506237
+    "rev": "d357a2b54f0b6dc4aeb4e993190a52cf151b6f24",
+    "narHash": "sha256-Thn0OE71NF80ZfOMGCgJvKtbCcnnz0fToT/qsvb/Gtc=",
+    "lastModified": 1793494649
   }
 }
